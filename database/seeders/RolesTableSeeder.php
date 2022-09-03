@@ -21,7 +21,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'System Admin',
             'slug' => 'system_admin',
             'description' => 'System wide administration',
-            'permissions' => 'get.login, post.login, get.dashboard',
+            'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -31,7 +31,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Bpc Admin',
             'slug' => 'bpc_admin',
             'description' => 'application wide administration to all routes',
-            'permissions' => 'get.login, post.login, get.dashboard',
+            'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -41,7 +41,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Bpc Executive',
             'slug' => 'bpc_executive',
             'description' => 'application wide permission to specific routes',
-            'permissions' => 'get.login, post.login, get.dashboard',
+            'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -51,7 +51,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Council Admin',
             'slug' => 'council_admin',
             'description' => 'application wide permission to specific routes',
-            'permissions' => 'get.login, post.login, get.dashboard',
+            'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -61,7 +61,7 @@ class RolesTableSeeder extends Seeder
             'name' => 'Council Executive',
             'slug' => 'council_executive',
             'description' => 'application wide permission to specific routes',
-            'permissions' => 'get.login, post.login, get.dashboard',
+            'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);

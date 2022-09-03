@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('description')->nullable();
-            $table->text('permissions')->nullable();
+            $table->string('has_accesses')->nullable()->comment('All the named routes will be the accesses for roles');
 
             $table->tinyInteger('status')->default(1)->comment('0=Inactive,1=Active');
 

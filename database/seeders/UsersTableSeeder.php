@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Opu Hasnat',
             'email' => 'opqclick@gmail.com',
             'password' => bcrypt('hasnat'),
+            'has_permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -30,6 +31,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'BPC Admin',
             'email' => 'bpc.admin@gmail.com',
             'password' => bcrypt('123456'),
+            'has_permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -39,6 +41,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'BPC Executive',
             'email' => 'bpc.executive@gmail.com',
             'password' => bcrypt('123456'),
+            'has_permissions' => 'create, read, update',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -48,6 +51,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Council Admin',
             'email' => 'council.admin@gmail.com',
             'password' => bcrypt('123456'),
+            'has_permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);
@@ -57,6 +61,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Council Executive',
             'email' => 'council.executive@gmail.com',
             'password' => bcrypt('123456'),
+            'has_permissions' => 'create, read, update',
             'status' => 1,
             'created_at' => Carbon::now()
         ]);

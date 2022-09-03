@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('role_id');
+            $table->string('has_permissions')->nullable()->comment('Create,Read,Update,Delete will be the permissions');
 
             $table->rememberToken();
 
