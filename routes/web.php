@@ -5,7 +5,12 @@ use App\Http\Controllers\AuthControllers\LoginController;
 use App\Http\Controllers\AuthControllers\LogoutController;
 use App\Http\Controllers\AuthControllers\RegisterController;
 use App\Http\Controllers\AuthControllers\ResetPasswordController;
+use App\Http\Controllers\BackendControllers\ActivityController;
 use App\Http\Controllers\BackendControllers\DashboardController;
+use App\Http\Controllers\BackendControllers\ProfileController;
+use App\Http\Controllers\BackendControllers\TraineeController;
+use App\Http\Controllers\BackendControllers\TrainerController;
+use App\Http\Controllers\BackendControllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +46,18 @@ Route::group(['namespace' => 'AuthControllers'], function () {
 
 Route::group(['prefix' => 'backend', 'namespace' => 'BackendControllers'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
+
+
+
+    Route::resource('activity', ActivityController::class);
+
+
+
+    Route::resource('profile', ProfileController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('trainer', TrainerController::class);
+    Route::resource('trainee', TraineeController::class);
+
 });
 
 
