@@ -16,7 +16,7 @@ class LogoutController extends Controller
     public function postLogout(){
         Auth::logout();
 
-        return redirect()->route('login')
+        return redirect()->route('post.login')
             ->with('success', 'You are successfully log out.');
     }
 
@@ -24,7 +24,7 @@ class LogoutController extends Controller
     public function getLogout(){
         Auth::logout();
 
-        return redirect()->route('login')
+        return redirect()->route('get.login')
             ->with('success', 'You are successfully log out.');
     }
 }

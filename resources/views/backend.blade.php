@@ -24,6 +24,13 @@
 
             @include('backend.partials._content_header')
 
+            <!-- Custom Flash Messages For this Projects Start -->
+            @include('backend.messages.info')
+            @include('backend.messages.warning')
+            @include('backend.messages.success')
+            @include('backend.messages.failed')
+            <!-- Custom Flash Messages For this Projects End -->
+
             @yield('content')
 
         </div>

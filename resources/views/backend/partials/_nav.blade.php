@@ -13,8 +13,9 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}" class="user-image img-circle elevation-2" alt="User Image">
                 <span class="d-none d-md-inline">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                <img src="{{ asset('AdminLTE-3.2.0/dist/img/user2-160x160.jpg') }}" class="user-image img-circle elevation-2" alt="User Image">
+
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
@@ -26,24 +27,16 @@
                     </p>
                 </li>
 
-                <li class="user-body">
-                    <div class="row">
-                        <div class="col-4 text-center">
-                            <a href="#">Followers</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Sales</a>
-                        </div>
-                        <div class="col-4 text-center">
-                            <a href="#">Friends</a>
-                        </div>
-                    </div>
-
-                </li>
-
                 <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    <a href="#" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <div class="float-start">
+                        <a href="{!! route('user.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="float-end">
+                        <form action="{!! route('post.logout') !!}" method="post" id="logout_form">
+                            {!! csrf_field() !!}
+                            <a href="#" onclick="document.getElementById('logout_form').submit()" class="btn btn-default btn-flat">Log out</a>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </li>
