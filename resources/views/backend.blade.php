@@ -11,9 +11,8 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a href="#" class="brand-link">
-                <img src="{{ asset('Custom/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light text-sm">DEPARTMENT OF FISHERIES</span>
+            <a href="#" class="" style="display: block;background-color: white; text-align: center">
+                <img src="{{ asset('Custom/img/logo.png') }}" alt="Business promotion council" class="" style="width: 102px">
             </a>
 
             <!--Sidebar-->
