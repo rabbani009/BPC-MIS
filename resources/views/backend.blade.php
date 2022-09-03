@@ -12,7 +12,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <a href="#" class="" style="display: block;background-color: white; text-align: center">
-                <img src="{{ asset('Custom/img/logo.png') }}" alt="Business promotion council" class="" style="width: 102px">
+                <img src="{{ asset('Custom/img/logo.png') }}" alt="Business promotion council" class="" style="width: 128px">
             </a>
 
             <!--Sidebar-->
