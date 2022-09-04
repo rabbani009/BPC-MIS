@@ -8,6 +8,7 @@ use App\Http\Requests\CouncilUpdateRequest;
 use App\Models\Council;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CouncilController extends Controller
 {
@@ -23,7 +24,7 @@ class CouncilController extends Controller
         $commons['main_menu'] = 'council';
         $commons['current_menu'] = 'council_index';
 
-        $councils = Council::where('status', 1)->paginate(20);
+        $councils = Council::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
         //dd($commons);
         return view('backend.pages.council.index',
             compact(
@@ -64,11 +65,13 @@ class CouncilController extends Controller
     public function store(CouncilStoreRequest $request)
     {
         //dd($request->validated('council_name'));
-        $council = Council::firstOrCreate($request->validated() + [
-            'slug' => strtolower(str_replace(' ', '_', $request->validated('council_name'))),
-            'status' => 1,
-            'created_at' => Carbon::now()
-        ]);
+        $council = new Council();
+        $council->name = $request->validated('council_name');
+        $council->slug = strtolower(str_replace(' ', '_', $request->validated('council_name')));
+        $council->status = 1;
+        $council->created_at = Carbon::now();
+        $council->created_by = Auth::user()->id;
+        $council->save();
 
         if ($council->wasRecentlyCreated){
             return redirect()
@@ -143,14 +146,13 @@ class CouncilController extends Controller
      */
     public function update(CouncilUpdateRequest $request, $id)
     {
-        dd($id);
-        $council = Council::where('id', $id)
-            ->update($request->validated() + [
-                'slug' => strtolower(str_replace(' ', '_', $request->validated('council_name'))),
-                'status' => 1,
-                'updated_at' => Carbon::now()
-            ]);
-        dd($council);
+        $council = Council::findOrFail($id);
+        $council->name = $request->validated('council_name');
+        $council->slug = strtolower(str_replace(' ', '_', $request->validated('council_name')));
+        $council->status = $request->validated('status');
+        $council->updated_at = Carbon::now();
+        $council->updated_by = Auth::user()->id;
+        $council->save();
 
         if ($council->getChanges()){
             return redirect()
@@ -171,6 +173,21 @@ class CouncilController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $council = Council::findOrFail($id);
+        $council->status = 0;
+        $council->deleted_at = Carbon::now();
+        $council->deleted_by = Auth::user()->id;
+        $council->save();
+
+        if ($council->getChanges()){
+            return redirect()
+                ->route('council.index')
+                ->with('success', 'Council deleted successfully!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('failed', 'Council cannot be deleted!');
+
     }
 }

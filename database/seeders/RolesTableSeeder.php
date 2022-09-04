@@ -23,7 +23,8 @@ class RolesTableSeeder extends Seeder
             'description' => 'System wide administration',
             'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         //2.
@@ -33,7 +34,8 @@ class RolesTableSeeder extends Seeder
             'description' => 'application wide administration to all routes',
             'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         //3.
@@ -43,7 +45,8 @@ class RolesTableSeeder extends Seeder
             'description' => 'application wide permission to specific routes',
             'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         //4.
@@ -53,7 +56,8 @@ class RolesTableSeeder extends Seeder
             'description' => 'application wide permission to specific routes',
             'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         //5.
@@ -63,7 +67,8 @@ class RolesTableSeeder extends Seeder
             'description' => 'application wide permission to specific routes',
             'has_accesses' => 'get.login, post.login, get.dashboard',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
     }
 }

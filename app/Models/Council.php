@@ -15,11 +15,23 @@ class Council extends Model
 
     protected $fillable = [
         'name',
-        'slug'
+        'slug',
+        'status',
+        'created_at',
+        'created_by',
+        'updated_at',
+        'updated_by'
     ];
 
-    protected $hidden = [
-        'name',
-        'slug'
-    ];
+    protected $dates = ['created_at', 'updated_at'];
+
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
 }

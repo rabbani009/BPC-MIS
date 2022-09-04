@@ -11,10 +11,10 @@ class DashboardController extends Controller
 {
     public function getDashboard(){
         //dd(Auth::user()->role);
-        $commons['page_title'] = '';
-        $commons['page_sub_title'] = '';
-        $commons['main_menu'] = '';
-        $commons['current_menu'] = '';
+        $commons['page_title'] = 'Dashboard';
+        $commons['content_title'] = 'Show dashboard';
+        $commons['main_menu'] = 'dashboard';
+        $commons['current_menu'] = 'dashboard';
 
         return view('backend.pages.dashboard', compact('commons'));
     }

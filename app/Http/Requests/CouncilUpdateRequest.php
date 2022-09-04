@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 class CouncilUpdateRequest extends FormRequest
 {
@@ -22,10 +21,11 @@ class CouncilUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(Request $request)
+    public function rules()
     {
         return [
-            'name' => 'required|alpha|unique:councils,name,'.$this->council
+            'council_name' => 'required|alpha|unique:councils,name,'.$this->council,
+            'status' => 'required|boolean'
         ];
     }
 }

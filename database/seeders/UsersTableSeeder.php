@@ -25,7 +25,8 @@ class UsersTableSeeder extends Seeder
             'belongs_to' => 0,
             'has_permissions' => 'create, read, update, delete',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         DB::table('users')->insert([
@@ -37,7 +38,8 @@ class UsersTableSeeder extends Seeder
             'belongs_to' => 0,
             'has_permissions' => 'create, read, update, delete',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         DB::table('users')->insert([
@@ -49,7 +51,8 @@ class UsersTableSeeder extends Seeder
             'belongs_to' => 0,
             'has_permissions' => 'create, read, update',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         DB::table('users')->insert([
@@ -61,7 +64,8 @@ class UsersTableSeeder extends Seeder
             'belongs_to' => 1,
             'has_permissions' => 'create, read, update, delete',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
 
         DB::table('users')->insert([
@@ -73,7 +77,8 @@ class UsersTableSeeder extends Seeder
             'belongs_to' => 1,
             'has_permissions' => 'create, read, update',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
     }
 }

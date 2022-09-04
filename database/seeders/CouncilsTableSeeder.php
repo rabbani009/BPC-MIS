@@ -20,43 +20,50 @@ class CouncilsTableSeeder extends Seeder
             'name' => 'IBPC',
             'slug' => 'ibpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'LSBPC',
             'slug' => 'lsbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'LEPBPC',
             'slug' => 'lepbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'MPHPBPC',
             'slug' => 'mphpbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'FPBPC',
             'slug' => 'fpbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'APBPC',
             'slug' => 'apbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
         DB::table('councils')->insert([
             'name' => 'PPBPC',
             'slug' => 'ppbpc',
             'status' => 1,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'created_by' => 1
         ]);
     }
 }
