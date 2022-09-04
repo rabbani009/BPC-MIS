@@ -12,4 +12,14 @@ class Council extends Model
     public $timestamps = false;
 
     protected $table = 'councils';
+
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
+
+    protected $hidden = [
+        'name',
+        'slug'
+    ];
 }

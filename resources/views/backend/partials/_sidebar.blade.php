@@ -47,7 +47,7 @@
 
             <li class="nav-header">MISCELLANEOUS</li>
             <li class="nav-item @if($commons['main_menu'] == 'council') menu-open @endif">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'council') active @endif">
                     <i class="nav-icon fas fa-solid fa-network-wired"></i>
                     <p>
                         Council
@@ -70,7 +70,7 @@
                 </ul>
             </li>
             <li class="nav-item @if($commons['main_menu'] == 'association') menu-open @endif">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'association') active @endif">
                     <i class="nav-icon fas fa-project-diagram"></i>
                     <p>
                         Association
@@ -93,7 +93,7 @@
                 </ul>
             </li>
             <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'activity') active @endif">
                     <i class="nav-icon fas fa-skating"></i>
                     <p>
                         Activity
@@ -116,7 +116,7 @@
                 </ul>
             </li>
             <li class="nav-item @if($commons['main_menu'] == 'trainer') menu-open @endif">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'trainer') active @endif">
                     <i class="nav-icon fas fa-user-tie"></i>
                     <p>
                         TRAINER
@@ -139,7 +139,7 @@
                 </ul>
             </li>
             <li class="nav-item @if($commons['main_menu'] == 'trainee') menu-open @endif">
-                <a href="#" class="nav-link">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'trainee') active @endif">
                     <i class="nav-icon fas fa-user-graduate"></i>
                     <p>
                         TRAINEE

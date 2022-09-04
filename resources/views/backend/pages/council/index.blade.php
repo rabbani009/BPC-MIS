@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->name }}</td>
-                        <td>{{ $row->slug }}</td>
+                        <td><span class="badge badge-info">{{ $row->slug }}</span></td>
                         <td>
                             @if($row->status == 1)
                                 <span class="right badge badge-success">Active</span>
