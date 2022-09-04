@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+        Schema::create('activities', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
             $table->string('slug');
-            $table->string('description')->nullable();
-            $table->string('has_accesses')->nullable()->comment('All the named routes will be the accesses for roles');
+            $table->text('description')->nullable();
 
-            $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(0);
+            $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(1);
 
             $table->timestamp('created_at')->nullable();
             $table->unsignedInteger('created_by')->nullable();
@@ -40,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('activities');
     }
 };

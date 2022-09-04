@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function getDashboard(){
-        //dd(Auth::user()->role->slug);
+        //dd(Auth::user()->role);
         return view('backend.pages.dashboard');
     }
 }

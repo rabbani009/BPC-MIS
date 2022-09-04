@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthControllers\LogoutController;
 use App\Http\Controllers\AuthControllers\RegisterController;
 use App\Http\Controllers\AuthControllers\ResetPasswordController;
 use App\Http\Controllers\BackendControllers\ActivityController;
+use App\Http\Controllers\BackendControllers\AssociationController;
+use App\Http\Controllers\BackendControllers\CouncilController;
 use App\Http\Controllers\BackendControllers\DashboardController;
 use App\Http\Controllers\BackendControllers\ProfileController;
 use App\Http\Controllers\BackendControllers\TraineeController;
@@ -44,19 +46,18 @@ Route::group(['namespace' => 'AuthControllers'], function () {
     Route::post('reset-password', [ResetPasswordController::class, 'postResetPassword'])->name('post.reset.password');
 });
 
-Route::group(['prefix' => 'backend', 'namespace' => 'BackendControllers'], function () {
+Route::group(['prefix' => 'backend', 'namespace' => 'BackendControllers', 'middleware' => 'authenticated'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
 
 
-
+    Route::resource('council', CouncilController::class);
+    Route::resource('association', AssociationController::class);
     Route::resource('activity', ActivityController::class);
-
-
+    Route::resource('trainer', TrainerController::class);
+    Route::resource('trainee', TraineeController::class);
 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);
-    Route::resource('trainer', TrainerController::class);
-    Route::resource('trainee', TraineeController::class);
 
 });
 
