@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Council;
 use Illuminate\Http\Request;
 
 class CouncilController extends Controller
@@ -14,7 +15,19 @@ class CouncilController extends Controller
      */
     public function index()
     {
-        //
+        $commons['page_title'] = 'Council';
+        $commons['content_title'] = 'List of All Council';
+        $commons['main_menu'] = 'council';
+        $commons['current_menu'] = 'council_index';
+
+        $councils = Council::where('status', 1)->paginate(5);
+        //dd($commons);
+        return view('backend.pages.council.index',
+            compact(
+                'commons',
+                'councils'
+            )
+        );
     }
 
     /**

@@ -46,9 +46,8 @@ Route::group(['namespace' => 'AuthControllers'], function () {
     Route::post('reset-password', [ResetPasswordController::class, 'postResetPassword'])->name('post.reset.password');
 });
 
-Route::group(['prefix' => 'backend', 'namespace' => 'BackendControllers', 'middleware' => 'authenticated'], function () {
+Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
-
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);

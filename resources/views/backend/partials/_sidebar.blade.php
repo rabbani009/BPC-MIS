@@ -46,7 +46,7 @@
             </li>
 
             <li class="nav-header">MISCELLANEOUS</li>
-            <li class="nav-item">
+            <li class="nav-item @if($commons['main_menu'] == 'council') menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-solid fa-network-wired"></i>
                     <p>
@@ -56,20 +56,20 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('council.create') }}" class="nav-link  @if($commons['current_menu'] == 'council_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('council.index') }}" class="nav-link  @if($commons['current_menu'] == 'council_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if($commons['main_menu'] == 'association') menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-project-diagram"></i>
                     <p>
@@ -79,24 +79,24 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link  @if($commons['current_menu'] == 'association_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link  @if($commons['current_menu'] == 'association_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-skating"></i>
                     <p>
-                        Activity Type
+                        Activity
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -115,7 +115,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if($commons['main_menu'] == 'trainer') menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-tie"></i>
                     <p>
@@ -138,7 +138,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            <li class="nav-item @if($commons['main_menu'] == 'trainee') menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-graduate"></i>
                     <p>

@@ -1,0 +1,10 @@
+.custom_actions{
+    width: 15%;
+    text-align: center;
+    padding-right: 0.5rem !important;
+    background-color: #ffffec;
+}
+.custom_actions .btn-group .btn{
+    margin-left: 1px;
+    margin-right: 1px;
+}
