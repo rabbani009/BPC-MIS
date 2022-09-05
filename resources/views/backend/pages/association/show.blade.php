@@ -22,24 +22,28 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Name or Title</label>
-                    <input disabled name="council_name" class="form-control" value="{!! $council->name !!}">
+                    <label for="exampleInputEmail1">Association Name or Title</label>
+                    <input disabled name="name" class="form-control" value="{!! $association->name !!}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Slug</label>
-                    <input disabled name="council_name" class="form-control" value="{!! $council->slug !!}">
+                    <input disabled name="slug" class="form-control" value="{!! $association->slug !!}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Association belong to (Council)</label>
+                    <input disabled name="slug" class="form-control" value="{!! $association->council->name !!}">
                 </div>
             </div>
 
             <div class="card-footer">
-                <a href="{!! route('council.edit', $council->id) !!}" class="btn btn-outline-secondary">Edit</a>
+                <a href="{!! route('association.edit', $association->id) !!}" class="btn btn-outline-secondary">Edit</a>
             </div>
 
         </div>
 
     </section>
 
-    @include('backend.pages.council._table')
+    @include('backend.pages.association._table')
 @endsection
 
 

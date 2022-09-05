@@ -24,7 +24,7 @@ class AssociationStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'association_name' => 'required',
+            'association_name' => 'required|unique:associations,name',
             'association_belongs_to' => 'required|exists:councils,id'
         ];
     }

@@ -10,12 +10,12 @@
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table table-responsive">
+            <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Name</th>
-                        <th>Belongs To</th>
+                        <th>Belongs To (Council)</th>
                         <th>Status</th>
                         <th>Created At</th>
                         <th>Created By</th>
