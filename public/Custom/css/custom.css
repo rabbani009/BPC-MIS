@@ -39,8 +39,12 @@
     display: none!important;
 }
 
+.text-maroon {
+    color: #800000!important;
+}
 .nav-item.dropdown.user-menu.show .dropdown-menu:hover, .nav-item.dropdown.user-menu.show .dropdown-menu.show:hover .user-header.bg-primary, .nav-item.dropdown.user-menu.show .dropdown-menu.show:hover .user-footer {
     color: #0c0c0d !important;
     transition: .3s all ease;
     background-color: rgba(255, 255, 255, .5)!important;
+
 }
