@@ -12,7 +12,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
             <a href="#" class="" style="display: block;background-color: white; text-align: center">
-                <img src="{{ asset('Custom/img/logo.png') }}" alt="Business promotion council" class="" style="width: 102px">
+                <img src="{{ asset('Custom/img/logo.png') }}" alt="Business promotion council" class="navbar-brand">
             </a>
 
             <!--Sidebar-->
@@ -23,6 +23,14 @@
         <div class="content-wrapper">
 
             @include('backend.partials._content_header')
+
+            <!-- Custom Flash Messages For this Projects Start -->
+            @include('backend.messages.info')
+            @include('backend.messages.warning')
+            @include('backend.messages.success')
+            @include('backend.messages.failed')
+
+            <!-- Custom Flash Messages For this Projects End -->
 
             @yield('content')
 

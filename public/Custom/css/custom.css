@@ -1,0 +1,40 @@
+.custom_actions{
+    width: 15%;
+    text-align: center;
+    padding-right: 0.5rem !important;
+    background-color: #ffffec;
+}
+.custom_actions .btn-group .btn{
+    margin-left: 1px;
+    margin-right: 1px;
+}
+
+.custom_title {
+    margin-top: 13px;
+}
+.custom_title p {
+    font-size: 24px;
+    line-height: 14px;
+    color: #428edf;
+}
+
+.navbar-brand {
+    max-width: 122px;
+    width: 100%;
+    object-fit: cover;
+    padding: 0;
+}
+
+.custom_font_size_sm {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.custom_font_size_xs {
+    font-size: 10px;
+    line-height: 14px;
+}
+
+.user-footer:after {
+    display: none!important;
+}

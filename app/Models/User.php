@@ -13,6 +13,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
+
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -22,16 +24,24 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'remember_token',
+        'status',
+        'created_at',
+        'created_by',
+        'deleted_at',
+        'deleted_by',
+        'updated_at',
+        'updated_by'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for arrays.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'role_id', 'password', 'remember_token',
     ];
 
     /**
@@ -42,4 +52,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
+    }
+
+    public function createdBy() {
+        return $this->belongsTo('App\Models\User','created_by','id') ;
+    }
+
+    public function updatedBy() {
+        return $this->belongsTo('App\Models\User','updated_by','id') ;
+    }
+
+    public function deletedBy() {
+        return $this->belongsTo('App\Models\User','deleted_by','id') ;
+    }
 }

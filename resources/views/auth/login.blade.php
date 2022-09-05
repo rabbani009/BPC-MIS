@@ -3,34 +3,41 @@
 @section('content')
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            @include('.auth.partials._page_title')
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="../../index3.html" method="post">
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control" placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
+                @include('.auth.messages.info')
+                @include('.auth.messages.warning')
+                @include('.auth.messages.success')
+                @include('.auth.messages.failed')
+
+                <form action="{{ route('get.login') }}" method="post">
+                    {{ csrf_field() }}
+
+                    <div class="form-group">
+                        <input type="email" name="email" value="{{ old('email') }}" class="form-control @if($errors->has('email')) is-invalid @endif" placeholder="Email">
+
+                        @if($errors->has('email'))
+                        <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $errors->first('email') }}</span>
+                        @endif
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control @if($errors->has('password')) is-invalid @endif" placeholder="Password">
+
+                        @if($errors->has('password'))
+                            <span id="exampleInputEmail1-error" class="error invalid-feedback">{{ $errors->first('password') }}</span>
+                        @endif
                     </div>
+
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
+                                <input type="checkbox" id="remember" name="remember_me" @if(old('remember_me')) checked @endif>
                                 <label for="remember">
                                     Remember Me
                                 </label>
@@ -43,7 +50,7 @@
                         <!-- /.col -->
                     </div>
                 </form>
-
+                {{--
                 <div class="social-auth-links text-center mb-3">
                     <p>- OR -</p>
                     <a href="#" class="btn btn-block btn-primary">
@@ -54,12 +61,13 @@
                     </a>
                 </div>
                 <!-- /.social-auth-links -->
+                --}}
 
                 <p class="mb-1">
-                    <a href="forgot-password.html">I forgot my password</a>
+                    <a href="{{ route('get.forgot.password') }}">I forgot my password</a>
                 </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Register a new membership</a>
+                    <a href="{{ route('get.register') }}" class="text-center">Register a new membership</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

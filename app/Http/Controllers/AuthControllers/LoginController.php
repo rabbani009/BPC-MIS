@@ -21,46 +21,30 @@ class LoginController extends Controller
 //                ->with('warning', 'You are already logged in');
 //        }
 
-        $common_data['title'] = 'Login';
-        $common_data['sub_title'] = 'Login';
-        $common_data['main_menu'] = 'Login';
-        $common_data['sub_menu'] = 'Login';
-        $common_data['current_menu'] = 'Login';
+        $commons['title'] = 'Login';
+        $commons['sub_title'] = 'Login';
+        $commons['main_menu'] = 'Login';
+        $commons['sub_menu'] = 'Login';
+        $commons['current_menu'] = 'Login';
 
         return view('auth.login')
-            ->with(compact('common_data'));
+            ->with(compact('commons'));
     }
 
-    /*process login form*/
     public function postLogin(LoginRequest $request){
-        /*set user credentials as array*/
-        if(filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+        $valid_credentials = [
+            'email' => $request->validated('email'),
+            'password' => $request->validated('password'),
+            'status' => 1
+        ];
 
-            $login_credentials = [
-                'email' => $request->username,
-                'password' => $request->password,
-                'status' => 1,
-                'deleted' => 0
-            ];
-        } else {
-            $login_credentials = [
-                'username' => $request->username,
-                'password' => $request->password,
-                'status' => 1,
-                'deleted' => 0
-            ];
-        }
-
-
-        /*check if user data is valid*/
-        if (Auth::attempt($login_credentials, $request->remember)) {
-            // Authentication passed...
-            return redirect()->route('dashboard')
+        if (Auth::attempt($valid_credentials, $request->remember_me)){
+            return redirect()->route('get.dashboard')
                 ->with('success', 'You are successfully logged in.');
         }
 
-        /*if user data is invalid then return redirect back with error message and input*/
-        return redirect()->route('login')
-            ->with('failed', 'Wrong Password Or User not activated/Deleted yet!')->withInput($request->all());
+        return redirect()->route('get.login')
+            ->with('failed', 'Wrong password!!!')->withInput($request->all());
+
     }
 }

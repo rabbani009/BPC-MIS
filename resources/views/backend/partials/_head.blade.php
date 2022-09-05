@@ -8,6 +8,8 @@
 
 <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/dist/css/adminlte.min.css?v=3.2.0') }}">
 
+<link rel="stylesheet" href="{{ asset('Custom/css/custom.css') }}">
+
 @yield('page_level_css_plugins')
 
 @yield('page_level_css_files')
