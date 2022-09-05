@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthControllers\LoginController;
 use App\Http\Controllers\AuthControllers\LogoutController;
 use App\Http\Controllers\AuthControllers\RegisterController;
 use App\Http\Controllers\AuthControllers\ResetPasswordController;
+use App\Http\Controllers\BackendControllers\ActivityController;
 use App\Http\Controllers\BackendControllers\AssociationController;
 use App\Http\Controllers\BackendControllers\CouncilController;
 use App\Http\Controllers\BackendControllers\DashboardController;
@@ -48,6 +49,8 @@ Route::group(['namespace' => 'AuthControllers'], function () {
 
 Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
+
+    Route::resource('activity', ActivityController::class);
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);

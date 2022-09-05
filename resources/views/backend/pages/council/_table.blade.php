@@ -37,7 +37,7 @@
                         </td>
                         <td>{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
                         <td>{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
+                        <td>{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
                         <td>{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
                         <td class="custom_actions">
                             <div class="btn-group">
