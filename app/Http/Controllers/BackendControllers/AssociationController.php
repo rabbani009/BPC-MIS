@@ -20,12 +20,12 @@ class AssociationController extends Controller
         $commons['main_menu'] = 'association';
         $commons['current_menu'] = 'association_index';
 
-        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
-        //dd($commons);
+        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy', 'council'])->paginate(20);
+        //dd($associations);
         return view('backend.pages.association.index',
             compact(
                 'commons',
-                'Associations'
+                'associations'
             )
         );
     }
@@ -62,10 +62,10 @@ class AssociationController extends Controller
      */
     public function store(AssociationStoreRequest $request)
     {
-        dd($request->validated('Association_name'));
         $association = new Association();
-        $association->name = $request->validated('Association_name');
-        $association->slug = strtolower(str_replace(' ', '_', $request->validated('Association_name')));
+        $association->name = $request->validated('association_name');
+        $association->slug = strtolower(str_replace(' ', '_', $request->validated('association_name')));
+        $association->belongs_to = $request->validated('association_belongs_to');
         $association->status = 1;
         $association->created_at = Carbon::now();
         $association->created_by = Auth::user()->id;
@@ -130,7 +130,7 @@ class AssociationController extends Controller
             compact(
                 'commons',
                 'Association',
-                'Associations'
+                'associations'
             )
         );
     }

@@ -34,14 +34,14 @@
 
                     <div class="form-group  @if ($errors->has('association_belongs_to')) has-error @endif">
                         <label class="control-label">Association belongs to</label>
-                        <select name="type" id="type" class="form-control select2">
+                        <select name="association_belongs_to" id="association_belongs_to" class="form-control select2 @if($errors->has('association_belongs_to')) is-invalid @endif" value="{!! old('association_name') !!}">
                             @foreach($councils as $council)
                                 <option value="{!! $council->id !!}" @if(old('type') == $council->id) {!! 'selected' !!} @endif>{!! $council->name !!}</option>
                             @endforeach
                         </select>
 
-                        @if($errors->has('type'))
-                            <span class="help-block"> {!! $errors->first('type') !!} </span>
+                        @if($errors->has('association_belongs_to'))
+                            <span class="error invalid-feedback"> {!! $errors->first('association_belongs_to') !!} </span>
                         @else
                             <span class="help-block"> The type field is required. </span>
                         @endif
