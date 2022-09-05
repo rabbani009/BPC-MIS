@@ -34,12 +34,12 @@
 
                 <li class="user-footer d-flex justify-content-between">
                     <div class="float-start">
-                        <a href="{!! route('user.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-default btn-flat">Profile</a>
+                        <a href="{!! route('user.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-info rounded-0">Profile</a>
                     </div>
                     <div class="float-end">
                         <form action="{!! route('post.logout') !!}" method="post" id="logout_form">
                             {!! csrf_field() !!}
-                            <a href="#" onclick="document.getElementById('logout_form').submit()" class="btn btn-default btn-flat">Log out</a>
+                            <a href="#" onclick="document.getElementById('logout_form').submit()" class="btn btn-outline-warning rounded-0">Log out</a>
                         </form>
                     </div>
                 </li>
