@@ -38,3 +38,7 @@
 .user-footer:after {
     display: none!important;
 }
+
+.text-maroon {
+    color: #800000!important;
+}
