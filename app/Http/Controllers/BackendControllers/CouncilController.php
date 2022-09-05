@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackendControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouncilStoreRequest;
 use App\Http\Requests\CouncilUpdateRequest;
+use App\Models\Association;
 use App\Models\Council;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -64,7 +65,6 @@ class CouncilController extends Controller
      */
     public function store(CouncilStoreRequest $request)
     {
-        //dd($request->validated('council_name'));
         $council = new Council();
         $council->name = $request->validated('council_name');
         $council->slug = strtolower(str_replace(' ', '_', $request->validated('council_name')));
@@ -93,13 +93,12 @@ class CouncilController extends Controller
      */
     public function show($id)
     {
-        $council = Council::findOrFail($id);
-
         $commons['page_title'] = 'Council';
         $commons['content_title'] = 'Show council';
         $commons['main_menu'] = 'council';
         $commons['current_menu'] = 'council_create';
 
+        $council = Council::findOrFail($id);
         $councils = Council::where('status', 1)->paginate(20);
 
         return view('backend.pages.council.show',
@@ -119,13 +118,12 @@ class CouncilController extends Controller
      */
     public function edit($id)
     {
-        $council = Council::findOrFail($id);
-
         $commons['page_title'] = 'Council';
         $commons['content_title'] = 'Edit Council';
         $commons['main_menu'] = 'council';
         $commons['current_menu'] = 'council_create';
 
+        $council = Council::findOrFail($id);
         $councils = Council::where('status', 1)->paginate(20);
 
         return view('backend.pages.council.edit',
@@ -173,6 +171,14 @@ class CouncilController extends Controller
      */
     public function destroy($id)
     {
+        $council_has_association = Association::where('belongs_to', $id)->first();
+
+        if($council_has_association){
+            return redirect()
+                ->back()
+                ->with('failed', 'Council cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
+        }
+
         $council = Council::findOrFail($id);
         $council->status = 0;
         $council->deleted_at = Carbon::now();

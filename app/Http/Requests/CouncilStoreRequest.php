@@ -24,7 +24,7 @@ class CouncilStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'council_name' => 'required|alpha|unique:councils,name'
+            'council_name' => 'required|alpha|unique:councils,name',
         ];
     }
 }

@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @include('backend.pages.council._table')
+    @include('backend.pages.association._table')
 @endsection
 
 

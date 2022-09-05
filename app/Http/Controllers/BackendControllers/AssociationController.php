@@ -20,12 +20,12 @@ class AssociationController extends Controller
         $commons['main_menu'] = 'association';
         $commons['current_menu'] = 'association_index';
 
-        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
-        //dd($commons);
+        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy', 'council'])->paginate(20);
+        //dd($associations);
         return view('backend.pages.association.index',
             compact(
                 'commons',
-                'Associations'
+                'associations'
             )
         );
     }
@@ -62,10 +62,10 @@ class AssociationController extends Controller
      */
     public function store(AssociationStoreRequest $request)
     {
-        dd($request->validated('Association_name'));
         $association = new Association();
-        $association->name = $request->validated('Association_name');
-        $association->slug = strtolower(str_replace(' ', '_', $request->validated('Association_name')));
+        $association->name = $request->validated('association_name');
+        $association->slug = strtolower(str_replace(' ', '_', $request->validated('association_name')));
+        $association->belongs_to = $request->validated('association_belongs_to');
         $association->status = 1;
         $association->created_at = Carbon::now();
         $association->created_by = Auth::user()->id;
@@ -95,16 +95,16 @@ class AssociationController extends Controller
 
         $commons['page_title'] = 'Association';
         $commons['content_title'] = 'Show Association';
-        $commons['main_menu'] = 'Association';
-        $commons['current_menu'] = 'Association_create';
+        $commons['main_menu'] = 'association';
+        $commons['current_menu'] = 'association_create';
 
         $associations = Association::where('status', 1)->paginate(20);
 
-        return view('backend.pages.Association.show',
+        return view('backend.pages.association.show',
             compact(
                 'commons',
-                'Association',
-                'Associations'
+                'association',
+                            'associations'
             )
         );
     }
@@ -121,16 +121,18 @@ class AssociationController extends Controller
 
         $commons['page_title'] = 'Association';
         $commons['content_title'] = 'Edit Association';
-        $commons['main_menu'] = 'Association';
-        $commons['current_menu'] = 'Association_create';
+        $commons['main_menu'] = 'association';
+        $commons['current_menu'] = 'association_create';
 
+        $councils = Council::where('status', 1)->get();
         $associations = Association::where('status', 1)->paginate(20);
 
-        return view('backend.pages.Association.edit',
+        return view('backend.pages.association.edit',
             compact(
                 'commons',
-                'Association',
-                'Associations'
+                'association',
+                            'councils',
+                            'associations'
             )
         );
     }
@@ -145,8 +147,9 @@ class AssociationController extends Controller
     public function update(AssociationUpdateRequest $request, $id)
     {
         $association = Association::findOrFail($id);
-        $association->name = $request->validated('Association_name');
-        $association->slug = strtolower(str_replace(' ', '_', $request->validated('Association_name')));
+        $association->name = $request->validated('association_name');
+        $association->slug = strtolower(str_replace(' ', '_', $request->validated('association_name')));
+        $association->belongs_to = $request->validated('association_belongs_to');
         $association->status = $request->validated('status');
         $association->updated_at = Carbon::now();
         $association->updated_by = Auth::user()->id;
@@ -154,7 +157,7 @@ class AssociationController extends Controller
 
         if ($association->getChanges()){
             return redirect()
-                ->route('Association.index')
+                ->route('association.index')
                 ->with('success', 'Association updated successfully!');
         }
 
@@ -179,7 +182,7 @@ class AssociationController extends Controller
 
         if ($association->getChanges()){
             return redirect()
-                ->route('Association.index')
+                ->route('association.index')
                 ->with('success', 'Association deleted successfully!');
         }
 

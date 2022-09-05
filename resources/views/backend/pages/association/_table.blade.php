@@ -10,12 +10,12 @@
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table">
+            <table class="table table-responsive-md">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Name</th>
-                        <th>Slug</th>
+                        <th>Belongs To (Council)</th>
                         <th>Status</th>
                         <th>Created At</th>
                         <th>Created By</th>
@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->name }}</td>
-                        <td><span class="badge badge-info">{{ $row->slug }}</span></td>
+                        <td><span class="badge badge-info">{{ $row->council->name }}</span></td>
                         <td>
                             @if($row->status == 1)
                                 <span class="right badge badge-success">Active</span>

@@ -12,4 +12,21 @@ class Association extends Model
     public $timestamps = false;
 
     protected $table = 'associations';
+
+    protected $dates = ['created_at', 'updated_at'];
+
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+    public function council()
+    {
+        return $this->belongsTo('App\Models\Council', 'belongs_to', 'id');
+    }
 }

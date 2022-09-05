@@ -13,7 +13,7 @@ class AssociationUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class AssociationUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'association_name' => 'required|unique:associations,name,'.$this->association,
+            'association_belongs_to' => 'required|exists:councils,id',
+            'status' => 'required|boolean'
         ];
     }
 }
