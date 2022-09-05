@@ -9,3 +9,18 @@
     margin-right: 1px;
 }
 
+.custom_title {
+    margin-top: 13px;
+}
+.custom_title p {
+    font-size: 24px;
+    line-height: 14px;
+    color: #428edf;
+}
+
+.navbar-brand {
+    max-width: 122px;
+    width: 100%;
+    object-fit: cover;
+    padding: 0;
+}

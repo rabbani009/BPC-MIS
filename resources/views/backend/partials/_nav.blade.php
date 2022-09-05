@@ -1,12 +1,14 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
-    <ul class="navbar-nav">
+    <ul class="navbar-nav align-items-start">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <p style="font-size: 24px;margin-bottom: 0px">Bangladesh Business Promotion Council</p>
-            <p style="font-size: 12px; margin-bottom: 0px">Management Information System</p>
+            <div class="custom_title">
+                <p class="mb-0">Bangladesh Business Promotion Council</p>
+                <small class="mb-0">Management Information System</small>
+            </div>
         </li>
     </ul>
 
