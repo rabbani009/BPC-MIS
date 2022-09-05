@@ -79,13 +79,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link  @if($commons['current_menu'] == 'association_create') active @endif">
+                        <a href="{{ route('association.create') }}" class="nav-link  @if($commons['current_menu'] == 'association_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link  @if($commons['current_menu'] == 'association_index') active @endif">
+                        <a href="{{ route('association.index') }}" class="nav-link  @if($commons['current_menu'] == 'association_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>
