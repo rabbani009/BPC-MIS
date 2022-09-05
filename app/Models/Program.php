@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Activity extends Model
+class Program extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    protected $table = 'activities';
+    protected $table = 'programs';
 
     protected $fillable = [
         'name',

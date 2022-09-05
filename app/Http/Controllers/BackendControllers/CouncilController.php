@@ -47,7 +47,7 @@ class CouncilController extends Controller
         $commons['main_menu'] = 'council';
         $commons['current_menu'] = 'council_create';
 
-        $councils = Council::where('status', 1)->paginate(20);
+        $councils = Council::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.council.create',
             compact(
@@ -99,7 +99,7 @@ class CouncilController extends Controller
         $commons['current_menu'] = 'council_create';
 
         $council = Council::findOrFail($id);
-        $councils = Council::where('status', 1)->paginate(20);
+        $councils = Council::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.council.show',
             compact(
@@ -124,7 +124,7 @@ class CouncilController extends Controller
         $commons['current_menu'] = 'council_create';
 
         $council = Council::findOrFail($id);
-        $councils = Council::where('status', 1)->paginate(20);
+        $councils = Council::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.council.edit',
             compact(

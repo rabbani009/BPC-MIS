@@ -23,19 +23,19 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Name or Title</label>
-                    <input disabled name="council_name" class="form-control" value="{!! $council->name !!}">
+                    <input disabled name="council_name" class="form-control" value="{!! $program->name !!}">
                 </div>
             </div>
 
             <div class="card-footer">
-                <a href="{!! route('council.edit', $council->id) !!}" class="btn btn-outline-secondary">Edit</a>
+                <a href="{!! route('program.edit', $program->id) !!}" class="btn btn-outline-secondary">Edit</a>
             </div>
 
         </div>
 
     </section>
 
-    @include('backend.pages.council._table')
+    @include('backend.pages.program._table')
 @endsection
 
 
