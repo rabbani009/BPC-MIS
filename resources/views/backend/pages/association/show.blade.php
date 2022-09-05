@@ -26,10 +26,6 @@
                     <input disabled name="name" class="form-control" value="{!! $association->name !!}">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Slug</label>
-                    <input disabled name="slug" class="form-control" value="{!! $association->slug !!}">
-                </div>
-                <div class="form-group">
                     <label for="exampleInputEmail1">Association belong to (Council)</label>
                     <input disabled name="slug" class="form-control" value="{!! $association->council->name !!}">
                 </div>

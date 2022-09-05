@@ -5,11 +5,11 @@ use App\Http\Controllers\AuthControllers\LoginController;
 use App\Http\Controllers\AuthControllers\LogoutController;
 use App\Http\Controllers\AuthControllers\RegisterController;
 use App\Http\Controllers\AuthControllers\ResetPasswordController;
-use App\Http\Controllers\BackendControllers\ActivityController;
 use App\Http\Controllers\BackendControllers\AssociationController;
 use App\Http\Controllers\BackendControllers\CouncilController;
 use App\Http\Controllers\BackendControllers\DashboardController;
 use App\Http\Controllers\BackendControllers\ProfileController;
+use App\Http\Controllers\BackendControllers\ProgramController;
 use App\Http\Controllers\BackendControllers\TraineeController;
 use App\Http\Controllers\BackendControllers\TrainerController;
 use App\Http\Controllers\BackendControllers\UserController;
@@ -51,7 +51,9 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);
-    Route::resource('activity', ActivityController::class);
+
+    Route::resource('program', ProgramController::class);
+
     Route::resource('trainer', TrainerController::class);
     Route::resource('trainee', TraineeController::class);
 

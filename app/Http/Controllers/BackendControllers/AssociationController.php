@@ -43,7 +43,7 @@ class AssociationController extends Controller
         $commons['current_menu'] = 'association_create';
 
         $councils = Council::where('status', 1)->get();
-        $associations = Association::where('status', 1)->paginate(20);
+        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy', 'council'])->paginate(20);
 
         return view('backend.pages.association.create',
             compact(
@@ -98,7 +98,7 @@ class AssociationController extends Controller
         $commons['main_menu'] = 'association';
         $commons['current_menu'] = 'association_create';
 
-        $associations = Association::where('status', 1)->paginate(20);
+        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy', 'council'])->paginate(20);
 
         return view('backend.pages.association.show',
             compact(
@@ -125,7 +125,7 @@ class AssociationController extends Controller
         $commons['current_menu'] = 'association_create';
 
         $councils = Council::where('status', 1)->get();
-        $associations = Association::where('status', 1)->paginate(20);
+        $associations = Association::where('status', 1)->with(['createdBy', 'updatedBy', 'council'])->paginate(20);
 
         return view('backend.pages.association.edit',
             compact(

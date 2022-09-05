@@ -12,6 +12,7 @@
                 </a>
 
             </li>
+
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-th"></i>
@@ -92,23 +93,23 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
-                <a href="#" class="nav-link @if($commons['main_menu'] == 'activity') active @endif">
+            <li class="nav-item @if($commons['main_menu'] == 'program') menu-open @endif">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'program') active @endif">
                     <i class="nav-icon fas fa-skating"></i>
                     <p>
-                        Activity
+                        Program
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('program.create') }}" class="nav-link  @if($commons['current_menu'] == 'program_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('program.index') }}" class="nav-link  @if($commons['current_menu'] == 'program_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>
