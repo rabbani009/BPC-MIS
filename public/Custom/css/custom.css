@@ -24,3 +24,13 @@
     object-fit: cover;
     padding: 0;
 }
+
+.custom_font_size_sm {
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.custom_font_size_xs {
+    font-size: 10px;
+    line-height: 14px;
+}
