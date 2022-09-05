@@ -32,7 +32,7 @@
                     </p>
                 </li>
 
-                <li class="user-footer d-flex justify-content-center">
+                <li class="user-footer d-flex justify-content-between">
                     <div class="float-start">
                         <a href="{!! route('user.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-default btn-flat">Profile</a>
                     </div>
