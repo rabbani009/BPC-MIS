@@ -24,7 +24,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($programs as $row)
+                @foreach($trainers as $row)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->name }}</td>
@@ -64,7 +64,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-            {!! $programs->withQueryString()->links('pagination::bootstrap-5') !!}
+            {!! $trainers->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </div>
 

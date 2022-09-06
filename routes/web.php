@@ -1,21 +1,26 @@
 <?php
 
-use App\Http\Controllers\AuthControllers\ForgotPasswordController;
-use App\Http\Controllers\AuthControllers\LoginController;
-use App\Http\Controllers\AuthControllers\LogoutController;
-use App\Http\Controllers\AuthControllers\RegisterController;
-use App\Http\Controllers\AuthControllers\ResetPasswordController;
-use App\Http\Controllers\BackendControllers\ActivityController;
-use App\Http\Controllers\BackendControllers\AssociationController;
-use App\Http\Controllers\BackendControllers\CouncilController;
-use App\Http\Controllers\BackendControllers\DashboardController;
-use App\Http\Controllers\BackendControllers\ProfileController;
-use App\Http\Controllers\BackendControllers\ProgramController;
-use App\Http\Controllers\BackendControllers\TraineeController;
-use App\Http\Controllers\BackendControllers\TrainerController;
-use App\Http\Controllers\BackendControllers\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthControllers\{
+    ForgotPasswordController,
+    LoginController,
+    LogoutController,
+    RegisterController,
+    ResetPasswordController,
+};
+use App\Http\Controllers\BackendControllers\{
+    ActivityController,
+    AjaxController,
+    AssociationController,
+    CouncilController,
+    DashboardController,
+    ProfileController,
+    ProgramController,
+    TraineeController,
+    TrainerController,
+    UserController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +67,11 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);
+
+    //All ajax routes will be in this route group
+    Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){
+        Route::post('get-associations-by-council', [AjaxController::class, 'getAssociationsByCouncil'])->name('get-associations-by-council');
+    });
 
 });
 
