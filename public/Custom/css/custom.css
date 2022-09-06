@@ -52,10 +52,6 @@
     padding-left: 0px;
 }
 
-/*.select2-container--default .select2-selection--multiple .select2-selection__choice {*/
-/*    margin-top: 0!important;*/
-/*}*/
-
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     border: 0;
     background-color: #007bff;
@@ -65,4 +61,9 @@
     margin: 0;
     color: #fff;
     border-color: #fff;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    width: max-content !important;
+    min-height: 24px;
 }
