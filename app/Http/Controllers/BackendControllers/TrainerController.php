@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TrainerStoreRequest;
 use App\Models\Association;
 use App\Models\Council;
 use App\Models\Trainee;
 use App\Models\Trainer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrainerController extends Controller
 {
@@ -66,11 +69,16 @@ class TrainerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(trainerStoreRequest $request)
+    public function store(TrainerStoreRequest $request)
     {
-        $trainer = new trainer();
+        $trainer = new Trainer();
+        $trainer->council = $request->validated('council');
+        $trainer->association = $request->validated('association');
         $trainer->name = $request->validated('trainer_name');
-        $trainer->slug = strtolower(str_replace(' ', '_', $request->validated('trainer_name')));
+        $trainer->email = $request->validated('email');
+        $trainer->mobile = $request->validated('mobile');
+        $trainer->gender = $request->validated('gender');
+        $trainer->area_of_expertise = implode(', ', $request->validated('area_of_expertise'));
         $trainer->status = 1;
         $trainer->created_at = Carbon::now();
         $trainer->created_by = Auth::user()->id;
@@ -79,12 +87,12 @@ class TrainerController extends Controller
         if ($trainer->wasRecentlyCreated){
             return redirect()
                 ->route('trainer.index')
-                ->with('success', 'trainer created successfully!');
+                ->with('success', 'Trainer created successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'trainer cannot be created!');
+            ->with('failed', 'Trainer cannot be created!');
 
     }
 

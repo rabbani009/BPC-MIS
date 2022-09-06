@@ -52,9 +52,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{!! old('trainer_name') !!}" placeholder="Enter trainer Name">
+                        <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{!! old('email') !!}" placeholder="Enter trainer Email">
                         @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{!! $errors->first('trainer_name') !!}</span>
+                            <span class="error invalid-feedback">{!! $errors->first('email') !!}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -62,9 +62,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mobile</label>
-                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{!! old('trainer_name') !!}" placeholder="Enter trainer Name">
-                        @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{!! $errors->first('trainer_name') !!}</span>
+                        <input type="text" name="mobile" class="form-control @if($errors->has('mobile')) is-invalid @endif" value="{!! old('mobile') !!}" placeholder="Enter trainer Mobile">
+                        @if($errors->has('mobile'))
+                            <span class="error invalid-feedback">{!! $errors->first('mobile') !!}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -73,11 +73,11 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Gender</label>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" value="1" type="radio" id="customRadio1" name="status" checked>
+                            <input class="custom-control-input" value="male" type="radio" id="customRadio1" name="gender" checked>
                             <label for="customRadio1" class="custom-control-label">Male</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input class="custom-control-input" value="0" type="radio" id="customRadio2" name="status">
+                            <input class="custom-control-input" value="female" type="radio" id="customRadio2" name="gender">
                             <label for="customRadio2" class="custom-control-label">Female</label>
                         </div>
                         @if($errors->has('status'))
@@ -86,19 +86,13 @@
                     </div>
 
                     <div class="form-group  @if ($errors->has('area_of_expertise')) has-error @endif">
-                        <label class="control-label">Area of Expertise</label>
+                        <label class="control-label">Area of Expertise (Please type the area of expertise below and hit enter)</label>
+                        <select name="area_of_expertise[]" id="area_of_expertise" class="form-control" multiple="multiple" >
 
-
-                        <select id="area_of_expertise" class="form-control" multiple="multiple">
-                            <option selected="selected">orange</option>
-                            <option>white</option>
-                            <option selected="selected">purple</option>
                         </select>
 
                         @if($errors->has('area_of_expertise'))
                             <span class="error invalid-feedback"> {!! $errors->first('area_of_expertise') !!} </span>
-                        @else
-                            <span class="help-block"> The type field is required. </span>
                         @endif
                     </div>
 
