@@ -1,7 +1,8 @@
 @extends('backend')
 
 @section('page_level_css_plugins')
-
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 @section('page_level_css_files')
@@ -36,22 +37,9 @@
                             <span class="help-block"> The type field is required. </span>
                         @endif
                     </div>
+                    <div id="association_block">
 
-                    <div class="form-group  @if ($errors->has('association')) has-error @endif">
-                        <label class="control-label">Association</label>
-                        <select name="association" id="association" class="form-control select2 @if($errors->has('association')) is-invalid @endif" value="{!! old('association') !!}">
-                            @foreach($associations as $association)
-                                <option value="{!! $association->id !!}" @if(old('type') == $association->id) {!! 'selected' !!} @endif>{!! $association->name !!}</option>
-                            @endforeach
-                        </select>
-
-                        @if($errors->has('association'))
-                            <span class="error invalid-feedback"> {!! $errors->first('association') !!} </span>
-                        @else
-                            <span class="help-block"> The type field is required. </span>
-                        @endif
                     </div>
-
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
                         <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{!! old('trainer_name') !!}" placeholder="Enter trainer Name">
@@ -122,14 +110,44 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 @section('page_level_js_plugins')
-
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 @section('page_level_js_scripts')
     <script>
+        $( document ).ready(function() {
+            $('#council').select2();
 
+            $.ajax({
+                type:'POST',
+                url:"{{ route('ajax.get-associations-by-council') }}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                data: {council_id: $('#council').val()},
+                success:function(html){
+                    console.log('loading on load..');
+                    $("#association_block").html(html);
+                    $('#association').select2();
+                }
+            });
+
+        });
+
+        $('#council').on('change', function (e) {
+            console.log('loading on change..');
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:"{{ route('ajax.get-associations-by-council') }}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                data: {council_id: $('#council').val()},
+                success:function(html){
+                    $("#association_block").html(html);
+                    $('#association').select2();
+                }
+            });
+        });
 
     </script>
 @endsection

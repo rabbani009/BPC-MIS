@@ -11,6 +11,7 @@ use App\Http\Controllers\AuthControllers\{
 };
 use App\Http\Controllers\BackendControllers\{
     ActivityController,
+    AjaxController,
     AssociationController,
     CouncilController,
     DashboardController,
@@ -18,7 +19,7 @@ use App\Http\Controllers\BackendControllers\{
     ProgramController,
     TraineeController,
     TrainerController,
-    UserController,
+    UserController
 };
 
 /*
@@ -66,6 +67,11 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);
+
+    //All ajax routes will be in this route group
+    Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){
+        Route::post('get-associations-by-council', [AjaxController::class, 'getAssociationsByCouncil'])->name('get-associations-by-council');
+    });
 
 });
 
