@@ -85,15 +85,23 @@
                         @endif
                     </div>
 
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Area of Expertise</label>
-                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{!! old('trainer_name') !!}" placeholder="Enter trainer Name">
-                        @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{!! $errors->first('trainer_name') !!}</span>
+                    <div class="form-group  @if ($errors->has('area_of_expertise')) has-error @endif">
+                        <label class="control-label">Area of Expertise</label>
+
+
+                        <select id="area_of_expertise" class="form-control" multiple="multiple">
+                            <option selected="selected">orange</option>
+                            <option>white</option>
+                            <option selected="selected">purple</option>
+                        </select>
+
+                        @if($errors->has('area_of_expertise'))
+                            <span class="error invalid-feedback"> {!! $errors->first('area_of_expertise') !!} </span>
                         @else
-                            <span class="help-block"> This field is required. </span>
+                            <span class="help-block"> The type field is required. </span>
                         @endif
                     </div>
+
                 </div>
 
                 <div class="card-footer">
@@ -119,6 +127,10 @@
     <script>
         $( document ).ready(function() {
             $('#council').select2();
+            $("#area_of_expertise").select2({
+                tags: true,
+                tokenSeparators: [',']
+            })
 
             $.ajax({
                 type:'POST',
