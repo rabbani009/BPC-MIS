@@ -71,6 +71,8 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     //All ajax routes will be in this route group
     Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){
         Route::post('get-associations-by-council', [AjaxController::class, 'getAssociationsByCouncil'])->name('get-associations-by-council');
+        Route::post('get-trainers-by-council-and-association', [AjaxController::class, 'getTrainersByCouncilAndAssociation'])->name('get-trainers-by-council-and-association');
+        Route::post('get-trainers-by-association', [AjaxController::class, 'getTrainersByAssociation'])->name('get-trainers-by-association');
     });
 
 });
