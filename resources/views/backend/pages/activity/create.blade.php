@@ -23,24 +23,35 @@
             <form action="{{ route('activity.store') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group  @if ($errors->has('council')) has-error @endif">
-                        <label class="control-label">Council</label>
-                        <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif">
-                            @foreach($councils as $council)
-                                <option value="{{ $council->id }}" @if(old('type') == $council->id) {{ 'selected' }} @endif>{{ $council->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group  @if ($errors->has('council')) has-error @endif">
+                                <label class="control-label">Council</label>
+                                <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif">
+                                    @foreach($councils as $council)
+                                        <option value="{{ $council->id }}" @if(old('type') == $council->id) {{ 'selected' }} @endif>{{ $council->name }}</option>
+                                    @endforeach
+                                </select>
 
-                        @if($errors->has('council'))
-                            <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
-                        @else
-                            <span class="help-block"> The type field is required. </span>
-                        @endif
+                                @if($errors->has('council'))
+                                    <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
+                                @else
+                                    <span class="help-block"> The type field is required. </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="association_block">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="trainers_block">
+                            </div>
+                        </div>
                     </div>
-                    <div id="association_block">
-                    </div>
-                    <div id="trainers_block">
-                    </div>
+
+
+
                     <div class="form-group  @if ($errors->has('program')) has-error @endif">
                         <label class="control-label">Program</label>
                         <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
