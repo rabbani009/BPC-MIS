@@ -33,14 +33,14 @@
             </li>
 
             <li class="nav-header">ACTIVITIES</li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
+                <a href="{{ route('activity.create') }}" class="nav-link @if($commons['current_menu'] == 'activity_create') active @endif">
                     <i class="nav-icon fas fa-plus"></i>
                     <p>Add</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
+                <a href="{{ route('activity.index') }}" class="nav-link @if($commons['current_menu'] == 'activity_index') active @endif">
                     <i class="nav-icon fas fa-list"></i>
                     <p>List</p>
                 </a>

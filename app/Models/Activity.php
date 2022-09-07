@@ -14,8 +14,20 @@ class Activity extends Model
     protected $table = 'activities';
 
     protected $fillable = [
-        'name',
-        'slug',
+        'council',
+        'association',
+        'program',
+        'activity_title',
+        'start_date',
+        'end_date',
+        'venue',
+        'source_of_fund',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
+        'budget_as_per_contract',
+        'actual_budget_as_per_expenditure',
+        'actual_expenditure_as_per_actual_budget',
+        'trainers',
+        'trainees',
+        'remarks',
         'status',
         'created_at',
         'created_by',
@@ -33,5 +45,15 @@ class Activity extends Model
     public function updatedBy()
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+    }
+
+    public function getCouncil()
+    {
+        return $this->belongsTo(Council::class, 'council');
+    }
+
+    public function getAssociation()
+    {
+        return $this->belongsTo(Association::class, 'association');
     }
 }

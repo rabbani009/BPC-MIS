@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityStoreRequest;
 use App\Http\Requests\ActivityUpdateRequest;
 use App\Models\Activity;
+use App\Models\Association;
+use App\Models\Council;
+use App\Models\Program;
+use App\Models\Trainer;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
@@ -24,8 +27,8 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_index';
 
-        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
-        //dd($activities);
+        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        dd($activities);
         return view('backend.pages.activity.index',
             compact(
                 'commons',
@@ -46,11 +49,20 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
+        $councils = Council::where('status', 1)->get();
+        $associations = Association::where('status', 1)->get();
+        $trainers = Trainer::where('status', 1)->get();
+        $programs = Program::where('status', 1)->get();
+
         $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.activity.create',
             compact(
                 'commons',
+                'councils',
+                'programs',
+                'associations',
+                'trainers',
                 'activities'
             )
         );

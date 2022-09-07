@@ -1,5 +1,10 @@
 .custom_actions{
-    width: 15%;
+    width: 12%;
+    text-align: center;
+    padding-right: 0.5rem !important;
+    background-color: #ffffec;
+}
+._custom_actions{
     text-align: center;
     padding-right: 0.5rem !important;
     background-color: #ffffec;

@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($trainers as $row)
+                @foreach($activities as $row)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->getCouncil->name ?? 'None' }}</td>
@@ -77,7 +77,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-            {!! $trainers->withQueryString()->links('pagination::bootstrap-5') !!}
+            {!! $activities->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </div>
 

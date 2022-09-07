@@ -20,7 +20,7 @@
                     Note::
                 </div>
             </div>
-            <form action="{{ route('trainer.store') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form action="{{ route('activity.store') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
                     <div class="form-group  @if ($errors->has('council')) has-error @endif">
@@ -38,13 +38,30 @@
                         @endif
                     </div>
                     <div id="association_block">
-
                     </div>
+                    <div id="trainers_block">
+                    </div>
+                    <div class="form-group  @if ($errors->has('program')) has-error @endif">
+                        <label class="control-label">Program</label>
+                        <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
+                            @foreach($programs as $program)
+                                <option value="{{ $program->id }}" @if(old('program') == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
+                            @endforeach
+                        </select>
+
+                        @if($errors->has('program'))
+                            <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
+                        @else
+                            <span class="help-block"> The type field is required. </span>
+                        @endif
+                    </div>
+
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{{ old('trainer_name') }}" placeholder="Enter trainer Name">
-                        @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{{ $errors->first('trainer_name') }}</span>
+                        <input type="text" name="activity_name" class="form-control @if($errors->has('activity_name')) is-invalid @endif" value="{{ old('activity_name') }}" placeholder="Enter activity Name">
+                        @if($errors->has('activity_name'))
+                            <span class="error invalid-feedback">{{ $errors->first('activity_name') }}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -52,8 +69,8 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ old('email') }}" placeholder="Enter trainer Email">
-                        @if($errors->has('trainer_name'))
+                        <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ old('email') }}" placeholder="Enter activity Email">
+                        @if($errors->has('activity_name'))
                             <span class="error invalid-feedback">{{ $errors->first('email') }}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
@@ -62,7 +79,7 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mobile</label>
-                        <input type="text" name="mobile" class="form-control @if($errors->has('mobile')) is-invalid @endif" value="{{ old('mobile') }}" placeholder="Enter trainer Mobile">
+                        <input type="text" name="mobile" class="form-control @if($errors->has('mobile')) is-invalid @endif" value="{{ old('mobile') }}" placeholder="Enter activity Mobile">
                         @if($errors->has('mobile'))
                             <span class="error invalid-feedback">{{ $errors->first('mobile') }}</span>
                         @else
@@ -106,7 +123,7 @@
 
     </section>
 
-    @include('backend.pages.trainer._table')
+    @include('backend.pages.activity._table')
 @endsection
 
 
@@ -124,7 +141,8 @@
             $("#area_of_expertise").select2({
                 tags: true,
                 tokenSeparators: [',']
-            })
+            });
+            $("#program").select2();
 
             $.ajax({
                 type:'POST',
@@ -135,8 +153,21 @@
                     console.log('loading on load..');
                     $("#association_block").html(html);
                     $('#association').select2();
+
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('ajax.get-trainers-by-council-and-association') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                        data: {council_id: $('#council').val(), association_id: $('#association').val()},
+                        success:function(html){
+                            console.log('loading on load..');
+                            $("#trainers_block").html(html);
+                            $('#trainers').select2();
+                        }
+                    });
                 }
             });
+
 
         });
 
@@ -149,11 +180,42 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
                 data: {council_id: $('#council').val()},
                 success:function(html){
+                    console.log('loading on load..');
                     $("#association_block").html(html);
                     $('#association').select2();
+
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('ajax.get-trainers-by-council-and-association') }}",
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                        data: {council_id: $('#council').val(), association_id: $('#association').val()},
+                        success:function(html){
+                            console.log('loading on load..');
+                            $("#trainers_block").html(html);
+                            $('#trainers').select2();
+                        }
+                    });
                 }
             });
         });
+
+        $('#association').on('change', function (e) {
+            console.log('loading on change..');
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:"{{ route('ajax.get-trainers-by-association') }}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                data: {association_id: $('#association').val()},
+                success:function(html){
+                    console.log('loading on load..');
+                    $("#trainers_block").html(html);
+                    $('#trainers').select2();
+                }
+            });
+        });
+
+
 
     </script>
 @endsection

@@ -13,7 +13,7 @@ class TrainerUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,14 @@ class TrainerUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'council' => 'required|integer|exists:councils,id',
+            'association' => 'required|integer|exists:associations,id',
+            'trainer_name' => 'required',
+            'email' => 'required|email',
+            'mobile' => 'nullable',
+            'gender' => 'alpha',
+            'area_of_expertise' => 'nullable',
+            'status' => 'required|boolean'
         ];
     }
 }
