@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Trainer extends Model
 {
@@ -32,11 +34,36 @@ class Trainer extends Model
 
     public function createdBy()
     {
-        return $this->belongsTo('App\Models\User', 'created_by', 'id');
+        return $this->belongsTo('App\Models\User', 'created_by');
     }
 
     public function updatedBy()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by', 'id');
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
+
+    public function getCouncil()
+    {
+        return $this->belongsTo(Council::class, 'council');
+    }
+
+    public function getAssociation()
+    {
+        return $this->belongsTo(Association::class, 'association');
+    }
+
+    protected function AreaOfExpertise(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => explode(', ', $value),
+            set: fn ($value) => implode(', ', $value),
+        );
+    }
+
+    protected function gender(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => Str::title($value),
+        );
     }
 }

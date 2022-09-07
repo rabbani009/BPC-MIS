@@ -4,6 +4,8 @@ namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TrainerStoreRequest;
+use App\Http\Requests\TrainerUpdateRequest;
+use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Council;
 use App\Models\Trainee;
@@ -26,8 +28,8 @@ class TrainerController extends Controller
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_index';
 
-        $trainers = Trainer::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
-        //dd($commons);
+        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+
         return view('backend.pages.trainer.index',
             compact(
                 'commons',
@@ -51,7 +53,7 @@ class TrainerController extends Controller
         $councils = Council::where('status', 1)->get();
         $associations = Association::where('status', 1)->get();
 
-        $trainers = Trainer::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.trainer.create',
             compact(
@@ -78,7 +80,7 @@ class TrainerController extends Controller
         $trainer->email = $request->validated('email');
         $trainer->mobile = $request->validated('mobile');
         $trainer->gender = $request->validated('gender');
-        $trainer->area_of_expertise = implode(', ', $request->validated('area_of_expertise'));
+        $trainer->area_of_expertise = $request->validated('area_of_expertise');
         $trainer->status = 1;
         $trainer->created_at = Carbon::now();
         $trainer->created_by = Auth::user()->id;
@@ -104,13 +106,13 @@ class TrainerController extends Controller
      */
     public function show($id)
     {
-        $commons['page_title'] = 'trainer';
-        $commons['content_title'] = 'Show trainer';
+        $commons['page_title'] = 'Trainer';
+        $commons['content_title'] = 'Show Trainer';
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_create';
 
-        $trainer = trainer::findOrFail($id);
-        $trainers = trainer::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.trainer.show',
             compact(
@@ -129,19 +131,23 @@ class TrainerController extends Controller
      */
     public function edit($id)
     {
-        $commons['page_title'] = 'trainer';
-        $commons['content_title'] = 'Edit trainer';
+        $commons['page_title'] = 'Trainer';
+        $commons['content_title'] = 'Edit Trainer';
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_create';
 
-        $trainer = trainer::findOrFail($id);
-        $trainers = trainer::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+        $councils = Council::where('status', 1)->get();
+
+        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+
+        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.trainer.edit',
             compact(
                 'commons',
                 'trainer',
-                'trainers'
+                'trainers',
+                'councils'
             )
         );
     }
@@ -153,11 +159,17 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(trainerUpdateRequest $request, $id)
+    public function update(TrainerUpdateRequest $request, $id)
     {
-        $trainer = trainer::findOrFail($id);
+        $trainer = Trainer::findOrFail($id);
+        //dd($trainer);
+        $trainer->council = $request->validated('council');
+        $trainer->association = $request->validated('association');
         $trainer->name = $request->validated('trainer_name');
-        $trainer->slug = strtolower(str_replace(' ', '_', $request->validated('trainer_name')));
+        $trainer->email = $request->validated('email');
+        $trainer->mobile = $request->validated('mobile');
+        $trainer->gender = $request->validated('gender');
+        $trainer->area_of_expertise = $request->validated('area_of_expertise');
         $trainer->status = $request->validated('status');
         $trainer->updated_at = Carbon::now();
         $trainer->updated_by = Auth::user()->id;
@@ -166,12 +178,12 @@ class TrainerController extends Controller
         if ($trainer->getChanges()){
             return redirect()
                 ->route('trainer.index')
-                ->with('success', 'trainer updated successfully!');
+                ->with('success', 'Trainer updated successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'trainer cannot be updated!');
+            ->with('failed', 'Trainer cannot be updated!');
     }
 
     /**
@@ -182,7 +194,8 @@ class TrainerController extends Controller
      */
     public function destroy($id)
     {
-        $trainer_has_association = Association::where('belongs_to', $id)->first();
+        dd($id);
+        $trainer_has_activities = Activity::all();
 
         if($trainer_has_association){
             return redirect()

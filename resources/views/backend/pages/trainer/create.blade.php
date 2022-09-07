@@ -25,14 +25,14 @@
                 <div class="card-body">
                     <div class="form-group  @if ($errors->has('council')) has-error @endif">
                         <label class="control-label">Council</label>
-                        <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif" value="{!! old('council') !!}">
+                        <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif">
                             @foreach($councils as $council)
-                                <option value="{!! $council->id !!}" @if(old('type') == $council->id) {!! 'selected' !!} @endif>{!! $council->name !!}</option>
+                                <option value="{{ $council->id }}" @if(old('type') == $council->id) {{ 'selected' }} @endif>{{ $council->name }}</option>
                             @endforeach
                         </select>
 
                         @if($errors->has('council'))
-                            <span class="error invalid-feedback"> {!! $errors->first('council') !!} </span>
+                            <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
                         @else
                             <span class="help-block"> The type field is required. </span>
                         @endif
@@ -42,9 +42,9 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Name</label>
-                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{!! old('trainer_name') !!}" placeholder="Enter trainer Name">
+                        <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{{ old('trainer_name') }}" placeholder="Enter trainer Name">
                         @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{!! $errors->first('trainer_name') !!}</span>
+                            <span class="error invalid-feedback">{{ $errors->first('trainer_name') }}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -52,9 +52,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{!! old('email') !!}" placeholder="Enter trainer Email">
+                        <input type="text" name="email" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ old('email') }}" placeholder="Enter trainer Email">
                         @if($errors->has('trainer_name'))
-                            <span class="error invalid-feedback">{!! $errors->first('email') !!}</span>
+                            <span class="error invalid-feedback">{{ $errors->first('email') }}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -62,9 +62,9 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Mobile</label>
-                        <input type="text" name="mobile" class="form-control @if($errors->has('mobile')) is-invalid @endif" value="{!! old('mobile') !!}" placeholder="Enter trainer Mobile">
+                        <input type="text" name="mobile" class="form-control @if($errors->has('mobile')) is-invalid @endif" value="{{ old('mobile') }}" placeholder="Enter trainer Mobile">
                         @if($errors->has('mobile'))
-                            <span class="error invalid-feedback">{!! $errors->first('mobile') !!}</span>
+                            <span class="error invalid-feedback">{{ $errors->first('mobile') }}</span>
                         @else
                             <span class="help-block"> This field is required. </span>
                         @endif
@@ -81,7 +81,7 @@
                             <label for="customRadio2" class="custom-control-label">Female</label>
                         </div>
                         @if($errors->has('status'))
-                            <span class="error invalid-feedback">{!! $errors->first('status') !!}</span>
+                            <span class="error invalid-feedback">{{ $errors->first('status') }}</span>
                         @endif
                     </div>
 
@@ -92,7 +92,7 @@
                         </select>
 
                         @if($errors->has('area_of_expertise'))
-                            <span class="error invalid-feedback"> {!! $errors->first('area_of_expertise') !!} </span>
+                            <span class="error invalid-feedback"> {{ $errors->first('area_of_expertise') }} </span>
                         @endif
                     </div>
 

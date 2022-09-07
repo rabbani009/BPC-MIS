@@ -22,13 +22,37 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Name or Title</label>
-                    <input disabled name="council_name" class="form-control" value="{!! $trainer->name !!}">
+                    <label for="exampleInputEmail1">Council</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getCouncil->name ?? 'None' }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Association</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getAssociation->name ?? 'None' }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->name }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->email }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mobile</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->mobile }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Gender</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->gender }}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Area of Expertise</label>
+                    <input disabled name="council_name" class="form-control" value="{{ $trainer->area_of_expertise }}">
                 </div>
             </div>
 
             <div class="card-footer">
-                <a href="{!! route('trainer.edit', $trainer->id) !!}" class="btn btn-outline-secondary">Edit</a>
+                <a href="{{ route('trainer.edit', $trainer->id) }}" class="btn btn-outline-secondary">Edit</a>
             </div>
 
         </div>
