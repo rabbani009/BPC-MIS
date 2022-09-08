@@ -106,7 +106,12 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="">End date</label>
-                                    <input type="date" name="end_date" class="form-control @if($errors->has('end_date')) is-invalid @endif" value="{{ old('end_date') }}" placeholder="DD/MM/YYYY">
+                                    <div class="input-group date" id="end_date" data-target-input="nearest">
+                                        <input type="text" name="end_date" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off">
+                                        <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
                                     @if($errors->has('end_date'))
                                         <span class="error invalid-feedback">{{ $errors->first('end_date') }}</span>
                                     @else
@@ -212,8 +217,17 @@
 
             $(function () {
                 $('#start_date').datetimepicker({
+                    default: true,
                     format: 'L',
-                    locale: 'BST'
+                    locale: 'BST',
+                    format: 'DD/MM/YYYY'
+                });
+                $('#end_date').datetimepicker({
+                    default: true,
+                    format: 'L',
+                    locale: 'BST',
+                    format: 'DD/MM/YYYY',
+                    placeholder: 'Select End Date'
                 });
             });
 

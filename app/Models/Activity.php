@@ -21,6 +21,7 @@ class Activity extends Model
         'start_date',
         'end_date',
         'venue',
+
         'source_of_fund',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
         'budget_as_per_contract',
         'actual_budget_as_per_expenditure',
