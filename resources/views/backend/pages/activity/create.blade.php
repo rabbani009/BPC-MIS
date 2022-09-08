@@ -25,9 +25,9 @@
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
-                    <div class="container card bg-info">
+                    <div class="container card ">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
                                     <label class="control-label">Council</label>
                                     <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif">
@@ -43,15 +43,11 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div id="association_block">
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div id="trainers_block">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
                                 <div class="form-group  @if ($errors->has('program')) has-error @endif">
                                     <label class="control-label">Program</label>
                                     <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
@@ -70,11 +66,10 @@
                         </div>
                     </div>
 
-
                     <!-- Time and location section -->
-                    <div class="container card">
+                    <div class="container card ">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="">Activity Title</label>
                                     <input type="text" name="activity_title" class="form-control @if($errors->has('activity_title')) is-invalid @endif" value="{{ old('activity_title') }}" placeholder="Enter activity Name">
@@ -85,13 +80,28 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Remarks</label>
+                                    <div class="d-flex h5">
+                                        <div class="custom-control custom-radio pr-2">
+                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" checked>
+                                            <label for="remarks_stats_1" class="custom-control-label">Ongoing</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks">
+                                            <label for="remarks_stats_2" class="custom-control-label">Done</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Start date</label>
                                     <div class="input-group date" id="start_date" data-target-input="nearest">
-                                        <input type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off">
+                                        <input value="{{ old('start_date') }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -103,11 +113,11 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">End date</label>
                                     <div class="input-group date" id="end_date" data-target-input="nearest">
-                                        <input type="text" name="end_date" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off">
+                                        <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -119,7 +129,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Venue</label>
                                     <input type="text" name="venue" class="form-control @if($errors->has('venue')) is-invalid @endif" value="{{ old('venue') }}" placeholder="Enter Venue information here">
@@ -131,56 +141,74 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="container card">
                         <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group  @if ($errors->has('program')) has-error @endif">
-                                    <label class="control-label">Program</label>
-                                    <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
-                                        @foreach($programs as $program)
-                                            <option value="{{ $program->id }}" @if(old('program') == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                    @if($errors->has('program'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
+                            <div class="col-md-8">
+                                <div id="trainers_block">
+                                    <div class="form-group  @if ($errors->has('trainers')) has-error @endif">
+                                        <label class="control-label">Trainers</label>
+                                        <select name="trainers[]" id="trainers" class="form-control select2 @if($errors->has('trainers')) is-invalid @endif" multiple>
+                                            @if(old('trainers'))
+                                                <option value="old('trainers')" selected>{{ old('trainers') }}</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Number of Trainees</label>
+                                    <input type="number" name="number_of_trainees" class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
+                                    @if($errors->has('number_of_trainees'))
+                                        <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                     @else
-                                        <span class="help-block"> Program is required. </span>
+                                        <span class="help-block"> This field is required. </span>
                                     @endif
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    <div class="form-group">
-                        <label for="">Gender</label>
-                        <div class="custom-control custom-radio">
-                            <input class="custom-control-input" value="male" type="radio" id="customRadio1" name="gender" checked>
-                            <label for="customRadio1" class="custom-control-label">Male</label>
+                    <!-- Fund -->
+                    <div class="container card ">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="">Source of fund</label>
+                                    <input type="text" name="source_of_fund" class="form-control @if($errors->has('source_of_fund')) is-invalid @endif" value="{{ old('source_of_fund') }}" placeholder="Enter source of fund amount here">
+                                    @if($errors->has('source_of_fund'))
+                                        <span class="error invalid-feedback">{{ $errors->first('source_of_fund') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Budget as per contract</label>
+                                    <input type="text" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ old('budget_as_per_contract') }}" placeholder="Enter budget as per expenditure here">
+                                    @if($errors->has('budget_as_per_contract'))
+                                        <span class="error invalid-feedback">{{ $errors->first('budget_as_per_contract') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Actual budget as per expenditure</label>
+                                    <input type="text" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ old('actual_budget_as_per_expenditure') }}" placeholder="Enter actual budget as per expenditure here">
+                                    @if($errors->has('actual_budget_as_per_expenditure'))
+                                        <span class="error invalid-feedback">{{ $errors->first('actual_budget_as_per_expenditure') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Actual expenditure as per actual budget</label>
+                                    <input type="text" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ old('actual_expenditure_as_per_actual_budget') }}" placeholder="Enter actual expenditure as per actual budget here">
+                                    @if($errors->has('actual_expenditure_as_per_actual_budget'))
+                                        <span class="error invalid-feedback">{{ $errors->first('actual_expenditure_as_per_actual_budget') }}</span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
-                        <div class="custom-control custom-radio">
-                            <input class="custom-control-input" value="female" type="radio" id="customRadio2" name="gender">
-                            <label for="customRadio2" class="custom-control-label">Female</label>
-                        </div>
-                        @if($errors->has('status'))
-                            <span class="error invalid-feedback">{{ $errors->first('status') }}</span>
-                        @endif
                     </div>
-
-                    <div class="form-group  @if ($errors->has('area_of_expertise')) has-error @endif">
-                        <label class="control-label">Area of Expertise (Please type the area of expertise below and hit enter)</label>
-                        <select name="area_of_expertise[]" id="area_of_expertise" class="form-control" multiple="multiple" >
-
-                        </select>
-
-                        @if($errors->has('area_of_expertise'))
-                            <span class="error invalid-feedback"> {{ $errors->first('area_of_expertise') }} </span>
-                        @endif
-                    </div>
-
                 </div>
 
                 <div class="card-footer">
@@ -220,13 +248,13 @@
                     default: true,
                     format: 'L',
                     locale: 'BST',
-                    format: 'DD/MM/YYYY'
+                    format: 'YYYY-MM-DD'
                 });
                 $('#end_date').datetimepicker({
                     default: true,
                     format: 'L',
                     locale: 'BST',
-                    format: 'DD/MM/YYYY',
+                    format: 'YYYY-MM-DD',
                     placeholder: 'Select End Date'
                 });
             });

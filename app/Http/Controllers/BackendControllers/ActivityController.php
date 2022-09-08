@@ -76,6 +76,7 @@ class ActivityController extends Controller
      */
     public function store(ActivityStoreRequest $request)
     {
+        dd($request->all());
         $activity = new Activity();
         $activity->name = $request->validated('activity_name');
         $activity->slug = strtolower(str_replace(' ', '_', $request->validated('activity_name')));

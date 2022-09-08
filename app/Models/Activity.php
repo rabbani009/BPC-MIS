@@ -17,18 +17,21 @@ class Activity extends Model
         'council',
         'association',
         'program',
+
         'activity_title',
+        'remarks',
         'start_date',
         'end_date',
         'venue',
+        'number_of_trainers',
+        'trainers',
+        'number_of_trainees',
 
         'source_of_fund',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
         'budget_as_per_contract',
         'actual_budget_as_per_expenditure',
         'actual_expenditure_as_per_actual_budget',
-        'trainers',
-        'trainees',
-        'remarks',
+
         'status',
         'created_at',
         'created_by',

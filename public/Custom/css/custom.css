@@ -75,3 +75,7 @@
     min-height: 24px;
 }
 
+.custom-control-label::before {
+
+}
+
