@@ -92,7 +92,7 @@
                                     <label for="">Start date</label>
                                     <div class="input-group date" id="start_date" data-target-input="nearest">
                                         <input type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off">
-                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                        <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
@@ -212,7 +212,8 @@
 
             $(function () {
                 $('#start_date').datetimepicker({
-                    locale: 'ru'
+                    format: 'L',
+                    locale: 'BST'
                 });
             });
 
