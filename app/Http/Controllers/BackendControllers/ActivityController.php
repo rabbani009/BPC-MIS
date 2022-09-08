@@ -76,10 +76,26 @@ class ActivityController extends Controller
      */
     public function store(ActivityStoreRequest $request)
     {
-        dd($request->all());
         $activity = new Activity();
-        $activity->name = $request->validated('activity_name');
-        $activity->slug = strtolower(str_replace(' ', '_', $request->validated('activity_name')));
+        $activity->council = $request->validated('council');
+        $activity->association = $request->validated('association');
+        $activity->program = $request->validated('program');
+
+        $activity->activity_title = $request->validated('activity_title');
+        $activity->remarks = $request->validated('remarks');
+        $activity->start_date = $request->validated('start_date');
+        $activity->end_date = $request->validated('end_date');
+        $activity->venue = $request->validated('venue');
+        $activity->number_of_trainers = count($request->validated('trainers'));
+        $activity->trainers = $request->validated('trainers');
+        $activity->number_of_trainees = $request->validated('number_of_trainees');
+        $activity->trainees = [];
+
+        $activity->source_of_fund = $request->validated('source_of_fund');
+        $activity->budget_as_per_contract = $request->validated('budget_as_per_contract');
+        $activity->actual_budget_as_per_expenditure = $request->validated('actual_budget_as_per_expenditure');
+        $activity->actual_expenditure_as_per_actual_budget = $request->validated('actual_expenditure_as_per_actual_budget');
+
         $activity->status = 1;
         $activity->created_at = Carbon::now();
         $activity->created_by = Auth::user()->id;
@@ -87,7 +103,7 @@ class ActivityController extends Controller
 
         if ($activity->wasRecentlyCreated){
             return redirect()
-                ->route('activity.index')
+                ->route('activity.show', $activity->id)
                 ->with('success', 'Activity created successfully!');
         }
 
@@ -105,6 +121,9 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
+        $activity = Activity::findOrFail($id);
+        dd($activity);
+
         $commons['page_title'] = 'Activity';
         $commons['content_title'] = 'Show Activity';
         $commons['main_menu'] = 'activity';

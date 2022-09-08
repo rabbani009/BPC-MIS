@@ -34,7 +34,7 @@
                         <td class="_custom_actions">
                             <div class="card text-center p-1">
                                 <h5 class="">{{ $row->name }}</h5>
-                                <h6 class="">{{ implode(', ', $row->area_of_expertise) }}</h6>
+                                <h6 class="">{{ implode(', ', $row->trainees) }}</h6>
                                 <span>{{ $row->mobile }}</span>
                                 <span>{{ $row->email }}</span>
                                 <span>{{ $row->gender }}</span>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,6 +27,7 @@ class Activity extends Model
         'number_of_trainers',
         'trainers',
         'number_of_trainees',
+        'trainees',
 
         'source_of_fund',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
         'budget_as_per_contract',
@@ -59,5 +61,21 @@ class Activity extends Model
     public function getAssociation()
     {
         return $this->belongsTo(Association::class, 'association');
+    }
+
+    protected function Trainers(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => explode(', ', $value),
+            set: fn ($value) => implode(', ', $value),
+        );
+    }
+
+    protected function Trainees(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => explode(', ', $value),
+            set: fn ($value) => implode(', ', $value),
+        );
     }
 }

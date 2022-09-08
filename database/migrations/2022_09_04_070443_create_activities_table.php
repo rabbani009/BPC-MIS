@@ -23,15 +23,16 @@ return new class extends Migration
             $table->boolean('remarks');
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('venue');
-            $table->string('number_of_trainers');
-            $table->string('trainers');
-            $table->string('number_of_trainees');
+            $table->string('venue')->nullable();
+            $table->string('number_of_trainers')->nullable();
+            $table->text('trainers')->nullable();
+            $table->string('number_of_trainees')->nullable();
+            $table->text('trainees')->nullable();
 
-            $table->string('source_of_fund');
-            $table->string('budget_as_per_contract');
-            $table->string('actual_budget_as_per_expenditure');
-            $table->string('actual_expenditure_as_per_actual_budget');
+            $table->string('source_of_fund')->nullable();
+            $table->string('budget_as_per_contract')->nullable();
+            $table->string('actual_budget_as_per_expenditure')->nullable();
+            $table->string('actual_expenditure_as_per_actual_budget')->nullable();
 
             $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(1);
 
