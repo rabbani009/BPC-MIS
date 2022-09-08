@@ -9,6 +9,6 @@
     @if($errors->has('association'))
         <span class="error invalid-feedback"> {!! $errors->first('association') !!} </span>
     @else
-        <span class="help-block"> The type field is required. </span>
+        <span class="help-block"> Association is required. </span>
     @endif
 </div>
