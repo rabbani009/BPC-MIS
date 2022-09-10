@@ -56,6 +56,8 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
 
     Route::resource('activity', ActivityController::class);
+    Route::get('activity-console', [ActivityController::class, 'getActivityConsole'])->name('get.activity.console');
+    Route::post('activity-console', [ActivityController::class, 'postActivityConsole'])->name('post.activity.console');
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);

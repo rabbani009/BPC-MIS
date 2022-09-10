@@ -9,6 +9,7 @@
     padding-right: 0.5rem !important;
     background-color: #ffffec;
 }
+
 .custom_actions .btn-group .btn{
     margin-left: 1px;
     margin-right: 1px;
@@ -75,7 +76,7 @@
     min-height: 24px;
 }
 
-.custom-control-label::before {
-
+._custom_actions blockquote {
+    margin: 0;
 }
 

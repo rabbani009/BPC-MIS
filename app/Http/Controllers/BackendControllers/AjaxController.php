@@ -10,13 +10,19 @@ use Illuminate\Http\Request;
 class AjaxController extends Controller
 {
     public function getAssociationsByCouncil(Request $request){
-        //dd($request->council_id);
+        //dd($request->old_association_id);
 
         $associations = Association::where('status', 1)
             ->where('belongs_to', $request->council_id)
-            ->get();
+            ->pluck('name', 'id');
 
-        return view('backend.pages.ajax_blades.associations', compact('associations'));
+        if (isset($request->old_association_id)){
+            $old_association_id = $request->old_association_id;
+        }else{
+            $old_association_id = '';
+        }
+
+        return view('backend.pages.ajax_blades.associations', compact('associations', 'old_association_id'));
     }
 
     public function getTrainersByCouncilAndAssociation(Request $request){
@@ -25,6 +31,8 @@ class AjaxController extends Controller
             ->where('association', $request->association_id)
             ->get();
 
+
+
         return view('backend.pages.ajax_blades.trainers', compact('trainers'));
     }
 
@@ -32,6 +40,7 @@ class AjaxController extends Controller
         //dd('Council: '.$request->council_id.' Association: '.$request->association_id);
         $trainers = Trainer::where('association', $request->association_id)
             ->get();
+
 
         return view('backend.pages.ajax_blades.trainers', compact('trainers'));
     }

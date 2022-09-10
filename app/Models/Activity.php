@@ -63,6 +63,21 @@ class Activity extends Model
         return $this->belongsTo(Association::class, 'association');
     }
 
+    public function getProgram()
+    {
+        return $this->belongsTo(Program::class, 'program');
+    }
+
+    public function getTrainers()
+    {
+        return $this->belongsTo(Trainer::class, 'trainers');
+    }
+
+    public function getTrainees()
+    {
+        return $this->belongsTo(Trainee::class, 'trainees');
+    }
+
     protected function Trainers(): Attribute
     {
         return Attribute::make(
@@ -78,4 +93,13 @@ class Activity extends Model
             set: fn ($value) => implode(', ', $value),
         );
     }
+
+    protected function Remarks(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value == 1 ? 'Done' : 'Ongoing',
+        );
+    }
+
+
 }

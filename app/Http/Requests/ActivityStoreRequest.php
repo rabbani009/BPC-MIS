@@ -38,7 +38,7 @@ class ActivityStoreRequest extends FormRequest
             'number_of_trainees' => 'nullable|integer',
             'trainees' => 'nullable|array',
 
-            'source_of_fund' => 'nullable|digits_between:1,99999999999999',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
+            'source_of_fund' => 'nullable',//Dropdown 1. GOB, 2. Development budgets 3.Council Association 4. Others
             'budget_as_per_contract' => 'nullable|digits_between:1,99999999999999',
             'actual_budget_as_per_expenditure' => 'nullable|digits_between:1,99999999999999',
             'actual_expenditure_as_per_actual_budget' => 'nullable|digits_between:1,99999999999999',

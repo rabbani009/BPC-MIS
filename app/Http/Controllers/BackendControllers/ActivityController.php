@@ -27,8 +27,8 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_index';
 
-        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
-        dd($activities);
+        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'createdBy', 'updatedBy'])->paginate(20);
+        //dd($activities);
         return view('backend.pages.activity.index',
             compact(
                 'commons',
@@ -49,12 +49,10 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $councils = Council::where('status', 1)->get();
-        $associations = Association::where('status', 1)->get();
+        $councils = Council::where('status', 1)->pluck('name', 'id');
+        $associations = Association::where('status', 1)->pluck('name', 'id');
+        $programs = Program::where('status', 1)->pluck('name', 'id');
         $trainers = Trainer::where('status', 1)->get();
-        $programs = Program::where('status', 1)->get();
-
-        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.activity.create',
             compact(
@@ -62,8 +60,7 @@ class ActivityController extends Controller
                 'councils',
                 'programs',
                 'associations',
-                'trainers',
-                'activities'
+                'trainers'
             )
         );
     }
@@ -86,7 +83,7 @@ class ActivityController extends Controller
         $activity->start_date = $request->validated('start_date');
         $activity->end_date = $request->validated('end_date');
         $activity->venue = $request->validated('venue');
-        $activity->number_of_trainers = count($request->validated('trainers'));
+        $activity->number_of_trainers = isset($request->trainers) ? count($request->validated('trainers')) : [];
         $activity->trainers = $request->validated('trainers');
         $activity->number_of_trainees = $request->validated('number_of_trainees');
         $activity->trainees = [];
@@ -103,7 +100,7 @@ class ActivityController extends Controller
 
         if ($activity->wasRecentlyCreated){
             return redirect()
-                ->route('activity.show', $activity->id)
+                ->route('get.activity.console', $activity->id)
                 ->with('success', 'Activity created successfully!');
         }
 
@@ -111,6 +108,24 @@ class ActivityController extends Controller
             ->back()
             ->with('failed', 'Activity cannot be created!');
 
+    }
+
+    public function getActivityConsole($activtyId){
+        $commons['page_title'] = 'Activity';
+        $commons['content_title'] = 'Edit Activity';
+        $commons['main_menu'] = 'activity';
+        $commons['current_menu'] = 'activity_create';
+
+        $activity = Activity::findOrFail($activtyId);
+        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+
+        return view('backend.pages.activity.console',
+            compact(
+                'commons',
+                'activity',
+                'activities'
+            )
+        );
     }
 
     /**

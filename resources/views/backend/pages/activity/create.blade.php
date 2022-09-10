@@ -30,11 +30,7 @@
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
                                     <label class="control-label">Council</label>
-                                    <select name="council" id="council" class="form-control select2 @if($errors->has('council')) is-invalid @endif">
-                                        @foreach($councils as $council)
-                                            <option value="{{ $council->id }}" @if(old('type') == $council->id) {{ 'selected' }} @endif>{{ $council->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    {{ Form::select('council', $councils, old('council')?old('council'):null, ['id="council", class="form-control select2"']) }}
 
                                     @if($errors->has('council'))
                                         <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
@@ -45,16 +41,22 @@
                             </div>
                             <div class="col-md-6">
                                 <div id="association_block">
+                                    <div class="form-group  @if ($errors->has('association')) has-error @endif">
+                                        <label class="control-label">Association</label>
+                                        {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
+
+                                        @if($errors->has('association'))
+                                            <span class="error invalid-feedback"> {!! $errors->first('association') !!} </span>
+                                        @else
+                                            <span class="help-block"> Association is required. </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('program')) has-error @endif">
                                     <label class="control-label">Program</label>
-                                    <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
-                                        @foreach($programs as $program)
-                                            <option value="{{ $program->id }}" @if(old('program') == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    {{ Form::select('program', $programs, old('program')?old('program'):null, ['id="program", class="form-control select2"']) }}
 
                                     @if($errors->has('program'))
                                         <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
@@ -144,20 +146,13 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div id="trainers_block">
-                                    <div class="form-group  @if ($errors->has('trainers')) has-error @endif">
-                                        <label class="control-label">Trainers</label>
-                                        <select name="trainers[]" id="trainers" class="form-control select2 @if($errors->has('trainers')) is-invalid @endif" multiple>
-                                            @if(old('trainers'))
-                                                <option value="old('trainers')" selected>{{ old('trainers') }}</option>
-                                            @endif
-                                        </select>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Number of Trainees</label>
-                                    <input type="number" name="number_of_trainees" class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
+                                    <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
                                     @if($errors->has('number_of_trainees'))
                                         <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                     @else
@@ -183,7 +178,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Budget as per contract</label>
-                                    <input type="text" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ old('budget_as_per_contract') }}" placeholder="Enter budget as per expenditure here">
+                                    <input type="number" min="1" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ old('budget_as_per_contract') }}" placeholder="Enter budget as per expenditure here">
                                     @if($errors->has('budget_as_per_contract'))
                                         <span class="error invalid-feedback">{{ $errors->first('budget_as_per_contract') }}</span>
                                     @endif
@@ -192,7 +187,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Actual budget as per expenditure</label>
-                                    <input type="text" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ old('actual_budget_as_per_expenditure') }}" placeholder="Enter actual budget as per expenditure here">
+                                    <input type="number" min="1" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ old('actual_budget_as_per_expenditure') }}" placeholder="Enter actual budget as per expenditure here">
                                     @if($errors->has('actual_budget_as_per_expenditure'))
                                         <span class="error invalid-feedback">{{ $errors->first('actual_budget_as_per_expenditure') }}</span>
                                     @endif
@@ -201,7 +196,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Actual expenditure as per actual budget</label>
-                                    <input type="text" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ old('actual_expenditure_as_per_actual_budget') }}" placeholder="Enter actual expenditure as per actual budget here">
+                                    <input type="number" min="1" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ old('actual_expenditure_as_per_actual_budget') }}" placeholder="Enter actual expenditure as per actual budget here">
                                     @if($errors->has('actual_expenditure_as_per_actual_budget'))
                                         <span class="error invalid-feedback">{{ $errors->first('actual_expenditure_as_per_actual_budget') }}</span>
                                     @endif
@@ -214,12 +209,12 @@
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                <input type="hidden" id="old_association_id" value="{{old('association')}}">
             </form>
         </div>
 
     </section>
 
-    @include('backend.pages.activity._table')
 @endsection
 
 
@@ -264,7 +259,7 @@
                 type:'POST',
                 url:"{{ route('ajax.get-associations-by-council') }}",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                data: {council_id: $('#council').val()},
+                data: {council_id: $('#council').val(), old_association_id: $('#old_association_id').val()},
                 success:function(html){
                     $("#association_block").html(html);
                     $('#association').select2();

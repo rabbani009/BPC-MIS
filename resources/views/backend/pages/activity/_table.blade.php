@@ -4,19 +4,36 @@
             <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
             <div class="card-tools">
-                Note::
+                Note:: [ You have to scroll Left => Right to see the full content ]
             </div>
         </div>
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table table-responsive-md">
+            <table class="table table-responsive">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Council</th>
                         <th>Association</th>
-                        <th class="_custom_actions">Trainer Details</th>
+                        <th>Program</th>
+
+                        <th>Activity Title</th>
+                        <th>Remarks</th>
+                        <th>Venue</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+
+                        <th>Number of Trainers</th>
+                        <th>Number of Trainees</th>
+
+
+                        <th>Source of fund</th>
+                        <th>Budget as per contract</th>
+                        <th>Actual budget as per expenditure</th>
+                        <th>Actual expenditure as per actual budget</th>
+
+
                         <th>Status</th>
                         <th>Created At</th>
                         <th>Created By</th>
@@ -29,18 +46,25 @@
                 @foreach($activities as $row)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
-                        <td>{{ $row->getCouncil->name ?? 'None' }}</td>
-                        <td>{{ $row->getAssociation->name ?? 'None' }}</td>
-                        <td class="_custom_actions">
-                            <div class="card text-center p-1">
-                                <h5 class="">{{ $row->name }}</h5>
-                                <h6 class="">{{ implode(', ', $row->trainees) }}</h6>
-                                <span>{{ $row->mobile }}</span>
-                                <span>{{ $row->email }}</span>
-                                <span>{{ $row->gender }}</span>
-                            </div>
 
-                        </td>
+                        <td>{{ $row->getCouncil->name }}</td>
+                        <td>{{ $row->getAssociation->name }}</td>
+                        <td>{{ $row->getProgram->name }}</td>
+
+                        <td>{{ $row->activity_title }}</td>
+                        <td>{{ $row->remarks }}</td>
+                        <td>{{ $row->venue }}</td>
+                        <td>{{ $row->start_date }}</td>
+                        <td>{{ $row->end_date }}</td>
+
+                        <td><button class="btn btn-lg btn-outline-info">{{ $row->number_of_trainers }}</button></td>
+                        <td><button class="btn btn-lg btn-outline-info">{{ $row->number_of_trainees }}</button></td>
+
+                        <td>{{ isset($row->source_of_fund) ? $row->source_of_fund : 'NA' }}</td>
+                        <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
+                        <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
+                        <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
+
                         <td>
                             @if($row->status == 1)
                                 <span class="right badge badge-success">Active</span>
@@ -80,5 +104,4 @@
             {!! $activities->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </div>
-
 </section>
