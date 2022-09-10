@@ -12,6 +12,7 @@ use App\Models\Program;
 use App\Models\Trainer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -83,10 +84,22 @@ class ActivityController extends Controller
         $activity->start_date = $request->validated('start_date');
         $activity->end_date = $request->validated('end_date');
         $activity->venue = $request->validated('venue');
-        $activity->number_of_trainers = isset($request->trainers) ? count($request->validated('trainers')) : [];
-        $activity->trainers = $request->validated('trainers');
-        $activity->number_of_trainees = $request->validated('number_of_trainees');
-        $activity->trainees = [];
+
+        if (is_array($request->trainers)){
+            $activity->number_of_trainers = count($request->validated('trainers'));
+            $activity->trainers = implode(', ', $request->validated('trainers'));
+        }else{
+            $activity->number_of_trainers = null;
+            $activity->trainers = null;
+        }
+
+        if (is_array($request->trainers)){
+            $activity->number_of_trainees = count($request->validated('trainers'));
+            $activity->trainees = implode(', ', $request->validated('trainers'));
+        }else{
+            $activity->number_of_trainees = null;
+            $activity->trainees = null;
+        }
 
         $activity->source_of_fund = $request->validated('source_of_fund');
         $activity->budget_as_per_contract = $request->validated('budget_as_per_contract');
@@ -98,15 +111,16 @@ class ActivityController extends Controller
         $activity->created_by = Auth::user()->id;
         $activity->save();
 
-        if ($activity->wasRecentlyCreated){
+        if ($activity->wasRecentlyCreated) {
             return redirect()
                 ->route('get.activity.console', $activity->id)
                 ->with('success', 'Activity created successfully!');
         }
 
+        // something went wrong
         return redirect()
             ->back()
-            ->with('failed', 'Activity cannot be created!');
+            ->with('Exception', 'Failed');
 
     }
 

@@ -43,12 +43,12 @@ class Activity extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    public function createdBy()
+    public function createdBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\User', 'created_by', 'id');
     }
 
-    public function updatedBy()
+    public function updatedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
@@ -78,27 +78,11 @@ class Activity extends Model
         return $this->belongsTo(Trainee::class, 'trainees');
     }
 
-    protected function Trainers(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => explode(', ', $value),
-            set: fn ($value) => implode(', ', $value),
-        );
-    }
 
-    protected function Trainees(): Attribute
+    ///Mutators
+    public function getRemarksAttribute($value)
     {
-        return Attribute::make(
-            get: fn ($value) => explode(', ', $value),
-            set: fn ($value) => implode(', ', $value),
-        );
-    }
-
-    protected function Remarks(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $value == 1 ? 'Done' : 'Ongoing',
-        );
+        return $value == 1 ? 'Done' : 'Ongoing';
     }
 
 

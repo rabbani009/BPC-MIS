@@ -20,9 +20,9 @@ return new class extends Migration
             $table->unsignedTinyInteger('program');
 
             $table->string('activity_title');
-            $table->boolean('remarks');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->boolean('remarks')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->string('venue')->nullable();
             $table->string('number_of_trainers')->nullable();
             $table->text('trainers')->nullable();
