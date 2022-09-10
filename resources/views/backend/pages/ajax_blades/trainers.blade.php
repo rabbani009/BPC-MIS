@@ -8,7 +8,5 @@
 
     @if($errors->has('trainers'))
         <span class="error invalid-feedback"> {!! $errors->first('trainers') !!} </span>
-    @else
-        <span class="help-block"> Trainers is required and multiple. </span>
     @endif
 </div>

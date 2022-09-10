@@ -12,7 +12,9 @@
 
 @section('content')
     <section class="content">
-
+        @if($errors->any())
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
+        @endif
         <div class="card">
             <div class="card-header">
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
@@ -146,7 +148,6 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div id="trainers_block">
-
                                 </div>
                             </div>
                             <div class="col-md-4">
