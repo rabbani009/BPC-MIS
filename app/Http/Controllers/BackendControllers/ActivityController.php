@@ -53,7 +53,10 @@ class ActivityController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
-        $trainers = Trainer::where('status', 1)->get();
+        $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
+
+        //dd($programs);
+        //dd($trainers);
 
         return view('backend.pages.activity.create',
             compact(
@@ -131,6 +134,7 @@ class ActivityController extends Controller
         $commons['current_menu'] = 'activity_create';
 
         $activity = Activity::findOrFail($activtyId);
+        dd($activity);
         $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.activity.console',

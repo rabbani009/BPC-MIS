@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ActivityStoreRequest extends FormRequest
 {
@@ -44,5 +47,12 @@ class ActivityStoreRequest extends FormRequest
             'actual_expenditure_as_per_actual_budget' => 'nullable|digits_between:1,99999999999999',
 
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        dd($validator);
+        Session::flash('old_trainers', 'value');
+        return parent::failedValidation($validator);
     }
 }

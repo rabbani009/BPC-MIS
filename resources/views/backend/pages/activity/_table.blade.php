@@ -33,13 +33,13 @@
                         <th>Actual budget as per expenditure</th>
                         <th>Actual expenditure as per actual budget</th>
 
-
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Created By</th>
-                        <th>Updated At</th>
-                        <th>Updated By</th>
+                        <th class="actions_group">Status</th>
+                        <th class="actions_group">Created At</th>
+                        <th class="actions_group">Created By</th>
+                        <th class="actions_group">Updated At</th>
+                        <th class="actions_group">Updated By</th>
                         <th class="custom_actions">Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -53,29 +53,30 @@
 
                         <td>{{ $row->activity_title }}</td>
                         <td>{{ $row->remarks }}</td>
-                        <td>{{ $row->venue }}</td>
-                        <td>{{ $row->start_date }}</td>
-                        <td>{{ $row->end_date }}</td>
+                        <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
+                        <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
+                        <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
 
-                        <td><button class="btn btn-lg btn-outline-info">{{ $row->number_of_trainers }}</button></td>
-                        <td><button class="btn btn-lg btn-outline-info">{{ $row->number_of_trainees }}</button></td>
+                        <td><button class="btn btn-md btn-outline-info">{{ isset($row->number_of_trainers) ? $row->number_of_trainers : 'NA' }}</button></td>
+                        <td><button class="btn btn-md btn-outline-info">{{ isset($row->number_of_trainees) ? $row->number_of_trainees : 'NA' }}</button></td>
 
                         <td>{{ isset($row->source_of_fund) ? $row->source_of_fund : 'NA' }}</td>
                         <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
                         <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
                         <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
 
-                        <td>
+
+                        <td class="actions_group">
                             @if($row->status == 1)
                                 <span class="right badge badge-success">Active</span>
                             @else
                                 <span class="right badge badge-danger">Inactive</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
+                        <td class="actions_group">{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
+                        <td class="actions_group">{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
+                        <td class="actions_group">{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
+                        <td class="actions_group">{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
                         <td class="custom_actions">
                             <div class="btn-group">
                                 <a href="{!! route('trainer.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">

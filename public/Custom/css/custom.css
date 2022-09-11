@@ -79,4 +79,8 @@
 ._custom_actions blockquote {
     margin: 0;
 }
+.actions_group{
+    background-color: #ffffec;
+    text-align: center;
+}
 

@@ -20,7 +20,7 @@
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
                 <div class="card-tools">
-                    Note::
+                    Note:: * marked fields are required
                 </div>
             </div>
             <form action="{{ route('activity.store') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
@@ -31,39 +31,33 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
-                                    <label class="control-label">Council</label>
+                                    <label class="control-label">Council *</label>
                                     {{ Form::select('council', $councils, old('council')?old('council'):null, ['id="council", class="form-control select2"']) }}
 
                                     @if($errors->has('council'))
                                         <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
-                                    @else
-                                        <span class="help-block"> The type field is required. </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div id="association_block">
                                     <div class="form-group  @if ($errors->has('association')) has-error @endif">
-                                        <label class="control-label">Association</label>
+                                        <label class="control-label">Association *</label>
                                         {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
 
                                         @if($errors->has('association'))
                                             <span class="error invalid-feedback"> {!! $errors->first('association') !!} </span>
-                                        @else
-                                            <span class="help-block"> Association is required. </span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('program')) has-error @endif">
-                                    <label class="control-label">Program</label>
+                                    <label class="control-label">Program *</label>
                                     {{ Form::select('program', $programs, old('program')?old('program'):null, ['id="program", class="form-control select2"']) }}
 
                                     @if($errors->has('program'))
                                         <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
-                                    @else
-                                        <span class="help-block"> Program is required. </span>
                                     @endif
                                 </div>
                             </div>
@@ -75,7 +69,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="">Activity Title</label>
+                                    <label for="">Activity Title *</label>
                                     <input type="text" name="activity_title" class="form-control @if($errors->has('activity_title')) is-invalid @endif" value="{{ old('activity_title') }}" placeholder="Enter activity Name">
                                     @if($errors->has('activity_title'))
                                         <span class="error invalid-feedback">{{ $errors->first('activity_title') }}</span>
@@ -86,7 +80,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Remarks</label>
+                                    <label for="">Remarks *</label>
                                     <div class="d-flex h5">
                                         <div class="custom-control custom-radio pr-2">
                                             <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" checked>
@@ -97,13 +91,16 @@
                                             <label for="remarks_stats_2" class="custom-control-label">Done</label>
                                         </div>
                                     </div>
+                                    @if($errors->has('remarks'))
+                                        <span class="error invalid-feedback">{{ $errors->first('remarks') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">Start date</label>
+                                    <label for="">Start date *</label>
                                     <div class="input-group date" id="start_date" data-target-input="nearest">
                                         <input value="{{ old('start_date') }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
@@ -112,14 +109,12 @@
                                     </div>
                                     @if($errors->has('start_date'))
                                         <span class="error invalid-feedback">{{ $errors->first('start_date') }}</span>
-                                    @else
-                                        <span class="help-block"> Start Date is required. </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="">End date</label>
+                                    <label for="">End date *</label>
                                     <div class="input-group date" id="end_date" data-target-input="nearest">
                                         <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
@@ -128,8 +123,6 @@
                                     </div>
                                     @if($errors->has('end_date'))
                                         <span class="error invalid-feedback">{{ $errors->first('end_date') }}</span>
-                                    @else
-                                        <span class="help-block"> End Date is required. </span>
                                     @endif
                                 </div>
                             </div>
@@ -139,8 +132,6 @@
                                     <input type="text" name="venue" class="form-control @if($errors->has('venue')) is-invalid @endif" value="{{ old('venue') }}" placeholder="Enter Venue information here">
                                     @if($errors->has('venue'))
                                         <span class="error invalid-feedback">{{ $errors->first('venue') }}</span>
-                                    @else
-                                        <span class="help-block"> Venue is required. </span>
                                     @endif
                                 </div>
                             </div>
@@ -152,7 +143,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Number of Trainees</label>
+                                    <label for="">Number of Trainees *</label>
                                     <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
                                     @if($errors->has('number_of_trainees'))
                                         <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
@@ -211,6 +202,9 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <input type="hidden" id="old_association_id" value="{{old('association')}}">
+                <input type="hidden" id="old_trainers" value="{{old('trainers')}}">
+
+                <input type="hidden" id="old_trainers_ids" value="">
             </form>
         </div>
 
