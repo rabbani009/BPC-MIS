@@ -23,94 +23,45 @@
             </div>
 
             <div class="card-body">
-                <!-- Prerequisites section -->
-                <div class="container card ">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">Council: {{ $activity->getCouncil->name }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div id="association_block">
-                                <div class="form-group">
-                                    <label class="control-label">Association: {{ $activity->getAssociation->name }}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="control-label">Program: {{ $activity->getProgram->name }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td colspan="5"><strong>Activity Title: </strong>{{ $activity->activity_title }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Program: </strong>{{ $activity->getProgram->name }}</td>
+                        <td colspan="3"><strong>Venue: </strong>{{ $activity->venue }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Remarks: </strong>{{ $activity->remarks }}</td>
+                        <td><strong>Start Date: </strong>{{ $activity->start_date }}</td>
+                        <td><strong>End Date: </strong>{{ $activity->end_date }}</td>
+                        <td><strong>Trainers: </strong>{{ $activity->venue }}</td>
+                        <td><strong>Trainees: </strong>{{ $activity->venue }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><strong>Council: </strong>{{ $activity->getCouncil->name }}</td>
+                        <td colspan="3"><strong>Association: </strong>{{ $activity->getAssociation->name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Source of fund: </strong>{{ $activity->source_of_fund }}</td>
+                        <td><strong>Budget as per contract: </strong>{{ $activity->budget_as_per_contact }}</td>
+                        <td><strong>Actual budget as per expenditure: </strong>{{ $activity->actual_budget_as_per_expenditure }}</td>
+                        <td colspan="2"><strong>Actual expenditure as per actual budget: </strong>{{ $activity->actual_expenditure_as_per_actual_budget }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="fas fa-solid fa-user-plus"></i> Add Trainee
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            here will the trainees information fields
+                        </td>
+                    </tr>
+                </table>
 
-                <!-- Time and location section -->
-                <div class="container card ">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="">Activity Title: {{ $activity->title }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Remarks: {{ $activity->remarks }}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">Start date: {{ $activity->start_date }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">End date: {{ $activity->end_date }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Venue: {{ $activity->venue }}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label for="">Trainers: </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="">Trainees: </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fund -->
-                <div class="container card ">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="">Source of fund: {{ $activity->source_of_fund }}</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Budget as per contract: {{ $activity->budget_as_per_contact }}</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Actual budget as per expenditure: {{ $activity->actual_budget_as_per_expenditure }}</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Actual expenditure as per actual budget: {{ $activity->actual_expenditure_as_per_actual_budget }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             </div>
         </div>
 
