@@ -31,9 +31,9 @@ class AjaxController extends Controller
             ->where('association', $request->association_id)
             ->get();
 
+        $old_trainers = explode(', ',$request->old_trainers);
 
-
-        return view('backend.pages.ajax_blades.trainers', compact('trainers'));
+        return view('backend.pages.ajax_blades.trainers', compact('trainers', 'old_trainers'));
     }
 
     public function getTrainersByAssociation(Request $request){
@@ -42,6 +42,10 @@ class AjaxController extends Controller
             ->get();
 
 
-        return view('backend.pages.ajax_blades.trainers', compact('trainers'));
+
+
+
+
+        return view('backend.pages.ajax_blades.trainers', compact('trainers', 'old_trainers'));
     }
 }

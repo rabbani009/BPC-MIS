@@ -202,9 +202,9 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 <input type="hidden" id="old_association_id" value="{{old('association')}}">
-                <input type="hidden" id="old_trainers" value="{{old('trainers')}}">
-
-                <input type="hidden" id="old_trainers_ids" value="">
+                @if((old('trainers') !== '') && is_array(old('trainers')))
+                <input type="hidden" id="old_trainers" value="{{ implode(", ",old('trainers')) }}">
+                @endif
             </form>
         </div>
 
@@ -264,7 +264,7 @@
                         type:'POST',
                         url:"{{ route('ajax.get-trainers-by-council-and-association') }}",
                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                        data: {council_id: $('#council').val(), association_id: $('#association').val()},
+                        data: {council_id: $('#council').val(), association_id: $('#association').val(), old_trainers: $('#old_trainers').val()},
                         success:function(html){
                             $("#trainers_block").html(html);
                             $('#trainers').select2();

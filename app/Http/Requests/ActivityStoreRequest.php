@@ -48,11 +48,4 @@ class ActivityStoreRequest extends FormRequest
 
         ];
     }
-
-    protected function failedValidation(Validator $validator)
-    {
-        dd($validator);
-        Session::flash('old_trainers', 'value');
-        return parent::failedValidation($validator);
-    }
 }

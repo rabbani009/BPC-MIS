@@ -133,15 +133,14 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $activity = Activity::findOrFail($activtyId);
+        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'createdBy', 'updatedBy'])->findOrFail($activtyId);
+
         dd($activity);
-        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.activity.console',
             compact(
                 'commons',
-                'activity',
-                'activities'
+                'activity'
             )
         );
     }
