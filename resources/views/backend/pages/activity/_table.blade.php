@@ -79,13 +79,13 @@
                         <td class="actions_group">{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
                         <td class="custom_actions">
                             <div class="btn-group">
-                                <a href="{!! route('trainer.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                <a href="{!! route('activity.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{!! route('trainer.edit', $row->id) !!}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
+                                <a href="{!! route('activity.edit', $row->id) !!}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <form method="post" class="list_delete_form" action="{!! route('trainer.destroy', $row->id) !!}" accept-charset="UTF-8" >
+                                <form method="post" class="list_delete_form" action="{!! route('activity.destroy', $row->id) !!}" accept-charset="UTF-8" >
                                     {!! csrf_field() !!}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-flat btn-outline-danger btn-sm" data-toggle="tooltip" title="Delete">

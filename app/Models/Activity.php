@@ -70,7 +70,7 @@ class Activity extends Model
 
     public function getTrainers()
     {
-        return $this->belongsTo(Trainer::class, 'trainers');
+        return $this->hasMany(ActivityTrainer::class, 'activity_id')->with(['getTrainer']);
     }
 
     public function getTrainees()
@@ -84,6 +84,8 @@ class Activity extends Model
     {
         return $value == 1 ? 'Done' : 'Ongoing';
     }
+
+
 
 
 }

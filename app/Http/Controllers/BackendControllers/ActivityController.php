@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityStoreRequest;
 use App\Http\Requests\ActivityUpdateRequest;
 use App\Models\Activity;
+use App\Models\ActivityTrainer;
 use App\Models\Association;
 use App\Models\Council;
 use App\Models\Program;
@@ -54,9 +55,6 @@ class ActivityController extends Controller
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
-
-        //dd($programs);
-        //dd($trainers);
 
         return view('backend.pages.activity.create',
             compact(
@@ -115,9 +113,26 @@ class ActivityController extends Controller
         $activity->save();
 
         if ($activity->wasRecentlyCreated) {
+            if ($activity->trainers != null){
+                $trainers = explode(', ', $activity->trainers);
+
+                foreach ($trainers as $t){
+                    $data[] = [
+                        'activity_id' => $activity->id,
+                        'trainer_id' => $t,
+                    ];
+                }
+
+                ActivityTrainer::insert($data);
+
+                return redirect()
+                    ->route('get.activity.console', $activity->id)
+                    ->with('success', 'Activity created successfully with Activity=>Trainer relationship!');
+            }
+
             return redirect()
-                ->route('get.activity.console', $activity->id)
-                ->with('success', 'Activity created successfully!');
+                ->route('activity.index')
+                ->with('success', 'Activity created successfully! without trainers information!');
         }
 
         // something went wrong
@@ -125,24 +140,6 @@ class ActivityController extends Controller
             ->back()
             ->with('Exception', 'Failed');
 
-    }
-
-    public function getActivityConsole($activtyId){
-        $commons['page_title'] = 'Activity';
-        $commons['content_title'] = 'Edit Activity';
-        $commons['main_menu'] = 'activity';
-        $commons['current_menu'] = 'activity_create';
-
-        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'createdBy', 'updatedBy'])->findOrFail($activtyId);
-
-        dd($activity);
-
-        return view('backend.pages.activity.console',
-            compact(
-                'commons',
-                'activity'
-            )
-        );
     }
 
     /**
@@ -164,7 +161,7 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
         $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
 
-        return view('backend.pages.Activity.show',
+        return view('backend.pages.activity.show',
             compact(
                 'commons',
                 'activity',
@@ -186,14 +183,30 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $activity = Activity::findOrFail($id);
-        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
+        //dd($activity);
 
-        return view('backend.pages.Activity.edit',
+        return view('backend.pages.activity.edit',
             compact(
                 'commons',
-                'activity',
-                            'activities'
+                'activity'
+            )
+        );
+    }
+
+    public function getActivityConsole($id){
+        $commons['page_title'] = 'Activity';
+        $commons['content_title'] = 'Edit Activity';
+        $commons['main_menu'] = 'activity';
+        $commons['current_menu'] = 'activity_create';
+
+        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
+        //dd($activity);
+
+        return view('backend.pages.activity.console',
+            compact(
+                'commons',
+                'activity'
             )
         );
     }
