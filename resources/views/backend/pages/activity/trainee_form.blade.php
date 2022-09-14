@@ -1,6 +1,7 @@
-<form action="{{ route('post.activity.console', $activity->id) }}" accept-charset="utf-8" method="post">
+<form action="{{ route('patch.activity.console', $activity->id) }}" accept-charset="utf-8" method="post">
     @csrf
-    {{ Form::hidden('activity_id', $activity->id) }}
+    @method('patch')
+
     <table class="table table-striped">
         <tr>
             <th style="width: 5%">SN.</th>
@@ -74,4 +75,6 @@
             </td>
         </tr>
     </table>
+    {{ Form::hidden('activity_id', $activity->id) }}
+    {{ Form::hidden('number_of_trainees', $activity->number_of_trainees) }}
 </form>

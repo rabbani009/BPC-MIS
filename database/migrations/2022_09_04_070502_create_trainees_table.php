@@ -24,7 +24,9 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->string('covid_status')->nullable();
 
+            $table->text('attendance')->nullable();
 
             $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(1);
 

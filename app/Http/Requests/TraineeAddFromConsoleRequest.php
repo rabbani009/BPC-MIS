@@ -24,7 +24,7 @@ class TraineeAddFromConsoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'activity_id' => 'required|integer|exists:activity'
+            'activity_id' => 'required|integer|exists:activities,id'
         ];
     }
 }

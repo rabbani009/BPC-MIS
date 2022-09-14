@@ -57,7 +57,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('activity', ActivityController::class);
     Route::get('activity-console/{activity?}', [ActivityController::class, 'getActivityConsole'])->name('get.activity.console');
-    Route::post('activity-console/{activity}', [ActivityController::class, 'postActivityConsole'])->name('post.activity.console');
+    Route::patch('activity-console/{activity}', [ActivityController::class, 'patchActivityConsole'])->name('patch.activity.console');
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);

@@ -11,6 +11,7 @@ use App\Models\ActivityTrainer;
 use App\Models\Association;
 use App\Models\Council;
 use App\Models\Program;
+use App\Models\Trainee;
 use App\Models\Trainer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,7 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_index';
 
-        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'createdBy', 'updatedBy'])->paginate(20);
+        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->paginate(20);
         //dd($activities);
         return view('backend.pages.activity.index',
             compact(
@@ -214,8 +215,60 @@ class ActivityController extends Controller
         );
     }
 
-    public function postActivityConsole(TraineeAddFromConsoleRequest $request, $id){
-        dd($request->all());
+    public function patchActivityConsole(TraineeAddFromConsoleRequest $request, $id){
+        //dd($request->all());
+        $activity = Activity::findOrFail($id);
+        $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+        //dd($activity->number_of_trainees);
+
+        if ($request->input('activity_id') == $activity->id && $request->input('number_of_trainees') == $activity->number_of_trainees){
+            for ($i = 1; $i <= $activity->number_of_trainees; $i++){
+
+                for ($j = 1; $j <= $activity_duration - 1; $j++){
+                    $attendance[] = [
+                        'day_'.$j => $request->input('trainee_'.$i.'_day_'.$j.'_attend'),
+                    ];
+                }
+
+                $trainee = new Trainee();
+                $trainee->activity = $activity->id;
+                $trainee->name = $request->input('trainee_'.$i.'_name');
+                $trainee->age = $request->input('trainee_'.$i.'_age');
+                $trainee->gender = $request->input('trainee_'.$i.'_gender');
+                $trainee->qualification = $request->input('trainee_'.$i.'_qualification');
+                $trainee->organization = $request->input('trainee_'.$i.'_organization');
+                $trainee->designation = $request->input('trainee_'.$i.'_designation');
+                $trainee->phone = $request->input('trainee_'.$i.'_phone');
+                $trainee->email = $request->input('trainee_'.$i.'_email');
+                $trainee->covid_status = $request->input('trainee_'.$i.'_covid_status');
+
+                if ($attendance != null){
+                    $trainee->attendance = json_encode($attendance);
+                }
+
+                $trainee->status = 1;
+                $trainee->created_at = Carbon::now();
+                $trainee->created_by = Auth::user()->id;
+
+                //dd($trainee);
+
+                $trainee->save();
+            }
+
+            return redirect()
+                ->route('activity.index')
+                ->with('success', 'Activity updated successfully with trainees!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('failed', 'Failed operation!');
+
+
+        return redirect()
+            ->back()
+            ->with('failed', 'Failed operation! Some data manipulation done manually!');
+
     }
 
     /**
