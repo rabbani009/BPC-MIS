@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackendControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityStoreRequest;
 use App\Http\Requests\ActivityUpdateRequest;
+use App\Http\Requests\TraineeAddFromConsoleRequest;
 use App\Models\Activity;
 use App\Models\ActivityTrainer;
 use App\Models\Association;
@@ -94,9 +95,9 @@ class ActivityController extends Controller
             $activity->trainers = null;
         }
 
-        if (is_array($request->trainers)){
-            $activity->number_of_trainees = count($request->validated('trainers'));
-            $activity->trainees = implode(', ', $request->validated('trainers'));
+        if (isset($request->number_of_trainees)){
+            $activity->number_of_trainees = $request->validated('number_of_trainees');
+            $activity->trainees = null;
         }else{
             $activity->number_of_trainees = null;
             $activity->trainees = null;
@@ -201,14 +202,20 @@ class ActivityController extends Controller
         $commons['current_menu'] = 'activity_create';
 
         $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        //dd($activity);
+        //dd($activity->number_of_trainees);
+        $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
 
         return view('backend.pages.activity.console',
             compact(
                 'commons',
-                'activity'
+                'activity',
+                'activity_duration'
             )
         );
+    }
+
+    public function postActivityConsole(TraineeAddFromConsoleRequest $request, $id){
+        dd($request->all());
     }
 
     /**

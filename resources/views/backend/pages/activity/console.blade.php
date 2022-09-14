@@ -5,7 +5,9 @@
 @endsection
 
 @section('page_level_css_files')
+    <style>
 
+    </style>
 @endsection
 
 @section('content')
@@ -50,14 +52,14 @@
                     </tr>
                     <tr>
                         <td colspan="5" class="text-center">
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                <i class="fas fa-solid fa-user-plus"></i> Add Trainee
-                            </button>
+                            <span>
+                                Please use below form to insert trainees ({{$activity->number_of_trainees}}) information
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
-                            here will the trainees information fields
+                            @include('backend.pages.activity.trainee_form')
                         </td>
                     </tr>
                 </table>

@@ -15,8 +15,16 @@ return new class extends Migration
     {
         Schema::create('trainees', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('activity');
             $table->string('name');
-            $table->string('slug');
+            $table->unsignedInteger('age')->nullable();
+            $table->enum('gender', ['Male', 'Female', 'Others']);
+            $table->string('qualification')->nullable();
+            $table->string('organization')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+
 
             $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(1);
 
