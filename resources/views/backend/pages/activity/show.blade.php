@@ -15,7 +15,7 @@
         @if($errors->any())
             {!! implode('', $errors->all('<div>:message</div>')) !!}
         @endif
-        <div class="card bg-info">
+        <div class="card">
             <div class="card-header">
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
@@ -59,35 +59,36 @@
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <table class="table table-striped">
+                            <table class="table table-striped table-responsive">
                                 <tr>
                                     <th style="width: 5%">SN.</th>
-                                    <th>Name</th>
-                                    <th>Gender</th>
-                                    <th>Age</th>
-                                    <th>Qualification</th>
-                                    <th>Organization</th>
-                                    <th>Designation</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Covid Status</th>
-                                    <th>Attendance</th>
+                                    <th>Trainee Info</th>
+                                    <th>Attendance Status</th>
                                 </tr>
                                 @if($activity->getTrainees)
                                     @foreach($activity->getTrainees as $trainee)
                                     <tr>
                                         <td style="width: 5%">{{$loop->iteration}}.</td>
-                                        <td>{{$trainee->name}}</td>
-                                        <td>{{$trainee->gender}}</td>
-                                        <td>{{$trainee->age}}</td>
-                                        <td>{{$trainee->qualification}}</td>
-                                        <td>{{$trainee->organization}}</td>
-                                        <td>{{$trainee->designation}}</td>
-                                        <td>{{$trainee->phone}}</td>
-                                        <td>{{$trainee->email}}</td>
-                                        <td>{{$trainee->covid_status}}</td>
                                         <td>
-                                            @json($trainee->attendance)
+                                            <p><strong>Name: </strong>{{$trainee->name}}</p>
+                                            <p><strong>Age: </strong>{{$trainee->age}}</p>
+                                            <p><strong>Gender: </strong>{{$trainee->gender}}</p>
+                                            <p><strong>Qualification: </strong>{{$trainee->qualification}}</p>
+                                            <p><strong>Organization: </strong>{{$trainee->organization}}</p>
+                                            <p><strong>Designation: </strong>{{$trainee->designation}}</p>
+                                            <p><strong>Phone: </strong>{{$trainee->phone}}</p>
+                                            <p><strong>Email: </strong>{{$trainee->email}}</p>
+                                            <p><strong>Covid Status: </strong>{{$trainee->covid_status}}</p>
+                                        </td>
+                                        <td>
+                                           @foreach($trainee->attendance as $attendance)
+                                               <p>
+                                                   {{ $attendance['day'] }}:
+                                                   <span class="badge {{ $attendance['status'] == 1 ? 'badge-success' : 'badge-danger' }}">
+                                                   {{ $attendance['status'] == 1 ? 'Present' : 'Not Present' }}
+                                                   </span>
+                                               </p>
+                                            @endforeach
                                         </td>
                                     </tr>
                                     @endforeach

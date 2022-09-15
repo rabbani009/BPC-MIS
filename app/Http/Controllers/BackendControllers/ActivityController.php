@@ -222,7 +222,8 @@ class ActivityController extends Controller
 
                 for ($j = 1; $j <= $activity_duration; $j++){
                     $attendance[] = [
-                        'day_'.$j => $request->input('trainee_'.$i.'_day_'.$j.'_attend'),
+                        'day' => 'Day '.$j,
+                        'status' => $request->input('trainee_'.$i.'_day_'.$j.'_attend'),
                     ];
                 }
 
