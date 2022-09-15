@@ -33,8 +33,8 @@ class ActivityStoreRequest extends FormRequest
 
             'activity_title' => 'required',
             'remarks' => 'required|boolean',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'start_date' => 'nullable|date_format:Y-m-d|before:tomorrow',
+            'end_date' => 'nullable|date_format:Y-m-d|after:start_date',
             'venue' => 'nullable',
             'number_of_trainers' => 'nullable|integer',
             'trainers' => 'nullable|array',

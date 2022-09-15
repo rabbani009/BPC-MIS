@@ -75,7 +75,7 @@ class Activity extends Model
 
     public function getTrainees()
     {
-        return $this->belongsTo(Trainee::class, 'id', 'activity');
+        return $this->hasMany(Trainee::class, 'activity');
     }
 
 

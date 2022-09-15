@@ -13,7 +13,9 @@
 @section('content')
     <section class="content">
         @if($errors->any())
-            {!! implode('', $errors->all('<div>:message</div>')) !!}
+            <div class="card pl-3 bg-danger">
+                {!! implode('', $errors->all('<div>:message</div>')) !!}
+            </div>
         @endif
         <div class="card">
             <div class="card-header">
@@ -68,7 +70,7 @@
                     <div class="container card ">
                         <div class="row">
                             <div class="col-md-8">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('activity_title')) has-error @endif">
                                     <label for="">Activity Title *</label>
                                     <input type="text" name="activity_title" class="form-control @if($errors->has('activity_title')) is-invalid @endif" value="{{ old('activity_title') }}" placeholder="Enter activity Name">
                                     @if($errors->has('activity_title'))
@@ -79,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('remarks')) has-error @endif">
                                     <label for="">Remarks *</label>
                                     <div class="d-flex h5">
                                         <div class="custom-control custom-radio pr-2">
@@ -99,7 +101,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('start_date')) has-error @endif">
                                     <label for="">Start date *</label>
                                     <div class="input-group date" id="start_date" data-target-input="nearest">
                                         <input value="{{ old('start_date') }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
@@ -113,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('end_date')) has-error @endif">
                                     <label for="">End date *</label>
                                     <div class="input-group date" id="end_date" data-target-input="nearest">
                                         <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
@@ -127,7 +129,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('venue')) has-error @endif">
                                     <label for="">Venue</label>
                                     <input type="text" name="venue" class="form-control @if($errors->has('venue')) is-invalid @endif" value="{{ old('venue') }}" placeholder="Enter Venue information here">
                                     @if($errors->has('venue'))
@@ -142,7 +144,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('number_of_trainees')) has-error @endif">
                                     <label for="">Number of Trainees *</label>
                                     <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
                                     @if($errors->has('number_of_trainees'))
@@ -159,7 +161,7 @@
                     <div class="container card ">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('source_of_fund')) has-error @endif">
                                     <label for="">Source of fund</label>
                                     <input type="text" name="source_of_fund" class="form-control @if($errors->has('source_of_fund')) is-invalid @endif" value="{{ old('source_of_fund') }}" placeholder="Enter source of fund amount here">
                                     @if($errors->has('source_of_fund'))
@@ -168,7 +170,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('budget_as_per_contract')) has-error @endif">
                                     <label for="">Budget as per contract</label>
                                     <input type="number" min="1" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ old('budget_as_per_contract') }}" placeholder="Enter budget as per expenditure here">
                                     @if($errors->has('budget_as_per_contract'))
@@ -177,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('actual_budget_as_per_expenditure')) has-error @endif">
                                     <label for="">Actual budget as per expenditure</label>
                                     <input type="number" min="1" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ old('actual_budget_as_per_expenditure') }}" placeholder="Enter actual budget as per expenditure here">
                                     @if($errors->has('actual_budget_as_per_expenditure'))
@@ -186,7 +188,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="form-group">
+                                <div class="form-group @if ($errors->has('actual_expenditure_as_per_actual_budget')) has-error @endif">
                                     <label for="">Actual expenditure as per actual budget</label>
                                     <input type="number" min="1" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ old('actual_expenditure_as_per_actual_budget') }}" placeholder="Enter actual expenditure as per actual budget here">
                                     @if($errors->has('actual_expenditure_as_per_actual_budget'))

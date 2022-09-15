@@ -32,4 +32,9 @@ class Trainee extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function getAttendanceAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 }

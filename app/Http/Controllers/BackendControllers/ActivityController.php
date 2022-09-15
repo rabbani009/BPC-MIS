@@ -152,22 +152,18 @@ class ActivityController extends Controller
      */
     public function show($id)
     {
-        $activity = Activity::findOrFail($id);
-        dd($activity);
-
         $commons['page_title'] = 'Activity';
-        $commons['content_title'] = 'Show Activity';
+        $commons['content_title'] = 'Edit Activity';
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $activity = Activity::findOrFail($id);
-        $activities = Activity::where('status', 1)->with(['createdBy', 'updatedBy'])->paginate(20);
+        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
+        //dd($activity);
 
         return view('backend.pages.activity.show',
             compact(
                 'commons',
                 'activity',
-                            'activities'
             )
         );
     }
@@ -224,7 +220,7 @@ class ActivityController extends Controller
         if ($request->input('activity_id') == $activity->id && $request->input('number_of_trainees') == $activity->number_of_trainees){
             for ($i = 1; $i <= $activity->number_of_trainees; $i++){
 
-                for ($j = 1; $j <= $activity_duration - 1; $j++){
+                for ($j = 1; $j <= $activity_duration; $j++){
                     $attendance[] = [
                         'day_'.$j => $request->input('trainee_'.$i.'_day_'.$j.'_attend'),
                     ];
@@ -250,9 +246,10 @@ class ActivityController extends Controller
                 $trainee->created_at = Carbon::now();
                 $trainee->created_by = Auth::user()->id;
 
-                //dd($trainee);
+                //dd($attendance);
 
                 $trainee->save();
+                $attendance = null;
             }
 
             return redirect()
