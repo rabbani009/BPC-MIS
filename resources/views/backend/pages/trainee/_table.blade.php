@@ -16,7 +16,7 @@
                         <th style="width: 10px">#</th>
                         <th>Council</th>
                         <th>Association</th>
-                        <th class="_custom_actions">Trainer Details</th>
+                        <th class="_custom_actions">trainee Details</th>
                         <th>Status</th>
                         <th>Created At</th>
                         <th>Created By</th>
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($trainers as $row)
+                @foreach($trainees as $row)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->getCouncil->name ?? 'None' }}</td>
@@ -34,7 +34,6 @@
                         <td class="_custom_actions">
                             <div class="card text-center p-1">
                                 <h5 class="">{{ $row->name }}</h5>
-                                <h6 class="">{{ implode(', ', $row->area_of_expertise) }}</h6>
                                 <span>{{ $row->mobile }}</span>
                                 <span>{{ $row->email }}</span>
                                 <span>{{ $row->gender }}</span>
@@ -54,13 +53,13 @@
                         <td>{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
                         <td class="custom_actions">
                             <div class="btn-group">
-                                <a href="{!! route('trainer.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                <a href="{!! route('trainee.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{!! route('trainer.edit', $row->id) !!}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
+                                <a href="{!! route('trainee.edit', $row->id) !!}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <form method="post" class="list_delete_form" action="{!! route('trainer.destroy', $row->id) !!}" accept-charset="UTF-8" >
+                                <form method="post" class="list_delete_form" action="{!! route('trainee.destroy', $row->id) !!}" accept-charset="UTF-8" >
                                     {!! csrf_field() !!}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-flat btn-outline-danger btn-sm" data-toggle="tooltip" title="Delete">
@@ -77,7 +76,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-            {!! $trainers->withQueryString()->links('pagination::bootstrap-5') !!}
+            {!! $trainees->withQueryString()->links('pagination::bootstrap-5') !!}
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
@@ -41,11 +42,16 @@ class AjaxController extends Controller
         $trainers = Trainer::where('association', $request->association_id)
             ->get();
 
-
-
-
-
-
         return view('backend.pages.ajax_blades.trainers', compact('trainers', 'old_trainers'));
     }
+
+    public function getActivitiesByCouncilAndAssociation(Request $request){
+        //dd('Council: '.$request->council_id.' Association: '.$request->association_id);
+        $activities = Activity::where('council', $request->council_id)->where('association', $request->association_id)
+            ->get();
+
+        return view('backend.pages.ajax_blades.activities', compact('activities'));
+    }
+
+
 }

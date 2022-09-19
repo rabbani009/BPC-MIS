@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TraineeStoreRequest;
+use App\Models\Activity;
+use App\Models\Association;
+use App\Models\Council;
+use App\Models\Trainee;
 use Illuminate\Http\Request;
 
 class TraineeController extends Controller
@@ -14,17 +19,17 @@ class TraineeController extends Controller
      */
     public function index()
     {
-        $commons['page_title'] = 'Trainer';
-        $commons['content_title'] = 'List of All Trainer';
-        $commons['main_menu'] = 'trainer';
-        $commons['current_menu'] = 'trainer_index';
+        $commons['page_title'] = 'Trainee';
+        $commons['content_title'] = 'List of All Trainee';
+        $commons['main_menu'] = 'trainee';
+        $commons['current_menu'] = 'trainee_index';
 
-        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
-        return view('backend.pages.trainer.index',
+        return view('backend.pages.trainee.index',
             compact(
                 'commons',
-                'trainers'
+                'trainees'
             )
         );
     }
@@ -36,22 +41,23 @@ class TraineeController extends Controller
      */
     public function create()
     {
-        $commons['page_title'] = 'Trainer';
-        $commons['content_title'] = 'Add new Trainer';
-        $commons['main_menu'] = 'trainer';
-        $commons['current_menu'] = 'trainer_create';
+        $commons['page_title'] = 'Trainee';
+        $commons['content_title'] = 'Add new Trainee';
+        $commons['main_menu'] = 'trainee';
+        $commons['current_menu'] = 'trainee_create';
 
         $councils = Council::where('status', 1)->get();
         $associations = Association::where('status', 1)->get();
+        $activities = Activity::where('status', 1)->get();
 
-        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
-        return view('backend.pages.trainer.create',
+        return view('backend.pages.trainee.create',
             compact(
                 'commons',
                 'councils',
                 'associations',
-                'trainers'
+                'trainees'
             )
         );
     }
@@ -62,30 +68,30 @@ class TraineeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TrainerStoreRequest $request)
+    public function store(TraineeStoreRequest $request)
     {
-        $trainer = new Trainer();
-        $trainer->council = $request->validated('council');
-        $trainer->association = $request->validated('association');
-        $trainer->name = $request->validated('trainer_name');
-        $trainer->email = $request->validated('email');
-        $trainer->mobile = $request->validated('mobile');
-        $trainer->gender = $request->validated('gender');
-        $trainer->area_of_expertise = $request->validated('area_of_expertise');
-        $trainer->status = 1;
-        $trainer->created_at = Carbon::now();
-        $trainer->created_by = Auth::user()->id;
-        $trainer->save();
+        $trainee = new Trainee();
+        $trainee->council = $request->validated('council');
+        $trainee->association = $request->validated('association');
+        $trainee->name = $request->validated('Trainee_name');
+        $trainee->email = $request->validated('email');
+        $trainee->mobile = $request->validated('mobile');
+        $trainee->gender = $request->validated('gender');
+        $trainee->area_of_expertise = $request->validated('area_of_expertise');
+        $trainee->status = 1;
+        $trainee->created_at = Carbon::now();
+        $trainee->created_by = Auth::user()->id;
+        $trainee->save();
 
-        if ($trainer->wasRecentlyCreated){
+        if ($trainee->wasRecentlyCreated){
             return redirect()
-                ->route('trainer.index')
-                ->with('success', 'Trainer created successfully!');
+                ->route('Trainee.index')
+                ->with('success', 'Trainee created successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'Trainer cannot be created!');
+            ->with('failed', 'Trainee cannot be created!');
 
     }
 
@@ -97,19 +103,19 @@ class TraineeController extends Controller
      */
     public function show($id)
     {
-        $commons['page_title'] = 'Trainer';
-        $commons['content_title'] = 'Show Trainer';
-        $commons['main_menu'] = 'trainer';
-        $commons['current_menu'] = 'trainer_create';
+        $commons['page_title'] = 'Trainee';
+        $commons['content_title'] = 'Show Trainee';
+        $commons['main_menu'] = 'Trainee';
+        $commons['current_menu'] = 'Trainee_create';
 
-        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
-        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainee = Trainee::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
-        return view('backend.pages.trainer.show',
+        return view('backend.pages.Trainee.show',
             compact(
                 'commons',
-                'trainer',
-                'trainers'
+                'Trainee',
+                'Trainees'
             )
         );
     }
@@ -122,22 +128,22 @@ class TraineeController extends Controller
      */
     public function edit($id)
     {
-        $commons['page_title'] = 'Trainer';
-        $commons['content_title'] = 'Edit Trainer';
-        $commons['main_menu'] = 'trainer';
-        $commons['current_menu'] = 'trainer_create';
+        $commons['page_title'] = 'Trainee';
+        $commons['content_title'] = 'Edit Trainee';
+        $commons['main_menu'] = 'Trainee';
+        $commons['current_menu'] = 'Trainee_create';
 
         $councils = Council::where('status', 1)->get();
 
-        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainee = Trainee::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
 
-        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
-        return view('backend.pages.trainer.edit',
+        return view('backend.pages.Trainee.edit',
             compact(
                 'commons',
-                'trainer',
-                'trainers',
+                'Trainee',
+                'Trainees',
                 'councils'
             )
         );
@@ -150,31 +156,31 @@ class TraineeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TrainerUpdateRequest $request, $id)
+    public function update(TraineeUpdateRequest $request, $id)
     {
-        $trainer = Trainer::findOrFail($id);
-        //dd($trainer);
-        $trainer->council = $request->validated('council');
-        $trainer->association = $request->validated('association');
-        $trainer->name = $request->validated('trainer_name');
-        $trainer->email = $request->validated('email');
-        $trainer->mobile = $request->validated('mobile');
-        $trainer->gender = $request->validated('gender');
-        $trainer->area_of_expertise = $request->validated('area_of_expertise');
-        $trainer->status = $request->validated('status');
-        $trainer->updated_at = Carbon::now();
-        $trainer->updated_by = Auth::user()->id;
-        $trainer->save();
+        $trainee = Trainee::findOrFail($id);
+        //dd($trainee);
+        $trainee->council = $request->validated('council');
+        $trainee->association = $request->validated('association');
+        $trainee->name = $request->validated('Trainee_name');
+        $trainee->email = $request->validated('email');
+        $trainee->mobile = $request->validated('mobile');
+        $trainee->gender = $request->validated('gender');
+        $trainee->area_of_expertise = $request->validated('area_of_expertise');
+        $trainee->status = $request->validated('status');
+        $trainee->updated_at = Carbon::now();
+        $trainee->updated_by = Auth::user()->id;
+        $trainee->save();
 
-        if ($trainer->getChanges()){
+        if ($trainee->getChanges()){
             return redirect()
-                ->route('trainer.index')
-                ->with('success', 'Trainer updated successfully!');
+                ->route('Trainee.index')
+                ->with('success', 'Trainee updated successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'Trainer cannot be updated!');
+            ->with('failed', 'Trainee cannot be updated!');
     }
 
     /**
@@ -186,29 +192,29 @@ class TraineeController extends Controller
     public function destroy($id)
     {
         dd($id);
-        $trainer_has_activities = Activity::all();
+        $trainee_has_activities = Activity::all();
 
-        if($trainer_has_association){
+        if($trainee_has_association){
             return redirect()
                 ->back()
-                ->with('failed', 'trainer cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
+                ->with('failed', 'Trainee cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
         }
 
-        $trainer = trainer::findOrFail($id);
-        $trainer->status = 0;
-        $trainer->deleted_at = Carbon::now();
-        $trainer->deleted_by = Auth::user()->id;
-        $trainer->save();
+        $trainee = Trainee::findOrFail($id);
+        $trainee->status = 0;
+        $trainee->deleted_at = Carbon::now();
+        $trainee->deleted_by = Auth::user()->id;
+        $trainee->save();
 
-        if ($trainer->getChanges()){
+        if ($trainee->getChanges()){
             return redirect()
-                ->route('trainer.index')
-                ->with('success', 'trainer deleted successfully!');
+                ->route('Trainee.index')
+                ->with('success', 'Trainee deleted successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'trainer cannot be deleted!');
+            ->with('failed', 'Trainee cannot be deleted!');
 
     }
 }

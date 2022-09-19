@@ -149,13 +149,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('trainee.create') }}" class="nav-link  @if($commons['current_menu'] == 'trainee_index') active @endif">
+                        <a href="{{ route('trainee.create') }}" class="nav-link  @if($commons['current_menu'] == 'trainee_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('trainee.create') }}" class="nav-link  @if($commons['current_menu'] == 'trainee_index') active @endif">
+                        <a href="{{ route('trainee.index') }}" class="nav-link  @if($commons['current_menu'] == 'trainee_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>
