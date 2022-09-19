@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,5 +37,25 @@ class Trainee extends Model
     public function getAttendanceAttribute($value)
     {
         return json_decode($value, true);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
+
+    public function getCouncil()
+    {
+        return $this->belongsTo(Council::class, 'council');
+    }
+
+    public function getAssociation()
+    {
+        return $this->belongsTo(Association::class, 'association');
     }
 }
