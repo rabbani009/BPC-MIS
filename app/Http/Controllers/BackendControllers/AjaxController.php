@@ -40,15 +40,18 @@ class AjaxController extends Controller
     public function getTrainersByAssociation(Request $request){
         //dd('Council: '.$request->council_id.' Association: '.$request->association_id);
         $trainers = Trainer::where('association', $request->association_id)
+            ->where('status', 1)
             ->get();
 
-        return view('backend.pages.ajax_blades.trainers', compact('trainers', 'old_trainers'));
+        return view('backend.pages.ajax_blades.trainers', compact('trainers'));
     }
 
     public function getActivitiesByCouncilAndAssociation(Request $request){
-        //dd('Council: '.$request->council_id.' Association: '.$request->association_id);
-        $activities = Activity::where('council', $request->council_id)->where('association', $request->association_id)
-            ->get();
+        $activities = Activity::where('association', $request->association_id)
+            ->where('status', 1)
+            ->pluck('name', 'id');
+
+        //dd($activities);
 
         return view('backend.pages.ajax_blades.activities', compact('activities'));
     }

@@ -46,9 +46,9 @@ class TraineeController extends Controller
         $commons['main_menu'] = 'trainee';
         $commons['current_menu'] = 'trainee_create';
 
-        $councils = Council::where('status', 1)->get();
-        $associations = Association::where('status', 1)->get();
-        $activities = Activity::where('status', 1)->get();
+        $councils = Council::select('name', 'id')->where('status', 1)->get();
+        $associations = Association::select('name', 'id')->where('status', 1)->get();
+        $activities = Activity::select('activity_title', 'id')->where('status', 1)->get();
 
         $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
@@ -57,7 +57,8 @@ class TraineeController extends Controller
                 'commons',
                 'councils',
                 'associations',
-                'trainees'
+                'trainees',
+                'activities'
             )
         );
     }
