@@ -15,9 +15,24 @@ return new class extends Migration
     {
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug');
-            $table->text('description')->nullable();
+            $table->unsignedTinyInteger('council');
+            $table->unsignedInteger('association');
+            $table->unsignedTinyInteger('program');
+
+            $table->string('activity_title');
+            $table->boolean('remarks')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->string('venue')->nullable();
+            $table->string('number_of_trainers')->nullable();
+            $table->text('trainers')->nullable();
+            $table->string('number_of_trainees')->nullable();
+            $table->text('trainees')->nullable();
+
+            $table->string('source_of_fund')->nullable();
+            $table->string('budget_as_per_contract')->nullable();
+            $table->string('actual_budget_as_per_expenditure')->nullable();
+            $table->string('actual_expenditure_as_per_actual_budget')->nullable();
 
             $table->unsignedTinyInteger('status')->comment('0=Inactive,1=Active')->default(1);
 

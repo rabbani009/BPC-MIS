@@ -25,7 +25,7 @@
             </div>
 
             <div class="card-body">
-                <table class="table table-striped table-responsive">
+                <table class="table table-striped table-bordered">
                     <tr>
                         <td colspan="5"><strong>Activity Title: </strong>{{ $activity->activity_title }}</td>
                     </tr>
@@ -53,48 +53,13 @@
                     <tr>
                         <td colspan="5" class="text-center">
                             <span>
-                                Here are ({{$activity->number_of_trainees}}) of trainees information
+                                Please use below form to insert trainees ({{$activity->number_of_trainees}}) information
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="5">
-                            <table class="table table-striped table-responsive">
-                                <tr>
-                                    <th style="width: 5%">SN.</th>
-                                    <th>Trainee Info</th>
-                                    <th>Attendance Status</th>
-                                </tr>
-                                @if($activity->getTrainees)
-                                    @foreach($activity->getTrainees as $trainee)
-                                    <tr>
-                                        <td style="width: 5%">{{$loop->iteration}}.</td>
-                                        <td>
-                                            <p><strong>Name: </strong>{{$trainee->name}}</p>
-                                            <p><strong>Age: </strong>{{$trainee->age}}</p>
-                                            <p><strong>Gender: </strong>{{$trainee->gender}}</p>
-                                            <p><strong>Qualification: </strong>{{$trainee->qualification}}</p>
-                                            <p><strong>Organization: </strong>{{$trainee->organization}}</p>
-                                            <p><strong>Designation: </strong>{{$trainee->designation}}</p>
-                                            <p><strong>Phone: </strong>{{$trainee->phone}}</p>
-                                            <p><strong>Email: </strong>{{$trainee->email}}</p>
-                                            <p><strong>Covid Status: </strong>{{$trainee->covid_status}}</p>
-                                        </td>
-                                        <td>
-                                           @foreach($trainee->attendance as $attendance)
-                                               <p>
-                                                   {{ $attendance['day'] }}:
-                                                   <span class="badge {{ $attendance['status'] == 1 ? 'badge-success' : 'badge-danger' }}">
-                                                   {{ $attendance['status'] == 1 ? 'Present' : 'Not Present' }}
-                                                   </span>
-                                               </p>
-                                            @endforeach
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                @endif
-
-                            </table>
+                            @include('backend.pages.activity.trainee_form')
                         </td>
                     </tr>
                 </table>

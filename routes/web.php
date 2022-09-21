@@ -56,6 +56,8 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
 
     Route::resource('activity', ActivityController::class);
+    Route::get('activity-console/{activity?}', [ActivityController::class, 'getActivityConsole'])->name('get.activity.console');
+    Route::patch('activity-console/{activity}', [ActivityController::class, 'patchActivityConsole'])->name('patch.activity.console');
 
     Route::resource('council', CouncilController::class);
     Route::resource('association', AssociationController::class);
@@ -73,6 +75,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
         Route::post('get-associations-by-council', [AjaxController::class, 'getAssociationsByCouncil'])->name('get-associations-by-council');
         Route::post('get-trainers-by-council-and-association', [AjaxController::class, 'getTrainersByCouncilAndAssociation'])->name('get-trainers-by-council-and-association');
         Route::post('get-trainers-by-association', [AjaxController::class, 'getTrainersByAssociation'])->name('get-trainers-by-association');
+        Route::post('get-activities-by-council-and-association', [AjaxController::class, 'getActivitiesByCouncilAndAssociation'])->name('get-activities-by-council-and-association');
     });
 
 });

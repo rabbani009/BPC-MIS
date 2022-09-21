@@ -9,6 +9,7 @@
     padding-right: 0.5rem !important;
     background-color: #ffffec;
 }
+
 .custom_actions .btn-group .btn{
     margin-left: 1px;
     margin-right: 1px;
@@ -52,6 +53,8 @@
     transition: .3s all ease;
     background-color: rgba(255, 255, 255, .5)!important;
 }
+
+
 .select2-container .select2-selection--single{
     height: 38px !important;
     padding-left: 0px;
@@ -72,3 +75,15 @@
     width: max-content !important;
     min-height: 24px;
 }
+
+._custom_actions blockquote {
+    margin: 0;
+}
+.actions_group{
+    background-color: #ffffec;
+    text-align: center;
+}
+.custom_margin{
+    margin-bottom: 2px;
+}
+

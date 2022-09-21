@@ -20,6 +20,8 @@ class HomeController extends Controller
 //        }
 //        dd($routes);
 
+        return view('frontend');
+
         return 'hi';
     }
 }
