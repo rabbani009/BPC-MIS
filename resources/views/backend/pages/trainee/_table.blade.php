@@ -16,6 +16,7 @@
                         <th style="width: 10px">#</th>
                         <th>Council</th>
                         <th>Association</th>
+                        <th>Program</th>
                         <th class="_custom_actions">trainee Details</th>
                         <th>Status</th>
                         <th>Created At</th>
@@ -29,8 +30,9 @@
                 @foreach($trainees as $row)
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
-                        <td>{{ $row->getCouncil->name ?? 'None' }}</td>
-                        <td>{{ $row->getAssociation->name ?? 'None' }}</td>
+                        <td>{{ $row->getActivity->getCouncil->name ?? 'None' }}</td>
+                        <td>{{ $row->getActivity->getAssociation->name ?? 'None' }}</td>
+                        <td>{{ $row->getActivity->getProgram->name ?? 'None' }}</td>
                         <td class="_custom_actions">
                             <div class="card text-center p-1">
                                 <h5 class="">{{ $row->name }}</h5>

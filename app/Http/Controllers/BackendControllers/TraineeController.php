@@ -24,7 +24,8 @@ class TraineeController extends Controller
         $commons['main_menu'] = 'trainee';
         $commons['current_menu'] = 'trainee_index';
 
-        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->with(['getActivity', 'createdBy', 'updatedBy'])->paginate(20);
+        //dd($trainees);
 
         return view('backend.pages.trainee.index',
             compact(

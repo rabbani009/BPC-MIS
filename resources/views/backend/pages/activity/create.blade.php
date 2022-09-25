@@ -42,15 +42,14 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div id="association_block">
-                                    <div class="form-group  @if ($errors->has('association')) has-error @endif">
-                                        <label class="control-label">Association *</label>
+                                <div class="form-group  @if ($errors->has('association')) has-error @endif">
+                                    <label class="control-label">Association *</label>
+                                    <div id="association_block">
                                         {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
-
-                                        @if($errors->has('association'))
-                                            <span class="error invalid-feedback"> {!! $errors->first('association') !!} </span>
-                                        @endif
                                     </div>
+                                    @if($errors->has('association'))
+                                        <span class="error invalid-feedback"> {{ $errors->first('association') }} </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-3">

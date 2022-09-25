@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    @include('backend.pages.trainer._table')
+    @include('backend.pages.trainee._table')
 @endsection
 
 
