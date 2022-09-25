@@ -58,7 +58,7 @@
                                     <div class="form-group  @if ($errors->has('activity')) has-error @endif">
                                         <label class="control-label">Activity *</label>
                                         <div id="activity_block">
-                                            {{ Form::select('activity', $activities, old('activity')?old('activity'):null, ['id="activity", class="form-control select2"']) }}
+                                            {{ Form::select('activity', $activities, old('activity') ? old('activity') : null, ['id="activity", class="form-control select2"']) }}
                                         </div>
                                         @if($errors->has('activity'))
                                             <span class="error invalid-feedback"> {{ $errors->first('activity') }} </span>
@@ -180,6 +180,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="attendance">Attendance</label>
+                                    <div id="attendance_block">
+                                        <table class="table table-bordered text-center">
+                                            @php($activity_duration = 5)
+                                            @if($activity_duration > 0)
+                                                <tr>
+                                                    <!-- in this loop -1 for get the exact days from activity duration-->
+                                                    @for($j = 1; $j <= ($activity_duration); $j++)
+                                                        <th>Day {{$j}}</th>
+                                                    @endfor
+                                                </tr>
+                                                <tr>
+                                                    <!-- in this loop -1 for get the exact days from activity duration-->
+                                                    @for($j = 1; $j <= ($activity_duration); $j++)
+                                                        <td>
+                                                            <input type="checkbox" id="day_{{$j}}_attend" name="day_{{$j}}_attend" value="1" {{ $j == 1 ? 'checked' : ''  }}>
+                                                            <label for="day_{{$j}}_attend"> Attended</label><br>
+                                                        </td>
+                                                    @endfor
+                                                </tr>
+                                            @endif
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -252,6 +279,23 @@
                                     }
                                 });
                             });
+
+                            // get number of program days against acticvity
+                            $('#activity').on('change', function (e) {
+                                e.preventDefault();
+                                $.ajax({
+                                    type:'POST',
+                                    url:"{{ route('ajax.get-activities-by-council-and-association') }}",
+                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                                    data: {association_activity: $('#activity').val()},
+                                    success:function(html){
+                                        $("#activity_block").html(html);
+                                        $('#activity').select2({
+                                            placeholder: "Click to select Activity",
+                                        });
+                                    }
+                                });
+                            });
                         }
                     });
                 }
@@ -260,7 +304,6 @@
 
         ///Event 1.
         $('#council').on('change', function (e) {
-            alert('1');
             e.preventDefault();
             ///event 1. > ajax 1.
             $.ajax({
@@ -286,6 +329,7 @@
                 }
             });
         });
+
         ///event 1. > ajax 3.
         $('#association').on('change', function (e) {
             e.preventDefault();
@@ -295,7 +339,6 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
                 data: {association_id: $('#association').val()},
                 success:function(html){
-                    alert('hi');
                     $("#activity_block").html(html);
                     $('#activity').select2({
                         placeholder: "Click to select Activity",
@@ -303,8 +346,6 @@
                 }
             });
         });
-        $(document).on("change", "#association" , function() {
-            console.log('clicked');
-        });
+
     </script>
 @endsection

@@ -8,6 +8,7 @@ use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Council;
 use App\Models\Trainee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TraineeController extends Controller
@@ -24,7 +25,10 @@ class TraineeController extends Controller
         $commons['main_menu'] = 'trainee';
         $commons['current_menu'] = 'trainee_index';
 
-        $trainees = Trainee::where('status', 1)->with(['getActivity', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)
+            ->with(['getActivity', 'createdBy', 'updatedBy'])
+            ->latest()
+            ->paginate(20);
         //dd($trainees);
 
         return view('backend.pages.trainee.index',
@@ -51,7 +55,7 @@ class TraineeController extends Controller
         $associations = Association::select('name', 'id')->where('status', 1)->get();
         $activities = Activity::select('activity_title', 'id')->where('status', 1)->get();
 
-        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->with(['getActivity', 'createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.trainee.create',
             compact(

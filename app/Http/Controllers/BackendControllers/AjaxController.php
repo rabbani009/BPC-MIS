@@ -49,7 +49,7 @@ class AjaxController extends Controller
     public function getActivitiesByCouncilAndAssociation(Request $request){
         $activities = Activity::where('association', $request->association_id)
             ->where('status', 1)
-            ->pluck('name', 'id');
+            ->pluck('activity_title', 'id');
 
         //dd($activities);
 

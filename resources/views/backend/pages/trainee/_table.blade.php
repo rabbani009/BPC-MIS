@@ -33,6 +33,7 @@
                         <td>{{ $row->getActivity->getCouncil->name ?? 'None' }}</td>
                         <td>{{ $row->getActivity->getAssociation->name ?? 'None' }}</td>
                         <td>{{ $row->getActivity->getProgram->name ?? 'None' }}</td>
+                        <td>{{ $row->getActivity->activity_title ?? 'None' }}</td>
                         <td class="_custom_actions">
                             <div class="card text-center p-1">
                                 <h5 class="">{{ $row->name }}</h5>
