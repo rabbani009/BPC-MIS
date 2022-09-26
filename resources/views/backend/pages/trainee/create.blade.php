@@ -234,11 +234,14 @@
     <script>
         /// Event loading...
         $( document ).ready(function() {
-            $('#council').select2();
-            $('#association').select2();
-
+            $('#council').select2({
+                placeholder: "Click to select council",
+            });
+            $('#association').select2({
+                placeholder: "Click to select association",
+            });
             $('#activity').select2({
-                placeholder: "Click to select Activity",
+                placeholder: "Click to select activity",
             });
 
             /// on load ajax 1.
@@ -262,7 +265,7 @@
                             $('#activity').select2({
                                 placeholder: "Click to select Activity",
                             });
-
+                            alert('1')
                             /// on load ajax 3.
                             $('#association').on('change', function (e) {
                                 e.preventDefault();
@@ -276,26 +279,29 @@
                                         $('#activity').select2({
                                             placeholder: "Click to select Activity",
                                         });
-                                    }
-                                });
-                            });
-
-                            // get number of program days against acticvity
-                            $('#activity').on('change', function (e) {
-                                e.preventDefault();
-                                $.ajax({
-                                    type:'POST',
-                                    url:"{{ route('ajax.get-activities-by-council-and-association') }}",
-                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                                    data: {association_activity: $('#activity').val()},
-                                    success:function(html){
-                                        $("#activity_block").html(html);
-                                        $('#activity').select2({
-                                            placeholder: "Click to select Activity",
+                                        alert('2')
+                                        // get number of program days against acticvity
+                                        $('#activity').on('change', function (e) {
+                                            alert('onload')
+                                            e.preventDefault();
+                                            $.ajax({
+                                                type:'POST',
+                                                url:"{{ route('ajax.get-activities-by-council-and-association') }}",
+                                                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                                                data: {activity_id: $('#activity').val()},
+                                                success:function(html){
+                                                    $("#activity_block").html(html);
+                                                    $('#activity').select2({
+                                                        placeholder: "Click to select Activity",
+                                                    });
+                                                }
+                                            });
                                         });
                                     }
                                 });
                             });
+
+
                         }
                     });
                 }
@@ -338,6 +344,23 @@
                 url:"{{ route('ajax.get-activities-by-council-and-association') }}",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
                 data: {association_id: $('#association').val()},
+                success:function(html){
+                    $("#activity_block").html(html);
+                    $('#activity').select2({
+                        placeholder: "Click to select Activity",
+                    });
+                }
+            });
+        });
+
+        $('#activity').on('load', function (e) {
+            alert('onload')
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:"{{ route('ajax.get-activities-by-council-and-association') }}",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                data: {activity_id: $('#activity').val()},
                 success:function(html){
                     $("#activity_block").html(html);
                     $('#activity').select2({
