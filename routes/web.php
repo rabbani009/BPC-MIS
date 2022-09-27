@@ -76,6 +76,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
         Route::post('get-trainers-by-council-and-association', [AjaxController::class, 'getTrainersByCouncilAndAssociation'])->name('get-trainers-by-council-and-association');
         Route::post('get-trainers-by-association', [AjaxController::class, 'getTrainersByAssociation'])->name('get-trainers-by-association');
         Route::post('get-activities-by-council-and-association', [AjaxController::class, 'getActivitiesByCouncilAndAssociation'])->name('get-activities-by-council-and-association');
+        Route::post('get-days-by-activity', [AjaxController::class, 'getDaysByActivity'])->name('get-days-by-activity');
     });
 
 });

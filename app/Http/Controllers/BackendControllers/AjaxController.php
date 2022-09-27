@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Trainer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -54,6 +55,14 @@ class AjaxController extends Controller
         //dd($activities);
 
         return view('backend.pages.ajax_blades.activities', compact('activities'));
+    }
+
+    public function getDaysByActivity(Request $request){
+        $activity = Activity::findOrFail($request->activity_id);
+
+        $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+
+        return view('backend.pages.ajax_blades.attendance', compact('activity_duration'));
     }
 
 

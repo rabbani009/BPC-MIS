@@ -254,7 +254,7 @@
                     $("#association_block").html(html);
                     $('#association').select2();
 
-                    /// on load ajax 2.
+                    console.log('1')
                     $.ajax({
                         type:'POST',
                         url:"{{ route('ajax.get-activities-by-council-and-association') }}",
@@ -265,40 +265,31 @@
                             $('#activity').select2({
                                 placeholder: "Click to select Activity",
                             });
-                            alert('1')
-                            /// on load ajax 3.
-                            $('#association').on('change', function (e) {
-                                e.preventDefault();
-                                $.ajax({
-                                    type:'POST',
-                                    url:"{{ route('ajax.get-activities-by-council-and-association') }}",
-                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                                    data: {association_id: $('#association').val()},
-                                    success:function(html){
-                                        $("#activity_block").html(html);
-                                        $('#activity').select2({
-                                            placeholder: "Click to select Activity",
-                                        });
-                                        alert('2')
-                                        // get number of program days against acticvity
-                                        $('#activity').on('change', function (e) {
-                                            alert('onload')
-                                            e.preventDefault();
-                                            $.ajax({
-                                                type:'POST',
-                                                url:"{{ route('ajax.get-activities-by-council-and-association') }}",
-                                                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
-                                                data: {activity_id: $('#activity').val()},
-                                                success:function(html){
-                                                    $("#activity_block").html(html);
-                                                    $('#activity').select2({
-                                                        placeholder: "Click to select Activity",
-                                                    });
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
+
+                            console.log('2')
+                            $.ajax({
+                                type:'POST',
+                                url:"{{ route('ajax.get-activities-by-council-and-association') }}",
+                                headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                                data: {association_id: $('#association').val()},
+                                success:function(html){
+                                    $("#activity_block").html(html);
+                                    $('#activity').select2({
+                                        placeholder: "Click to select Activity",
+                                    });
+
+                                    console.log('3')
+                                    $.ajax({
+                                        type:'POST',
+                                        url:"{{ route('ajax.get-days-by-activity') }}",
+                                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')},
+                                        data: {activity_id: $('#activity').val()},
+                                        success:function(html){
+                                            $("#attendance_block").html(html);
+
+                                        }
+                                    });
+                                }
                             });
 
 
@@ -353,8 +344,7 @@
             });
         });
 
-        $('#activity').on('load', function (e) {
-            alert('onload')
+        $('#activity').on('change', function (e) {
             e.preventDefault();
             $.ajax({
                 type:'POST',
