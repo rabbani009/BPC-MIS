@@ -165,7 +165,7 @@
 
             <li class="nav-header">USER MANAGEMENT</li>
             <li class="nav-item @if($commons['main_menu'] == 'profile') menu-open @endif">
-                <a href="#" class="nav-link @if($commons['current_menu'] == 'profile') active @endif">
+                <a href="{!! route('profile.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="nav-link @if($commons['current_menu'] == 'profile') active @endif">
                     <i class="nav-icon fas fa-user"></i>
                     <p>
                         My Profile
