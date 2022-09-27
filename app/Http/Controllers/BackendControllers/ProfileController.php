@@ -127,7 +127,7 @@ class ProfileController extends Controller
 
 		
 
-		return redirect()->route('profile.edit', $data->id);
+		return redirect()->route('profile.show', $data->id)->with('success', 'Profile updated successfully.');;
 
 
 
