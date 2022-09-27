@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\BackendControllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProfileController extends Controller
 {
@@ -14,7 +17,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+      
+
+      
+    
     }
 
     /**
@@ -46,7 +52,24 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+      
+
+        $commons['page_title'] = 'Profile';
+        $commons['content_title'] = 'Profile';
+        $commons['main_menu'] = 'profile';
+        $commons['current_menu'] = 'profile';
+
+
+        $profile = auth()->user();
+
+        return view('backend.pages.profile.show',compact('profile','commons'));
+
+
+
+
+
+
+
     }
 
     /**
@@ -57,7 +80,23 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+       
+        $commons['page_title'] = 'Profile';
+        $commons['content_title'] = 'Edit Profile';
+        $commons['main_menu'] = 'profile';
+        $commons['current_menu'] = 'profile';
+
+        $id = Auth::user()->id;
+        $editData = User::find($id);
+        return view('backend.pages.profile.edit',compact('editData','commons'));
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -67,9 +106,32 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        
+
+        $data = User::find(Auth::user()->id);
+		$data->name = $request->name;
+		$data->email = $request->email;
+		
+ 
+
+		if ($request->file('profile_image')) {
+			$file = $request->file('profile_image');
+			@unlink(public_path('upload/profile_images/'.$data->profile_image));
+			$filename = date('YmdHi').$file->getClientOriginalName();
+			$file->move(public_path('upload/profile_images'),$filename);
+			$data['profile_image'] = $filename;
+		}
+		$data->save();
+
+		
+
+		return redirect()->route('profile.edit', $data->id);
+
+
+
+
     }
 
     /**

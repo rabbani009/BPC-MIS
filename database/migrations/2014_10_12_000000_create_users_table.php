@@ -17,6 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('profile_image')->nullable();
+        
             $table->string('password');
 
             $table->enum('user_type', ['system', 'bpc', 'council', 'association'])->default('system');
