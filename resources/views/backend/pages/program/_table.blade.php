@@ -10,16 +10,14 @@
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table table-responsive-md">
+            <table class="table table-responsive-md table-responsive-lg table-responsive-sm text-center">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Name</th>
-                        <th>Status</th>
-                        <th>Created At</th>
-                        <th>Created By</th>
-                        <th>Updated At</th>
-                        <th>Updated By</th>
+
+                        @include('backend.pages.commons.timestamps_th')
+
                         <th class="custom_actions">Actions</th>
                     </tr>
                 </thead>
@@ -28,17 +26,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->name }}</td>
-                        <td>
-                            @if($row->status == 1)
-                                <span class="right badge badge-success">Active</span>
-                            @else
-                                <span class="right badge badge-danger">Inactive</span>
-                            @endif
-                        </td>
-                        <td>{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
+                        @include('backend.pages.commons.timestamps_td')
                         <td class="custom_actions">
                             <div class="btn-group">
                                 <a href="{!! route('program.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">

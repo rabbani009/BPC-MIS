@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +15,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $commons['page_title'] = 'User';
+        $commons['content_title'] = 'List of All User';
+        $commons['main_menu'] = 'user';
+        $commons['current_menu'] = 'user_index';
+
+        $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
+
+        return view('backend.pages.user.index', compact('commons', 'users'));
     }
 
     /**

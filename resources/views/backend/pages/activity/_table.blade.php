@@ -10,7 +10,7 @@
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table table-responsive">
+            <table class="table table-responsive text-center">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
@@ -33,13 +33,9 @@
                         <th>Actual budget as per expenditure</th>
                         <th>Actual expenditure as per actual budget</th>
 
-                        <th class="actions_group">Status</th>
-                        <th class="actions_group">Created At</th>
-                        <th class="actions_group">Created By</th>
-                        <th class="actions_group">Updated At</th>
-                        <th class="actions_group">Updated By</th>
-                        <th class="custom_actions">Actions</th>
+                        @include('backend.pages.commons.timestamps_th')
 
+                        <th class="custom_actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,18 +61,8 @@
                         <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
                         <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
 
+                        @include('backend.pages.commons.timestamps_td')
 
-                        <td class="actions_group">
-                            @if($row->status == 1)
-                                <span class="right badge badge-success">Active</span>
-                            @else
-                                <span class="right badge badge-danger">Inactive</span>
-                            @endif
-                        </td>
-                        <td class="actions_group">{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
-                        <td class="actions_group">{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
-                        <td class="actions_group">{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
-                        <td class="actions_group">{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
                         <td class="custom_actions">
                             <div class="btn-group">
                                 <a href="{!! route('activity.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">

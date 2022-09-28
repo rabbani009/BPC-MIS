@@ -25,7 +25,7 @@
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
                 <li class="user-header bg-primary">
-                    <img src="{{ asset('upload/profile_images/'. auth()->user()->profile_image) }}" height="160px" width="160px" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('Custom/img/no_image.jpg') }}" height="160px" width="160px" class="img-circle elevation-2" alt="User Image">
                     <p>
                         {{ auth()->user()->name }} - {{ auth()->user()->role->name }}
                         <small>Member since {{ auth()->user()->created_at }}</small>

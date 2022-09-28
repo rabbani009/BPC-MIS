@@ -30,7 +30,7 @@ class TraineeController extends Controller
         $trainees = Trainee::where('status', 1)
             ->with(['getActivity', 'createdBy', 'updatedBy'])
             ->latest()
-            ->paginate(20);
+            ->paginate(50);
         //dd($trainees);
 
         return view('backend.pages.trainee.index',

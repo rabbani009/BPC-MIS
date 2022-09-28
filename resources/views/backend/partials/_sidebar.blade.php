@@ -165,15 +165,15 @@
 
             <li class="nav-header">USER MANAGEMENT</li>
             <li class="nav-item @if($commons['main_menu'] == 'profile') menu-open @endif">
-                <a href="{!! route('profile.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="nav-link @if($commons['current_menu'] == 'profile') active @endif">
+                <a href="{!! route('profile.show', auth()->user()->id) !!}" class="nav-link @if($commons['current_menu'] == 'profile') active @endif">
                     <i class="nav-icon fas fa-user"></i>
                     <p>
                         My Profile
                     </p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li class="nav-item @if($commons['main_menu'] == 'user') menu-open @endif">
+                <a href="#" class="nav-link @if($commons['main_menu'] == 'user') active @endif">
                     <i class="nav-icon fas fa-user-shield"></i>
                     <p>
                         USER
@@ -182,13 +182,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('user.create') }}" class="nav-link @if($commons['current_menu'] == 'user_create') active @endif">
                             <i class="fas fa-plus nav-icon"></i>
                             <p>Add</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('user.index') }}" class="nav-link @if($commons['current_menu'] == 'user_index') active @endif">
                             <i class="fas fa-list nav-icon"></i>
                             <p>List</p>
                         </a>

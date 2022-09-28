@@ -54,6 +54,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function userBelongsToCouncil()
+    {
+        return $this->hasOne('App\Models\Council', 'id');
+    }
+
     public function role()
     {
         return $this->belongsTo('App\Models\Role', 'role_id', 'id');

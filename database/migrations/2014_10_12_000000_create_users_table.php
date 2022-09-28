@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('profile_image')->nullable();
             $table->string('password');
             $table->enum('user_type', ['system', 'bpc', 'council', 'association'])->default('system');
-            $table->unsignedTinyInteger('belongs_to')->default(0)->comment('here the id will be from council or association table');
+            $table->unsignedTinyInteger('belongs_to')->default(0)->comment('0=BPC and 0<1,2,3=Council. User belongs to council except 0');
             $table->unsignedTinyInteger('role_id');
             $table->string('has_permissions')->nullable()->comment('Create,Read,Update,Delete will be the permissions');
             $table->rememberToken();
