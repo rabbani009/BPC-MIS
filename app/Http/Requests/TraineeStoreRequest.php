@@ -24,18 +24,16 @@ class TraineeStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'council' => 'required',
-            'association' => 'required',
             'activity' => 'required',
             'name' => 'required',
-            'age' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'age' => 'nullable',
             'gender' => 'required',
+            'qualification' => 'nullable',
+            'organization' => 'nullable',
+            'designation' => 'nullable',
+            'phone' => 'nullable',
+            'email' => 'nullable',
             'covid_status' => 'required',
-            'qualification' => 'required',
-            'organization' => 'required',
-            'designation' => 'required',
         ];
     }
 }

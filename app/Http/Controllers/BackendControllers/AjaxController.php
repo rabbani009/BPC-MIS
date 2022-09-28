@@ -58,9 +58,14 @@ class AjaxController extends Controller
     }
 
     public function getDaysByActivity(Request $request){
-        $activity = Activity::findOrFail($request->activity_id);
+        if ($request->activity_id == null) {
+            $activity_duration = '';
+        }else{
+            $activity = Activity::find($request->activity_id);
+            $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+        }
 
-        $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+        //dd($activity_duration);
 
         return view('backend.pages.ajax_blades.attendance', compact('activity_duration'));
     }

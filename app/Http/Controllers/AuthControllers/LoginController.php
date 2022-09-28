@@ -10,17 +10,11 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-
+        $this->middleware(['logged']);
     }
 
     /*show login form*/
     public function getLogin(){
-        /*check if user logged in then return to dashboard*/
-//        if(Auth::user()){
-//            return redirect()->route('dashboard')
-//                ->with('warning', 'You are already logged in');
-//        }
-
         $commons['title'] = 'Login';
         $commons['sub_title'] = 'Login';
         $commons['main_menu'] = 'Login';

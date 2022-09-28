@@ -10,19 +10,18 @@
         <!-- /.card-header -->
 
         <div class="card-body p-0">
-            <table class="table table-responsive-md">
+            <table class="table table-responsive text-center">
                 <thead>
                     <tr>
                         <th style="width: 10px">#</th>
                         <th>Council</th>
                         <th>Association</th>
                         <th>Program</th>
-                        <th class="_custom_actions">trainee Details</th>
+                        <th>Activity</th>
+                        <th>Trainers</th>
+                        <th class="_custom_actions">Trainee Details</th>
                         <th>Status</th>
-                        <th>Created At</th>
-                        <th>Created By</th>
-                        <th>Updated At</th>
-                        <th>Updated By</th>
+                        <th>TimeStamps</th>
                         <th class="custom_actions">Actions</th>
                     </tr>
                 </thead>
@@ -34,12 +33,29 @@
                         <td>{{ $row->getActivity->getAssociation->name ?? 'None' }}</td>
                         <td>{{ $row->getActivity->getProgram->name ?? 'None' }}</td>
                         <td>{{ $row->getActivity->activity_title ?? 'None' }}</td>
+                        <td>
+                            @foreach($row->getActivity->getTrainers as $trainer)
+                                <span class="badge badge-info">{{ $trainer->getTrainer->name }}</span>
+                            @endforeach
+                        </td>
                         <td class="_custom_actions">
                             <div class="card text-center p-1">
                                 <h5 class="">{{ $row->name }}</h5>
-                                <span>{{ $row->mobile }}</span>
+                                <span>{{ $row->phone }}</span>
                                 <span>{{ $row->email }}</span>
-                                <span>{{ $row->gender }}</span>
+                                <a class="btn btn-sm btn-outline-primary" data-toggle="collapse" href="#trainee{{$loop->iteration}}details" role="button" aria-expanded="false" aria-controls="trainee{{$loop->iteration}}details">
+                                    More
+                                </a>
+                                <div class="collapse" id="trainee{{$loop->iteration}}details">
+                                    <div class="card card-body">
+                                        <span>{{ $row->gender }}</span>
+                                        <span>{{ $row->qualification }}</span>
+                                        <span>{{ $row->organization }}</span>
+                                        <span>{{ $row->designation }}</span>
+                                        <span>{{ $row->covid_status }}</span>
+                                        <span>{{ json_encode($row->attendance) }}</span>
+                                    </div>
+                                </div>
                             </div>
 
                         </td>
@@ -50,10 +66,20 @@
                                 <span class="right badge badge-danger">Inactive</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</td>
-                        <td>{{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</td>
-                        <td>{{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" data-toggle="collapse" href="#timestamps{{$loop->iteration}}details" role="button" aria-expanded="false" aria-controls="trainee{{$loop->iteration}}details">
+                                Show
+                            </a>
+                            <div class="collapse" id="timestamps{{$loop->iteration}}details">
+                                <div class="card card-body">
+                                    <span>Created At: {{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</span>
+                                    <span>Created By: {{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</span>
+                                    <span>Updated At: {{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</span>
+                                    <span>Updated By: {{ isset($row->updatedBy)? $row->updatedBy->name : 'NA' }}</span>
+                                </div>
+                            </div>
+                        </td>
+
                         <td class="custom_actions">
                             <div class="btn-group">
                                 <a href="{!! route('trainee.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">

@@ -182,28 +182,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <label for="attendance">Attendance</label>
+                                    <label for="attendance">Attendance*</label>
                                     <div id="attendance_block">
-                                        <table class="table table-bordered text-center">
-                                            @php($activity_duration = 5)
-                                            @if($activity_duration > 0)
-                                                <tr>
-                                                    <!-- in this loop -1 for get the exact days from activity duration-->
-                                                    @for($j = 1; $j <= ($activity_duration); $j++)
-                                                        <th>Day {{$j}}</th>
-                                                    @endfor
-                                                </tr>
-                                                <tr>
-                                                    <!-- in this loop -1 for get the exact days from activity duration-->
-                                                    @for($j = 1; $j <= ($activity_duration); $j++)
-                                                        <td>
-                                                            <input type="checkbox" id="day_{{$j}}_attend" name="day_{{$j}}_attend" value="1" {{ $j == 1 ? 'checked' : ''  }}>
-                                                            <label for="day_{{$j}}_attend"> Attended</label><br>
-                                                        </td>
-                                                    @endfor
-                                                </tr>
-                                            @endif
-                                        </table>
+
                                     </div>
                                 </div>
                             </div>
@@ -254,7 +235,6 @@
                     $("#association_block").html(html);
                     $('#association').select2();
 
-                    console.log('1')
                     $.ajax({
                         type:'POST',
                         url:"{{ route('ajax.get-activities-by-council-and-association') }}",
@@ -266,7 +246,6 @@
                                 placeholder: "Click to select Activity",
                             });
 
-                            console.log('2')
                             $.ajax({
                                 type:'POST',
                                 url:"{{ route('ajax.get-activities-by-council-and-association') }}",
@@ -275,10 +254,9 @@
                                 success:function(html){
                                     $("#activity_block").html(html);
                                     $('#activity').select2({
-                                        placeholder: "Click to select Activity",
+                                        placeholder: "No record found",
                                     });
 
-                                    console.log('3')
                                     $.ajax({
                                         type:'POST',
                                         url:"{{ route('ajax.get-days-by-activity') }}",
@@ -286,13 +264,10 @@
                                         data: {activity_id: $('#activity').val()},
                                         success:function(html){
                                             $("#attendance_block").html(html);
-
                                         }
                                     });
                                 }
                             });
-
-
                         }
                     });
                 }

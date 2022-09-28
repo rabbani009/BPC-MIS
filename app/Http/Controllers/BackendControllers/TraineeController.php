@@ -10,6 +10,8 @@ use App\Models\Council;
 use App\Models\Trainee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TraineeController extends Controller
 {
@@ -76,29 +78,60 @@ class TraineeController extends Controller
      */
     public function store(TraineeStoreRequest $request)
     {
-        $trainee = new Trainee();
-        $trainee->council = $request->validated('council');
-        $trainee->association = $request->validated('association');
-        $trainee->name = $request->validated('Trainee_name');
-        $trainee->email = $request->validated('email');
-        $trainee->mobile = $request->validated('mobile');
-        $trainee->gender = $request->validated('gender');
-        $trainee->area_of_expertise = $request->validated('area_of_expertise');
-        $trainee->status = 1;
-        $trainee->created_at = Carbon::now();
-        $trainee->created_by = Auth::user()->id;
-        $trainee->save();
+        //dd($request->all());
+        DB::beginTransaction();
 
-        if ($trainee->wasRecentlyCreated){
+        try {
+            $activity = Activity::find($request->activity);
+            $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+
+            for ($j = 1; $j <= $activity_duration; $j++){
+                $attendance[] = [
+                    'day' => 'Day '.$j,
+                    'status' => $request->input('day_'.$j.'_attend'),
+                ];
+            }
+
+            $trainee = new Trainee();
+            $trainee->activity = $activity->id;
+            $trainee->name = $request->input('name');
+            $trainee->age = $request->input('age');
+            $trainee->gender = $request->input('gender');
+            $trainee->qualification = $request->input('qualification');
+            $trainee->organization = $request->input('organization');
+            $trainee->designation = $request->input('designation');
+            $trainee->phone = $request->input('phone');
+            $trainee->email = $request->input('email');
+            $trainee->covid_status = $request->input('covid_status');
+
+            if ($attendance != null){
+                $trainee->attendance = json_encode($attendance);
+            }else{
+                $attendance = null;
+            }
+
+            $trainee->status = 1;
+            $trainee->created_at = Carbon::now();
+            $trainee->created_by = Auth::user()->id;
+
+            //dd($trainee);
+
+            $trainee->save();
+
+            DB::commit();
+            // all good
+            if ($trainee->wasRecentlyCreated){
+                return redirect()
+                    ->route('trainee.index')
+                    ->with('success', 'Trainee created successfully!');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            // something went wrong
             return redirect()
-                ->route('Trainee.index')
-                ->with('success', 'Trainee created successfully!');
+                ->back()
+                ->with('failed', 'Trainee cannot be created! Due to DB issue');
         }
-
-        return redirect()
-            ->back()
-            ->with('failed', 'Trainee cannot be created!');
-
     }
 
     /**

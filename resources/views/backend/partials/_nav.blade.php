@@ -1,10 +1,3 @@
-@php
-
-    $id = Auth::user()->id;
-    $user = App\Models\User::find($id);
-
-@endphp
-
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
 
     <ul class="navbar-nav align-items-start">
@@ -23,29 +16,29 @@
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle d-flex align-items-center justify-content-center" data-toggle="dropdown">
                 <div class="d-flex flex-column align-items-center pr-2">
-                    <span class="custom_font_size_sm d-none d-md-inline">{{ \Illuminate\Support\Facades\Auth::user()->name }}</span>
+                    <span class="custom_font_size_sm d-none d-md-inline">{{ auth()->user()->name }}</span>
                     <small class="custom_font_size_xs align-self-end">System admin</small>
                 </div>
-                <img src="{{(!empty($user->profile_image))? url('upload/profile_images/'.$user->profile_image):url('upload/no_image.png') }}" height="160px" width="160px" class="user-image img-circle elevation-2 m-0" alt="User Image">
+                <img src="{{ asset('Custom/img/no_image.jpg') }}" class="user-image img-circle elevation-2 m-0" alt="User Image">
 
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
                 <li class="user-header bg-primary">
-                    <img src="{{ asset('upload/profile_images/'. Auth::user()->profile_image) }}" height="160px" width="160px"class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('upload/profile_images/'. auth()->user()->profile_image) }}" height="160px" width="160px" class="img-circle elevation-2" alt="User Image">
                     <p>
-                        {{ \Illuminate\Support\Facades\Auth::user()->name }} - {{ \Illuminate\Support\Facades\Auth::user()->role->name }}
-                        <small>Member since {{ \Illuminate\Support\Facades\Auth::user()->created_at }}</small>
+                        {{ auth()->user()->name }} - {{ auth()->user()->role->name }}
+                        <small>Member since {{ auth()->user()->created_at }}</small>
                     </p>
                 </li>
 
                 <li class="user-footer d-flex justify-content-between">
                     <div class="float-start">
-                        <a href="{!! route('profile.show', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-info rounded-0">Profile</a>
+                        <a href="{{ route('profile.show', auth()->user()->id) }}" class="btn btn-info rounded-0">Profile</a>
                     </div>
                     <div class="float-end">
-                        <form action="{!! route('post.logout') !!}" method="post" id="logout_form">
-                            {!! csrf_field() !!}
+                        <form action="{{ route('post.logout') }}" method="post" id="logout_form">
+                            {{ csrf_field() }}
                             <a href="#" onclick="document.getElementById('logout_form').submit()" class="btn btn-outline-warning rounded-0">Log out</a>
                         </form>
                     </div>

@@ -17,10 +17,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-      
 
-      
-    
+
+
+
     }
 
     /**
@@ -52,24 +52,14 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-      
-
-        $commons['page_title'] = 'Profile';
-        $commons['content_title'] = 'Profile';
+        $commons['page_title'] = 'Profile View';
+        $commons['content_title'] = 'Profile view';
         $commons['main_menu'] = 'profile';
         $commons['current_menu'] = 'profile';
-
 
         $profile = auth()->user();
 
         return view('backend.pages.profile.show',compact('profile','commons'));
-
-
-
-
-
-
-
     }
 
     /**
@@ -80,23 +70,14 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-       
         $commons['page_title'] = 'Profile';
         $commons['content_title'] = 'Edit Profile';
         $commons['main_menu'] = 'profile';
         $commons['current_menu'] = 'profile';
 
-        $id = Auth::user()->id;
-        $editData = User::find($id);
-        return view('backend.pages.profile.edit',compact('editData','commons'));
+        $editData = User::findOrFail($id);
 
-
-
-
-
-
-
-
+        return view('backend.pages.profile.edit', compact('editData','commons'));
     }
 
     /**
@@ -108,29 +89,22 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        
-
         $data = User::find(Auth::user()->id);
 		$data->name = $request->name;
 		$data->email = $request->email;
-		
- 
 
 		if ($request->file('profile_image')) {
 			$file = $request->file('profile_image');
-			@unlink(public_path('upload/profile_images/'.$data->profile_image));
+			@unlink(public_path('uploads/profile_images/'.$data->profile_image));
 			$filename = date('YmdHi').$file->getClientOriginalName();
-			$file->move(public_path('upload/profile_images'),$filename);
+			$file->move(public_path('uploads/profile_images'),$filename);
 			$data['profile_image'] = $filename;
 		}
 		$data->save();
 
-		
-
-		return redirect()->route('profile.show', $data->id)->with('success', 'Profile updated successfully.');;
-
-
-
+		return redirect()
+            ->route('profile.show', $data->id)
+            ->with('success', 'Profile updated successfully.');
 
     }
 
