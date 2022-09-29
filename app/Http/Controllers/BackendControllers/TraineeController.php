@@ -118,6 +118,9 @@ class TraineeController extends Controller
 
             $trainee->save();
 
+            $activity->number_of_trainees =  $activity->number_of_trainees + 1;
+            $activity->save();
+
             DB::commit();
             // all good
             if ($trainee->wasRecentlyCreated){

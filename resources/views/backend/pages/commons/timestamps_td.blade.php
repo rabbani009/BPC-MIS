@@ -6,11 +6,11 @@
     @endif
 </td>
 <td>
-    <a class="btn btn-sm btn-outline-primary" data-toggle="collapse" href="#timestamps{{$loop->iteration}}details" role="button" aria-expanded="false" aria-controls="trainee{{$loop->iteration}}details">
-        Show
-    </a>
+    <button type="button" class="btn btn-flat btn-sm btn-outline-primary custom_btn" data-toggle="collapse" href="#timestamps{{$loop->iteration}}details" role="button" aria-expanded="false" aria-controls="trainee{{$loop->iteration}}details">
+        <i class="fa fas fa-clock pr-2" aria-hidden="true"></i>User
+    </button>
     <div class="collapse" id="timestamps{{$loop->iteration}}details">
-        <div class="card card-body">
+        <div class="card card-body timestamps_collapse_body">
             <span>Created At: {{ \Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</span>
             <span>Created By: {{ isset($row->createdBy)? $row->createdBy->name : 'NA' }}</span>
             <span>Updated At: {{ \Carbon\Carbon::parse($row->updated_at)->diffForHumans() }}</span>
