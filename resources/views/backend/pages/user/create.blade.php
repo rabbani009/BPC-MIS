@@ -53,7 +53,7 @@
                     <div class="container card">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="form-group  @if ($errors->has('association_belongs_to')) has-error @endif">
+                                <div class="form-group  @if ($errors->has('user_type')) has-error @endif">
                                     <label class="control-label">User type*</label>
                                     <select required name="user_type" id="user_type" class="form-control select2 @if($errors->has('user_type')) is-invalid @endif" value="{!! old('user_type') !!}">
                                         @foreach($user_types as $user_type)

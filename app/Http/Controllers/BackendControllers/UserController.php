@@ -46,7 +46,7 @@ class UserController extends Controller
         $user_types = ['bpc', 'council', 'association'];
         $councils = Council::select('name', 'id')->where('status', 1)->get();
         $roles = Role::select('name', 'id')->where('status', 1)->where('slug', '!=', 'system_admin')->get();
-        $permissions = ['create', 'read', 'update', 'delete'];
+        $permissions = ['create'=>'create', 'read'=>'read', 'update'=>'update', 'delete'=>'delete'];
 
         $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
 
