@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'user_type' => 'system',
             'belongs_to' => 0,
             'role_id' => 1,
-            'has_permissions' => 'create, read, update, delete',
+            'permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now(),
             'created_by' => 1
@@ -36,7 +36,7 @@ class UsersTableSeeder extends Seeder
             'user_type' => 'bpc',
             'belongs_to' => 0,
             'role_id' => 2,
-            'has_permissions' => 'create, read, update, delete',
+            'permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now(),
             'created_by' => 1
@@ -49,7 +49,7 @@ class UsersTableSeeder extends Seeder
             'user_type' => 'bpc',
             'belongs_to' => 0,
             'role_id' => 3,
-            'has_permissions' => 'create, read, update',
+            'permissions' => 'create, read, update',
             'status' => 1,
             'created_at' => Carbon::now(),
             'created_by' => 1
@@ -62,7 +62,7 @@ class UsersTableSeeder extends Seeder
             'user_type' => 'council',
             'belongs_to' => 1,
             'role_id' => 4,
-            'has_permissions' => 'create, read, update, delete',
+            'permissions' => 'create, read, update, delete',
             'status' => 1,
             'created_at' => Carbon::now(),
             'created_by' => 1
@@ -75,7 +75,7 @@ class UsersTableSeeder extends Seeder
             'user_type' => 'council',
             'belongs_to' => 1,
             'role_id' => 5,
-            'has_permissions' => 'create, read, update',
+            'permissions' => 'create, read, update',
             'status' => 1,
             'created_at' => Carbon::now(),
             'created_by' => 1

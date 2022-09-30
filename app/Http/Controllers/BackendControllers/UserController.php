@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackendControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\Council;
 use App\Models\Role;
 use App\Models\User;
@@ -45,10 +46,20 @@ class UserController extends Controller
         $user_types = ['bpc', 'council', 'association'];
         $councils = Council::select('name', 'id')->where('status', 1)->get();
         $roles = Role::select('name', 'id')->where('status', 1)->where('slug', '!=', 'system_admin')->get();
+        $permissions = ['create', 'read', 'update', 'delete'];
 
         $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
 
-        return view('backend.pages.user.create', compact('commons', 'user_types', 'councils', 'roles', 'users'));
+        return view('backend.pages.user.create',
+            compact(
+            'commons',
+            'user_types',
+            'councils',
+            'roles',
+            'users',
+                'permissions'
+            )
+        );
     }
 
     /**
@@ -57,9 +68,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

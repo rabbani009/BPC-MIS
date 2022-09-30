@@ -1,7 +1,9 @@
 @extends('backend')
 
 @section('page_level_css_plugins')
-
+    <meta name="csrf_token" content="{{ csrf_token() }}" />
+    <link href="{{ asset('AdminLTE-3.2.0/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 @endsection
 
 @section('page_level_css_files')
@@ -104,11 +106,7 @@
                             <div class="col-md-12">
                                 <div class="form-group  @if ($errors->has('belongs_to')) has-error @endif">
                                     <label class="control-label">Permissions*</label>
-                                    <select required name="permissions[]" id="belongs_to" class="form-control select2 @if($errors->has('belongs_to')) is-invalid @endif" value="{!! old('belongs_to') !!}">
-                                        @foreach($councils as $council)
-                                            <option value="{!! $council->id !!}" @if(old('belongs_to') == $council->id) {!! 'selected' !!} @endif>{!! $council->name !!}</option>
-                                        @endforeach
-                                    </select>
+                                    {{ Form::select('permissions[]', $permissions, old('permissions')?old('permissions'):null, ['id="permissions", class="form-control select2"']) }}
 
                                     @if($errors->has('belongs_to'))
                                         <span class="error invalid-feedback"> {!! $errors->first('belongs_to') !!} </span>
@@ -120,11 +118,6 @@
                         </div>
                     </div>
                     <div class="container card">
-                        <div class="row">
-                            <div class="col-md-12">
-
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -174,14 +167,18 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 @section('page_level_js_plugins')
-
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 @endsection
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 @section('page_level_js_scripts')
     <script>
-
+        $('#permissions').select2({
+            "multiple": true
+        });
 
     </script>
 @endsection
