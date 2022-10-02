@@ -29,6 +29,7 @@ class UserStoreRequest extends FormRequest
             'user_type' => 'required',
             'belongs_to' => 'required',
             'role' => 'required',
+            'accesses' => 'required',
             'permissions' => 'required',
             'name' => 'nullable',
             'profile_image' => 'nullable'

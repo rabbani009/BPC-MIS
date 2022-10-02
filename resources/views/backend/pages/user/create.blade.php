@@ -104,6 +104,21 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="form-group  @if ($errors->has('accesses')) has-error @endif">
+                                    <label class="control-label">Access*</label>
+                                    {{ Form::select('accesses[]', $routes, null, ['id="accesses", class="form-control select2"']) }}
+
+                                    @if($errors->has('accesses'))
+                                        <span class="error invalid-feedback"> {!! $errors->first('accesses') !!} </span>
+                                    @else
+                                        <span class="help-block"> The type field is required. </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group  @if ($errors->has('belongs_to')) has-error @endif">
                                     <label class="control-label">Permissions*</label>
                                     {{ Form::select('permissions[]', $permissions, old('permissions')?old('permissions'):null, ['id="permissions", class="form-control select2"']) }}
@@ -176,9 +191,17 @@
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 @section('page_level_js_scripts')
     <script>
-        $('#permissions').select2({
-            "multiple": true
+        $('#accesses').select2({
+            "multiple": true,
+            "tags": false
         });
+
+        $('#permissions').select2({
+            "multiple": true,
+            "tags": false
+        });
+
+
 
     </script>
 @endsection
