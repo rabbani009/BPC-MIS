@@ -12,12 +12,11 @@ use App\Models\Trainer;
 class DashboardController extends Controller
 {
 
-public function __construct(){
+    public function __construct(){
 
-}
+    }
 
-public function getDashboard(){
-    
+    public function getDashboard(){
         $commons['page_title'] = 'Dashboard';
         $commons['content_title'] = 'Show dashboard';
         $commons['main_menu'] = 'dashboard';
@@ -44,9 +43,22 @@ public function getDashboard(){
         $female_trainer = Trainer::where('gender','=','female')->count() ?? 0;
 
 
-        return view('backend.pages.dashboard', compact('commons',
-        'users','programs','councils','trainees_male','trainees_female','trainees_others','trainees_total','trainer','male_trainer','female_trainer'));
-        }
+        return view('backend.pages.dashboard',
+            compact(
+                'commons',
+                'users',
+                'programs',
+                'councils',
+                'trainees_male',
+                'trainees_female',
+                'trainees_others',
+                'trainees_total',
+                'trainer',
+                'male_trainer',
+                'female_trainer'
+            )
+        );
 
+    }
 
 }
