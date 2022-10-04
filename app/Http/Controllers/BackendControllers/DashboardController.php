@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Program;
 use App\Models\Council;
-
+use App\Models\Trainee;
 
 class DashboardController extends Controller
 {
@@ -26,10 +26,31 @@ class DashboardController extends Controller
 
         $councils = Council::count() ?? 0;
 
+        $trainees_male = Trainee::where('gender','male')->count() ?? 0;
+
+        $trainees_female = Trainee::where('gender','female')->count() ?? 0;
+
+        $trainees_others = Trainee::where('gender','others')->count() ?? 0;
+
+        $trainees_total = Trainee::count() ?? 0;
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
 
 
         return view('backend.pages.dashboard', compact('commons',
-        'users','programs','councils'));
+        'users','programs','councils','trainees_male','trainees_female','trainees_others','trainees_total'));
     }
 
 
