@@ -7,14 +7,17 @@ use App\Models\User;
 use App\Models\Program;
 use App\Models\Council;
 use App\Models\Trainee;
+use App\Models\Trainer;
 
 class DashboardController extends Controller
 {
-    public function __construct(){
 
-    }
+public function __construct(){
 
-    public function getDashboard(){
+}
+
+public function getDashboard(){
+    
         $commons['page_title'] = 'Dashboard';
         $commons['content_title'] = 'Show dashboard';
         $commons['main_menu'] = 'dashboard';
@@ -34,37 +37,16 @@ class DashboardController extends Controller
 
         $trainees_total = Trainee::count() ?? 0;
 
+        $trainer  = Trainer::count() ?? 0;
 
+        $male_trainer = Trainer::where('gender','=','male')->count() ?? 0;
 
-
-
-
-
-
-
-
-
-
-        
-
+        $female_trainer = Trainer::where('gender','=','female')->count() ?? 0;
 
 
         return view('backend.pages.dashboard', compact('commons',
-        'users','programs','councils','trainees_male','trainees_female','trainees_others','trainees_total'));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        'users','programs','councils','trainees_male','trainees_female','trainees_others','trainees_total','trainer','male_trainer','female_trainer'));
+        }
 
 
 }

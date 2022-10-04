@@ -396,16 +396,34 @@
       options: donutOptions
     })
 
-
-
-    
-
     //-------------
     //- PIE CHART -
     //-------------
     // Get context with jQuery - using jQuery's .get() method.
+
+        // Trainer Info Chart
+
+    var trainer = JSON.parse('{{  $trainer }}');
+    var male_trainer = JSON.parse('{{  $male_trainer }}');
+    var female_trainer  =JSON.parse('{{  $female_trainer }}');
+
+
+
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData        = donutData;
+    var pieData        = {
+      labels: [
+                  
+                "Trainer",
+                "Male Trainer",
+                "Female Trainer"
+      ],
+      datasets: [
+        {
+          data: [trainer, male_trainer, female_trainer],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+        }
+      ]
+    }
     var pieOptions     = {
       maintainAspectRatio : false,
       responsive : true,
