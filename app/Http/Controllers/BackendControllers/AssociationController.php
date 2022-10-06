@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackendControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssociationStoreRequest;
 use App\Http\Requests\AssociationUpdateRequest;
+use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Council;
 use Carbon\Carbon;
@@ -174,21 +175,30 @@ class AssociationController extends Controller
      */
     public function destroy($id)
     {
-        $association = Association::findOrFail($id);
-        $association->status = 0;
-        $association->deleted_at = Carbon::now();
-        $association->deleted_by = Auth::user()->id;
-        $association->save();
+        $association_has_dependency = Activity::where('association', $id)->first();
+        //dd($association_has_dependency);
 
-        if ($association->getChanges()){
+        if($association_has_dependency){
+            return redirect()
+                ->back()
+                ->with('failed', 'Association cannot be deleted, becasue it has related to some activities. If you want to delete this, you must delete the dependent activities first.');
+        }
+
+        $council = Association::findOrFail($id);
+        $council->status = 0;
+        $council->deleted_at = Carbon::now();
+        $council->deleted_by = Auth::user()->id;
+        $council->save();
+
+        if ($council->getChanges()){
             return redirect()
                 ->route('association.index')
-                ->with('success', 'Association deleted successfully!');
+                ->with('success', 'Council deleted successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'Association cannot be deleted!');
+            ->with('failed', 'Council cannot be deleted!');
 
     }
 }

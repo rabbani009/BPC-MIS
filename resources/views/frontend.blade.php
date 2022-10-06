@@ -38,7 +38,7 @@
             color: $text;
             max-width: 90%;
             padding: 2em 3em;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.45);
             text-shadow: 0px 0px 2px #131415;
             font-family: 'Open Sans', sans-serif;
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackendControllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProgramStoreRequest;
 use App\Http\Requests\ProgramUpdateRequest;
+use App\Models\Activity;
 use App\Models\program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -170,16 +171,16 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::where('status', 1)->first();
-        dd($program);// will do the rest here after add some more features
+        $program_has_activities = Activity::where('program', $id)->first();
+        //dd($program);// will do the rest here after add some more features
 
-        if($program_has_program){
+        if($program_has_activities){
             return redirect()
                 ->back()
-                ->with('failed', 'program cannot be deleted, becasue it has some program dependency. If you want to delete this, you must delete the dependent programs first.');
+                ->with('failed', 'Program cannot be deleted, becasue it has some activities. If you want to delete this, you must delete the program first.');
         }
 
-        $program = program::findOrFail($id);
+        $program = Program::findOrFail($id);
         $program->status = 0;
         $program->deleted_at = Carbon::now();
         $program->deleted_by = Auth::user()->id;
@@ -188,12 +189,12 @@ class ProgramController extends Controller
         if ($program->getChanges()){
             return redirect()
                 ->route('program.index')
-                ->with('success', 'program deleted successfully!');
+                ->with('success', 'Program deleted successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'program cannot be deleted!');
+            ->with('failed', 'Program cannot be deleted!');
 
     }
 }

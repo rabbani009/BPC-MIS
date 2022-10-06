@@ -305,14 +305,7 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        $activity_has_ = Activity::where('belongs_to', $id)->first();
-
-        if($activity_has_activity){
-            return redirect()
-                ->back()
-                ->with('failed', 'Activity cannot be deleted, becasue it has some activity dependency. If you want to delete this, you must delete the dependent activitys first.');
-        }
-
+        //dd($id);
         $activity = Activity::findOrFail($id);
         $activity->status = 0;
         $activity->deleted_at = Carbon::now();
@@ -321,7 +314,7 @@ class ActivityController extends Controller
 
         if ($activity->getChanges()){
             return redirect()
-                ->route('Activity.index')
+                ->route('activity.index')
                 ->with('success', 'Activity deleted successfully!');
         }
 

@@ -71,7 +71,6 @@ class UserController extends Controller
 
     public function getRoutesByGroup(array $group = [])
     {
-        //usages
 //        getRoutesByGroup(['middleware' => 'api']);
 //        getRoutesByGroup(['middleware' => ['api']]);
 //        getRoutesByGroup(['as' => 'api']);

@@ -176,7 +176,7 @@ class CouncilController extends Controller
         if($council_has_association){
             return redirect()
                 ->back()
-                ->with('failed', 'Council cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
+                ->with('failed', 'Council cannot be deleted, becasue it has related to association. If you want to delete this, you must delete the dependent associations first.');
         }
 
         $council = Council::findOrFail($id);
