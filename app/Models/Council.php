@@ -34,4 +34,8 @@ class Council extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by', 'id');
     }
+
+    public function activities(){
+        return $this->hasMany(Activity::class, 'council');
+    }
 }

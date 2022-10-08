@@ -78,6 +78,11 @@ class Activity extends Model
         return $this->hasMany(Trainee::class, 'activity');
     }
 
+    public function trainees()
+    {
+        return $this->hasMany(Trainee::class, 'activity');
+    }
+
 
     ///Mutators
     public function getRemarksAttribute($value)

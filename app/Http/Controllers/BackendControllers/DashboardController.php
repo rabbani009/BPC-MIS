@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\Council;
 use App\Models\Trainee;
 use App\Models\Trainer;
+use App\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -43,6 +44,20 @@ class DashboardController extends Controller
         $female_trainer = Trainer::where('gender','=','female')->count() ?? 0;
 
 
+        // $councils = Council::with(['activities'])->get();
+        // //dd($councils);
+        
+        // foreach($councils as $row){
+        //     //dd($row);
+        //     foreach($row->activities as $dow){
+        //         dd($dow); 
+        //         $activities    
+        //     }
+
+        // }
+        
+        // dd($activities);
+
         return view('backend.pages.dashboard',
             compact(
                 'commons',
@@ -55,7 +70,10 @@ class DashboardController extends Controller
                 'trainees_total',
                 'trainer',
                 'male_trainer',
-                'female_trainer'
+                'female_trainer',
+              
+
+
             )
         );
 
