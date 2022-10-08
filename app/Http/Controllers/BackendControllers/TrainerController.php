@@ -194,16 +194,7 @@ class TrainerController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
-        $trainer_has_activities = Activity::all();
-
-        if($trainer_has_association){
-            return redirect()
-                ->back()
-                ->with('failed', 'trainer cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
-        }
-
-        $trainer = trainer::findOrFail($id);
+        $trainer = Trainer::findOrFail($id);
         $trainer->status = 0;
         $trainer->deleted_at = Carbon::now();
         $trainer->deleted_by = Auth::user()->id;
@@ -212,12 +203,12 @@ class TrainerController extends Controller
         if ($trainer->getChanges()){
             return redirect()
                 ->route('trainer.index')
-                ->with('success', 'trainer deleted successfully!');
+                ->with('success', 'Trainer deleted successfully!');
         }
 
         return redirect()
             ->back()
-            ->with('failed', 'trainer cannot be deleted!');
+            ->with('failed', 'Trainer cannot be deleted!');
 
     }
 }
