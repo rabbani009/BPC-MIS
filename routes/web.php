@@ -19,7 +19,8 @@ use App\Http\Controllers\BackendControllers\{
     ProgramController,
     TraineeController,
     TrainerController,
-    UserController
+    UserController,
+    ReportController
 };
 
 /*
@@ -69,6 +70,15 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);
+
+    //Report 
+
+    Route::get('report/program-wise',[ReportController::class, 'ProgramReportView'])->name('program.report');
+    Route::get('report/trainee-info-report',[ReportController::class, 'traineeReportView'])->name('trainee.report');
+    Route::get('report/trainer-info-report',[ReportController::class, 'trainerReportView'])->name('trainer.report');
+
+
+
 
     //All ajax routes will be in this route group
     Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){
