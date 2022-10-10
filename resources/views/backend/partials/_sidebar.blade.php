@@ -31,9 +31,33 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas far fa-chart-bar"></i>
-                    <p>REPORTS</p>
+                  <p>
+                    REPORTS
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
                 </a>
-            </li>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{ route('program.report') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Program <span class="badge badge-danger">Wise</span> Report</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('trainee.report') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Trainee <span class="badge badge-danger">Info</span> Report</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{ route('trainer.report') }}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Trainer <span class="badge badge-danger">info</span> Report</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+              </li>
 
             <li class="nav-header">ACTIVITIES</li>
             <li
