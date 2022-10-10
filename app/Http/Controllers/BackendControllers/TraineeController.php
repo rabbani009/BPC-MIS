@@ -233,15 +233,6 @@ class TraineeController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
-        $trainee_has_activities = Activity::all();
-
-        if($trainee_has_association){
-            return redirect()
-                ->back()
-                ->with('failed', 'Trainee cannot be deleted, becasue it has some association dependency. If you want to delete this, you must delete the dependent associations first.');
-        }
-
         $trainee = Trainee::findOrFail($id);
         $trainee->status = 0;
         $trainee->deleted_at = Carbon::now();
@@ -250,7 +241,7 @@ class TraineeController extends Controller
 
         if ($trainee->getChanges()){
             return redirect()
-                ->route('Trainee.index')
+                ->route('trainee.index')
                 ->with('success', 'Trainee deleted successfully!');
         }
 

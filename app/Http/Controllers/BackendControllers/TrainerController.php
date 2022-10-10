@@ -195,6 +195,7 @@ class TrainerController extends Controller
     public function destroy($id)
     {
         $trainer = Trainer::findOrFail($id);
+
         $trainer->status = 0;
         $trainer->deleted_at = Carbon::now();
         $trainer->deleted_by = Auth::user()->id;
@@ -209,6 +210,5 @@ class TrainerController extends Controller
         return redirect()
             ->back()
             ->with('failed', 'Trainer cannot be deleted!');
-
     }
 }
