@@ -277,13 +277,32 @@
 
       //- BAR CHART -
     //-------------
-    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var barChartCanvas = $('#barChart').get(0).getContext('2d');
+
+    var iBPC = JSON.parse('{{  $iBPC }}');
+    var lSBPC = JSON.parse('{{  $lSBPC }}');
+    var lEPBPC = JSON.parse('{{  $lEPBPC }}');
+    var mPHPBPC = JSON.parse('{{  $mPHPBPC }}');
+    var fPBPC = JSON.parse('{{  $fPBPC }}');
+    var aPBPC = JSON.parse('{{  $aPBPC }}');
+    var pPBPC = JSON.parse('{{  $pPBPC }}');
 
     var barChartData ={
 
       labels: ["IBPC", "LSBPC", "LEPBPC", "MPHPBPC", "FPBPC", "APBPC", "PPBPC"],
       datasets: [
-        {         
+             {
+            label               : 'Association',
+            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [iBPC, lSBPC, lEPBPC, mPHPBPC, fPBPC, aPBPC, pPBPC]
+            },
+           {         
             label               : 'Activity',
             backgroundColor     : 'rgba(60,141,188,0.9)',
             borderColor         : 'rgba(60,141,188,0.8)',
@@ -294,18 +313,7 @@
             pointHighlightStroke: 'rgba(60,141,188,1)',
             data                : [65, 48, 40, 19, 86, 27, 90]
             },
-            {
-
-            label               : 'Association',
-            backgroundColor     : 'rgba(210, 214, 222, 1)',
-            borderColor         : 'rgba(210, 214, 222, 1)',
-            pointRadius         : false,
-            pointColor          : 'rgba(210, 214, 222, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 48, 40, 19, 86, 27, 90]
-            },
+          
             {
             label               : 'Trainees',
             backgroundColor     : 'rgb(6, 82, 221)',
