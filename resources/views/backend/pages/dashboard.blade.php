@@ -299,6 +299,19 @@
     var aPBPC_trainers = JSON.parse('{{  $aPBPC_trainers }}');
     var pPBPC_trainers = JSON.parse('{{  $pPBPC_trainers }}');
 
+  //Activity Data
+
+    var iBPC_activity = JSON.parse('{{  $iBPC_activity }}');
+    var lSBPC_activity = JSON.parse('{{  $lSBPC_activity }}');
+    var lEPBPC_activity = JSON.parse('{{  $lEPBPC_activity }}');
+    var mPHPBPC_activity = JSON.parse('{{  $mPHPBPC_activity }}');
+    var fPBPC_activity = JSON.parse('{{  $fPBPC_activity }}');
+    var aPBPC_activity = JSON.parse('{{  $aPBPC_activity }}');
+    var pPBPC_activity = JSON.parse('{{  $pPBPC_activity }}');
+
+
+
+
     var barChartData ={
 
       labels: ["IBPC", "LSBPC", "LEPBPC", "MPHPBPC", "FPBPC", "APBPC", "PPBPC"],
@@ -336,7 +349,7 @@
             pointStrokeColor    : 'rgba(60,141,188,1)',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data                : [65, 48, 40, 19, 86, 27, 90]
+            data                : [iBPC_activity, lSBPC_activity, lEPBPC_activity, mPHPBPC_activity, fPBPC_activity, aPBPC_activity, pPBPC_activity]
             },
           
             
