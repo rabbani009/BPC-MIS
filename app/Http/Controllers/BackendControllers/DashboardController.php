@@ -9,6 +9,7 @@ use App\Models\Council;
 use App\Models\Trainee;
 use App\Models\Trainer;
 use App\Models\Activity;
+use App\Models\Association;
 
 class DashboardController extends Controller
 {
@@ -58,6 +59,39 @@ class DashboardController extends Controller
         
         // dd($activities);
 
+//council belongs_To Associations
+
+        $iBPC = Association::where('belongs_to',1)->count() ?? 0;
+        $lSBPC = Association::where('belongs_to', 2)->count() ?? 0;
+        $lEPBPC = Association::where('belongs_to', 3)->count() ?? 0;
+        $mPHPBPC = Association::where('belongs_to', 4)->count() ?? 0;
+        $fPBPC = Association::where('belongs_to', 5)->count() ?? 0;
+        $aPBPC = Association::where('belongs_to', 6)->count() ?? 0;
+        $pPBPC = Association::where('belongs_to', 7)->count() ?? 0;
+        // dd($pPBPC);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return view('backend.pages.dashboard',
             compact(
                 'commons',
@@ -71,6 +105,13 @@ class DashboardController extends Controller
                 'trainer',
                 'male_trainer',
                 'female_trainer',
+                'iBPC',  
+                'lSBPC',   
+                'lEPBPC',
+                'mPHPBPC',
+                'fPBPC',
+                'aPBPC',
+                'pPBPC',
               
 
 
