@@ -70,6 +70,18 @@ class DashboardController extends Controller
         $pPBPC = Association::where('belongs_to', 7)->count() ?? 0;
         // dd($pPBPC);
 
+//Trainer belongs_To councils
+
+        $iBPC_trainers = Trainer::where('council',1)->count() ?? 0; 
+        $lSBPC_trainers = Trainer::where('council', 2)->count() ?? 0;
+        $lEPBPC_trainers = Trainer::where('council', 3)->count() ?? 0;
+        // dd($lEPBPC_trainers);
+        $mPHPBPC_trainers = Trainer::where('council', 4)->count() ?? 0;
+        $fPBPC_trainers = Trainer::where('council', 5)->count() ?? 0;
+        $aPBPC_trainers = Trainer::where('council', 6)->count() ?? 0;
+        $pPBPC_trainers = Trainer::where('council', 7)->count() ?? 0;
+      
+
 
 
 
@@ -112,6 +124,13 @@ class DashboardController extends Controller
                 'fPBPC',
                 'aPBPC',
                 'pPBPC',
+                'iBPC_trainers',
+                'lSBPC_trainers',
+                'lEPBPC_trainers',
+                'mPHPBPC_trainers',
+                'fPBPC_trainers',
+                'aPBPC_trainers',
+                'pPBPC_trainers'
               
 
 

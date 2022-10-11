@@ -279,6 +279,8 @@
     //-------------
     var barChartCanvas = $('#barChart').get(0).getContext('2d');
 
+//Councils Data
+
     var iBPC = JSON.parse('{{  $iBPC }}');
     var lSBPC = JSON.parse('{{  $lSBPC }}');
     var lEPBPC = JSON.parse('{{  $lEPBPC }}');
@@ -286,6 +288,16 @@
     var fPBPC = JSON.parse('{{  $fPBPC }}');
     var aPBPC = JSON.parse('{{  $aPBPC }}');
     var pPBPC = JSON.parse('{{  $pPBPC }}');
+
+//Trainer Data
+
+    var iBPC_trainers = JSON.parse('{{  $iBPC_trainers }}');
+    var lSBPC_trainers = JSON.parse('{{  $lSBPC_trainers }}');
+    var lEPBPC_trainers = JSON.parse('{{  $lEPBPC_trainers }}');
+    var mPHPBPC_trainers = JSON.parse('{{  $mPHPBPC_trainers }}');
+    var fPBPC_trainers = JSON.parse('{{  $fPBPC_trainers }}');
+    var aPBPC_trainers = JSON.parse('{{  $aPBPC_trainers }}');
+    var pPBPC_trainers = JSON.parse('{{  $pPBPC_trainers }}');
 
     var barChartData ={
 
@@ -302,6 +314,19 @@
             pointHighlightStroke: 'rgba(220,220,220,1)',
             data                : [iBPC, lSBPC, lEPBPC, mPHPBPC, fPBPC, aPBPC, pPBPC]
             },
+
+            {
+            label               : 'Trainers',
+            backgroundColor     : 'rgb(6, 82, 221)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [iBPC_trainers,lSBPC_trainers, lEPBPC_trainers, mPHPBPC_trainers, fPBPC_trainers, aPBPC_trainers,pPBPC_trainers ]
+            },
+
            {         
             label               : 'Activity',
             backgroundColor     : 'rgba(60,141,188,0.9)',
@@ -314,19 +339,9 @@
             data                : [65, 48, 40, 19, 86, 27, 90]
             },
           
+            
             {
             label               : 'Trainees',
-            backgroundColor     : 'rgb(6, 82, 221)',
-            borderColor         : 'rgba(210, 214, 222, 1)',
-            pointRadius         : false,
-            pointColor          : 'rgba(210, 214, 222, 1)',
-            pointStrokeColor    : '#c1c7d1',
-            pointHighlightFill  : '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-            label               : 'Trainers',
             backgroundColor     : 'rgb(238, 90, 36)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
