@@ -77,6 +77,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::get('report/trainee-info-report',[ReportController::class, 'traineeReportView'])->name('trainee.report');
     Route::get('report/trainer-info-report',[ReportController::class, 'trainerReportView'])->name('trainer.report');
 
+    Route::match(array('GET','POST'),'report/index',[ReportController::class, 'index'])->name('search.index');
 
 
 

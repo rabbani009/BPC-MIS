@@ -7,6 +7,7 @@ use App\Models\Program;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 
 class ReportController extends Controller
 {
@@ -94,7 +95,40 @@ class ReportController extends Controller
     }
 
 
+    public function index(Request $request){
 
+        $commons['page_title'] = 'Report';
+        $commons['content_title'] = 'Trainer Report';
+        $commons['main_menu'] = 'trainer';
+        $commons['current_menu'] = 'trainer-report';
+
+        $councils = Council::where('status', 1)->pluck('name', 'id');
+        $associations = Association::where('status', 1)->pluck('name', 'id');
+        $programs = Program::where('status', 1)->pluck('name', 'id');
+        //dd($request->all());
+
+        $activities = Activity::where('council', $request->council)
+        ->where('association', $request->association)
+        ->where('program', $request->program)
+        ->get();
+
+        // dd($activities);
+
+        return view('backend.pages.report.programReport',
+        compact(
+            'commons',
+            'activities',
+            'councils',
+            'programs',
+            'associations'
+        )
+           
+        );
+
+
+
+
+    }
 
 
 
