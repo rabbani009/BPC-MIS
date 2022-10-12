@@ -309,8 +309,15 @@
     var aPBPC_activity = JSON.parse('{{  $aPBPC_activity }}');
     var pPBPC_activity = JSON.parse('{{  $pPBPC_activity }}');
 
+    //Trainees Data
 
-
+    var iBPC_trainees = JSON.parse('{{  $iBPC_trainees }}');
+    var lSBPC_trainees = JSON.parse('{{  $lSBPC_trainees }}');
+    var lEPBPC_trainees = JSON.parse('{{  $lEPBPC_trainees }}');
+    var mPHPBPC_trainees = JSON.parse('{{  $mPHPBPC_trainees }}');
+    var fPBPC_trainees = JSON.parse('{{  $fPBPC_trainees }}');
+    var aPBPC_trainees = JSON.parse('{{  $aPBPC_trainees }}');
+    var pPBPC_trainees = JSON.parse('{{  $pPBPC_trainees }}');
 
     var barChartData ={
 
@@ -362,7 +369,7 @@
             pointStrokeColor    : '#c1c7d1',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
+            data                : [iBPC_trainees, lSBPC_trainees, lEPBPC_trainees, mPHPBPC_trainees, fPBPC_trainees, aPBPC_trainees, pPBPC_trainees]
             },
       ]
     }

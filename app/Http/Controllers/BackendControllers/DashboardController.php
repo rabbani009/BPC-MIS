@@ -11,6 +11,7 @@ use App\Models\Trainer;
 use App\Models\Activity;
 use App\Models\Association;
 
+
 class DashboardController extends Controller
 {
 
@@ -92,13 +93,31 @@ class DashboardController extends Controller
         // dd($aPBPC_activity);
         $pPBPC_activity = Activity::where('council', 7)->count() ?? 0;
 
+//Trainee sum
 
 
+        $iBPC_trainees = Activity::select('number_of_trainees')->where('council','=','1')->sum('number_of_trainees');
 
+        $lSBPC_trainees = Activity::select('number_of_trainees')->where('council','=','2')->sum('number_of_trainees');
 
-
+        $lEPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','3')->sum('number_of_trainees');
 
         
+        $mPHPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','4')->sum('number_of_trainees');
+
+        
+        $fPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','5')->sum('number_of_trainees');
+
+        $aPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','6')->sum('number_of_trainees');
+
+        $pPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','7')->sum('number_of_trainees');
+
+        // dd($iBPC_trainees);
+
+
+
+
+
 
 
         return view('backend.pages.dashboard',
@@ -134,7 +153,14 @@ class DashboardController extends Controller
                 'mPHPBPC_activity',
                 'fPBPC_activity',
                 'aPBPC_activity',
-                'pPBPC_activity'
+                'pPBPC_activity',
+                'iBPC_trainees',
+                'lSBPC_trainees',
+                'lEPBPC_trainees',
+                'mPHPBPC_trainees',
+                'fPBPC_trainees',
+                'aPBPC_trainees',
+                'pPBPC_trainees'
               
 
 
