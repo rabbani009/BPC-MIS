@@ -9,6 +9,7 @@ use App\Models\Council;
 use App\Models\Trainee;
 use App\Models\Trainer;
 use App\Models\Activity;
+use App\Models\Association;
 
 class DashboardController extends Controller
 {
@@ -58,6 +59,44 @@ class DashboardController extends Controller
         
         // dd($activities);
 
+//council belongs_To Associations
+
+        $iBPC = Association::where('belongs_to',1)->count() ?? 0;
+        $lSBPC = Association::where('belongs_to', 2)->count() ?? 0;
+        $lEPBPC = Association::where('belongs_to', 3)->count() ?? 0;
+        $mPHPBPC = Association::where('belongs_to', 4)->count() ?? 0;
+        $fPBPC = Association::where('belongs_to', 5)->count() ?? 0;
+        $aPBPC = Association::where('belongs_to', 6)->count() ?? 0;
+        $pPBPC = Association::where('belongs_to', 7)->count() ?? 0;
+        // dd($pPBPC);
+
+//Trainer belongs_To councils
+
+        $iBPC_trainers = Trainer::where('council',1)->count() ?? 0; 
+        $lSBPC_trainers = Trainer::where('council', 2)->count() ?? 0;
+        $lEPBPC_trainers = Trainer::where('council', 3)->count() ?? 0;
+        // dd($lEPBPC_trainers);
+        $mPHPBPC_trainers = Trainer::where('council', 4)->count() ?? 0;
+        $fPBPC_trainers = Trainer::where('council', 5)->count() ?? 0;
+        $aPBPC_trainers = Trainer::where('council', 6)->count() ?? 0;
+        $pPBPC_trainers = Trainer::where('council', 7)->count() ?? 0;
+      
+// Activity belongs to councils
+
+        $iBPC_activity = Activity::where('council',1)->count() ?? 0; 
+        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;
+        
+        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;
+       
+        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;
+       
+        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;
+       
+        $aPBPC_activity = Activity::where('council', 6)->count() ?? 0;
+        // dd($aPBPC_activity);
+        $pPBPC_activity = Activity::where('council', 7)->count() ?? 0;
+
+
         return view('backend.pages.dashboard',
             compact(
                 'commons',
@@ -71,6 +110,27 @@ class DashboardController extends Controller
                 'trainer',
                 'male_trainer',
                 'female_trainer',
+                'iBPC',  
+                'lSBPC',   
+                'lEPBPC',
+                'mPHPBPC',
+                'fPBPC',
+                'aPBPC',
+                'pPBPC',
+                'iBPC_trainers',
+                'lSBPC_trainers',
+                'lEPBPC_trainers',
+                'mPHPBPC_trainers',
+                'fPBPC_trainers',
+                'aPBPC_trainers',
+                'pPBPC_trainers',
+                'iBPC_activity',
+                'lSBPC_activity',
+                'lEPBPC_activity',
+                'mPHPBPC_activity',
+                'fPBPC_activity',
+                'aPBPC_activity',
+                'pPBPC_activity'
               
 
 

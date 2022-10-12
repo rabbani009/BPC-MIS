@@ -169,31 +169,6 @@
                   
         </div>
 
-        <div class="col-md-6">
-            <!-- AREA CHART -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Area Chart</h3>
-  
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-        </div>
-        <!-- /.col (LEFT) -->
 
         <!-- /.col (RIGHT) -->     
   </div>  <!-- /.row -->
@@ -219,87 +194,6 @@
      * -------
      * Here we will create a few charts using ChartJS
      */
-
-    //--------------
-    //- AREA CHART -
-    //--------------
-
-    // Get context with jQuery - using jQuery's .get() method.
-    var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
-    var areaChartData = {
-      labels  : ["IBPC", "LSBPC", "LEPBPC", "MPHPBPC", "FPBPC", "APBPC", "PPBPC"],
-      datasets: [
-        {
-          label               : 'Activity',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [28, 48, 40, 19, 86, 27, 90]
-        },
-        {
-          label               : 'Association',
-          backgroundColor     : 'rgba(210, 214, 222, 1)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label               : 'Trainees',
-          backgroundColor     : 'rgb(6, 82, 221)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label               : 'Trainers',
-          backgroundColor     : 'rgb(238, 90, 36)',
-          borderColor         : 'rgba(210, 214, 222, 1)',
-          pointRadius         : false,
-          pointColor          : 'rgba(210, 214, 222, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [65, 59, 80, 81, 56, 55, 40]
-        },
-      ]
-    }
-
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: false
-      },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
-    }
-
-    // This will get the first returned node in the jQuery collection.
-    
-
     //-------------
     //- DONUT CHART -
     //-------------
@@ -381,18 +275,97 @@
       options: pieOptions
     })
 
+      //- BAR CHART -
     //-------------
-    //- BAR CHART -
-    //-------------
-    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-    var barChartData = $.extend(true, {}, areaChartData)
-    var temp0 = areaChartData.datasets[0]
-    var temp1 = areaChartData.datasets[1]
+    var barChartCanvas = $('#barChart').get(0).getContext('2d');
 
-  
-    barChartData.datasets[0] = temp1
-    barChartData.datasets[1] = temp0
+//Councils Data
 
+    var iBPC = JSON.parse('{{  $iBPC }}');
+    var lSBPC = JSON.parse('{{  $lSBPC }}');
+    var lEPBPC = JSON.parse('{{  $lEPBPC }}');
+    var mPHPBPC = JSON.parse('{{  $mPHPBPC }}');
+    var fPBPC = JSON.parse('{{  $fPBPC }}');
+    var aPBPC = JSON.parse('{{  $aPBPC }}');
+    var pPBPC = JSON.parse('{{  $pPBPC }}');
+
+//Trainer Data
+
+    var iBPC_trainers = JSON.parse('{{  $iBPC_trainers }}');
+    var lSBPC_trainers = JSON.parse('{{  $lSBPC_trainers }}');
+    var lEPBPC_trainers = JSON.parse('{{  $lEPBPC_trainers }}');
+    var mPHPBPC_trainers = JSON.parse('{{  $mPHPBPC_trainers }}');
+    var fPBPC_trainers = JSON.parse('{{  $fPBPC_trainers }}');
+    var aPBPC_trainers = JSON.parse('{{  $aPBPC_trainers }}');
+    var pPBPC_trainers = JSON.parse('{{  $pPBPC_trainers }}');
+
+  //Activity Data
+
+    var iBPC_activity = JSON.parse('{{  $iBPC_activity }}');
+    var lSBPC_activity = JSON.parse('{{  $lSBPC_activity }}');
+    var lEPBPC_activity = JSON.parse('{{  $lEPBPC_activity }}');
+    var mPHPBPC_activity = JSON.parse('{{  $mPHPBPC_activity }}');
+    var fPBPC_activity = JSON.parse('{{  $fPBPC_activity }}');
+    var aPBPC_activity = JSON.parse('{{  $aPBPC_activity }}');
+    var pPBPC_activity = JSON.parse('{{  $pPBPC_activity }}');
+
+
+
+
+    var barChartData ={
+
+      labels: ["IBPC", "LSBPC", "LEPBPC", "MPHPBPC", "FPBPC", "APBPC", "PPBPC"],
+      datasets: [
+             {
+            label               : 'Association',
+            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [iBPC, lSBPC, lEPBPC, mPHPBPC, fPBPC, aPBPC, pPBPC]
+            },
+
+            {
+            label               : 'Trainers',
+            backgroundColor     : 'rgb(6, 82, 221)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [iBPC_trainers,lSBPC_trainers, lEPBPC_trainers, mPHPBPC_trainers, fPBPC_trainers, aPBPC_trainers,pPBPC_trainers ]
+            },
+
+           {         
+            label               : 'Activity',
+            backgroundColor     : 'rgba(60,141,188,0.9)',
+            borderColor         : 'rgba(60,141,188,0.8)',
+            pointRadius          : false,
+            pointColor          : '#3b8bba',
+            pointStrokeColor    : 'rgba(60,141,188,1)',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data                : [iBPC_activity, lSBPC_activity, lEPBPC_activity, mPHPBPC_activity, fPBPC_activity, aPBPC_activity, pPBPC_activity]
+            },
+          
+            
+            {
+            label               : 'Trainees',
+            backgroundColor     : 'rgb(238, 90, 36)',
+            borderColor         : 'rgba(210, 214, 222, 1)',
+            pointRadius         : false,
+            pointColor          : 'rgba(210, 214, 222, 1)',
+            pointStrokeColor    : '#c1c7d1',
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : [65, 59, 80, 81, 56, 55, 40]
+            },
+      ]
+    }
  
 
     var barChartOptions = {
@@ -406,6 +379,9 @@
       data: barChartData,
       options: barChartOptions
     })
+
+
+    
 
     
 
