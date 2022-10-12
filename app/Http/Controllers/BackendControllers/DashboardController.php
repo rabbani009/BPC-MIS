@@ -84,17 +84,21 @@ class DashboardController extends Controller
 // Activity belongs to councils
 
         $iBPC_activity = Activity::where('council',1)->count() ?? 0; 
-        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;
-        
-        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;
-       
-        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;
-       
-        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;
-       
+        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;    
+        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;  
+        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;   
+        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;   
         $aPBPC_activity = Activity::where('council', 6)->count() ?? 0;
         // dd($aPBPC_activity);
         $pPBPC_activity = Activity::where('council', 7)->count() ?? 0;
+
+
+
+
+
+
+
+        
 
 
         return view('backend.pages.dashboard',

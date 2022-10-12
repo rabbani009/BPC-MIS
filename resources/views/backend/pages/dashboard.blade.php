@@ -50,7 +50,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
+          <div class="small-box bg-warning">
             <div class="inner">
               <h3>0</h3>
 
@@ -318,7 +318,7 @@
       datasets: [
              {
             label               : 'Association',
-            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            backgroundColor     : 'rgb(21, 0, 80)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
@@ -330,7 +330,7 @@
 
             {
             label               : 'Trainers',
-            backgroundColor     : 'rgb(6, 82, 221)',
+            backgroundColor     : 'rgb(129, 9, 85)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
@@ -342,7 +342,7 @@
 
            {         
             label               : 'Activity',
-            backgroundColor     : 'rgba(60,141,188,0.9)',
+            backgroundColor     : 'rgb(33, 146, 255)',
             borderColor         : 'rgba(60,141,188,0.8)',
             pointRadius          : false,
             pointColor          : '#3b8bba',
@@ -355,7 +355,7 @@
             
             {
             label               : 'Trainees',
-            backgroundColor     : 'rgb(238, 90, 36)',
+            backgroundColor     : 'rgb(250, 112, 112)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
