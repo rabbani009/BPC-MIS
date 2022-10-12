@@ -371,8 +371,47 @@
     var barChartOptions = {
       responsive              : true,
       maintainAspectRatio     : false,
-      datasetFill             : false
-    }
+      datasetFill             : false,
+      animation: 
+                    
+          {
+          duration: 5000,
+          easing: "easeInOutBounce",
+          },
+
+      legend: {
+      display: true,
+      position: "top", // top left bottom right
+      align: "end", // start end center
+      labels: {
+       
+        fontSize: 14,
+        boxWidth: 20,
+      },
+    },
+
+        // Configure ToolTips
+        tooltips: {
+      enabled: true, // Enable/Disable ToolTip By Default Its True
+      backgroundColor: "#F9F9C5", // Set Tooltip Background Color
+      titleFontFamily: "Tahoma", // Set Tooltip Title Font Family
+      titleFontSize: 20, // Set Tooltip Font Size
+      titleFontStyle: "bold",
+      titleFontColor: "Maroon",
+      titleAlign: "center",
+      titleSpacing: 3,
+      titleMarginBottom:20,
+      bodyFontFamily: "Tahoma",
+      bodyFontSize: 20,
+     
+      bodyFontColor: "black",
+      bodyAlign: "center",
+      bodySpacing: 3,
+    },
+
+  }
+
+  
 
     new Chart(barChartCanvas, {
       type: 'bar',
