@@ -50,7 +50,7 @@
         <!-- ./col -->
         <div class="col-lg-3 col-6">
           <!-- small box -->
-          <div class="small-box bg-danger">
+          <div class="small-box bg-warning">
             <div class="inner">
               <h3>0</h3>
 
@@ -309,8 +309,15 @@
     var aPBPC_activity = JSON.parse('{{  $aPBPC_activity }}');
     var pPBPC_activity = JSON.parse('{{  $pPBPC_activity }}');
 
+    //Trainees Data
 
-
+    var iBPC_trainees = JSON.parse('{{  $iBPC_trainees }}');
+    var lSBPC_trainees = JSON.parse('{{  $lSBPC_trainees }}');
+    var lEPBPC_trainees = JSON.parse('{{  $lEPBPC_trainees }}');
+    var mPHPBPC_trainees = JSON.parse('{{  $mPHPBPC_trainees }}');
+    var fPBPC_trainees = JSON.parse('{{  $fPBPC_trainees }}');
+    var aPBPC_trainees = JSON.parse('{{  $aPBPC_trainees }}');
+    var pPBPC_trainees = JSON.parse('{{  $pPBPC_trainees }}');
 
     var barChartData ={
 
@@ -318,7 +325,7 @@
       datasets: [
              {
             label               : 'Association',
-            backgroundColor     : 'rgba(210, 214, 222, 1)',
+            backgroundColor     : 'rgb(21, 0, 80)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
@@ -330,7 +337,7 @@
 
             {
             label               : 'Trainers',
-            backgroundColor     : 'rgb(6, 82, 221)',
+            backgroundColor     : 'rgb(129, 9, 85)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
@@ -342,7 +349,7 @@
 
            {         
             label               : 'Activity',
-            backgroundColor     : 'rgba(60,141,188,0.9)',
+            backgroundColor     : 'rgb(33, 146, 255)',
             borderColor         : 'rgba(60,141,188,0.8)',
             pointRadius          : false,
             pointColor          : '#3b8bba',
@@ -355,14 +362,14 @@
             
             {
             label               : 'Trainees',
-            backgroundColor     : 'rgb(238, 90, 36)',
+            backgroundColor     : 'rgb(250, 112, 112)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
             pointColor          : 'rgba(210, 214, 222, 1)',
             pointStrokeColor    : '#c1c7d1',
             pointHighlightFill  : '#fff',
             pointHighlightStroke: 'rgba(220,220,220,1)',
-            data                : [65, 59, 80, 81, 56, 55, 40]
+            data                : [iBPC_trainees, lSBPC_trainees, lEPBPC_trainees, mPHPBPC_trainees, fPBPC_trainees, aPBPC_trainees, pPBPC_trainees]
             },
       ]
     }
@@ -371,8 +378,47 @@
     var barChartOptions = {
       responsive              : true,
       maintainAspectRatio     : false,
-      datasetFill             : false
-    }
+      datasetFill             : false,
+      animation: 
+                    
+          {
+          duration: 5000,
+          easing: "easeInOutBounce",
+          },
+
+      legend: {
+      display: true,
+      position: "top", // top left bottom right
+      align: "end", // start end center
+      labels: {
+       
+        fontSize: 14,
+        boxWidth: 20,
+      },
+    },
+
+        // Configure ToolTips
+        tooltips: {
+      enabled: true, // Enable/Disable ToolTip By Default Its True
+      backgroundColor: "#F9F9C5", // Set Tooltip Background Color
+      titleFontFamily: "Tahoma", // Set Tooltip Title Font Family
+      titleFontSize: 20, // Set Tooltip Font Size
+      titleFontStyle: "bold",
+      titleFontColor: "Maroon",
+      titleAlign: "center",
+      titleSpacing: 3,
+      titleMarginBottom:20,
+      bodyFontFamily: "Tahoma",
+      bodyFontSize: 20,
+     
+      bodyFontColor: "black",
+      bodyAlign: "center",
+      bodySpacing: 3,
+    },
+
+  }
+
+  
 
     new Chart(barChartCanvas, {
       type: 'bar',
