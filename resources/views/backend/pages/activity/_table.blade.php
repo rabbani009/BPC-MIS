@@ -68,7 +68,7 @@
                                 <a href="{{ route('activity.show', $row->id) }}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{{-- route('activity.edit', $row->id) --}}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
+                                <a href="{{ route('activity.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 <form method="post" class="list_delete_form" action="{{ route('activity.destroy', $row->id) }}" accept-charset="UTF-8" >

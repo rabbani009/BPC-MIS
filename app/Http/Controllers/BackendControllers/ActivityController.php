@@ -164,6 +164,7 @@ class ActivityController extends Controller
             compact(
                 'commons',
                 'activity',
+
             )
         );
     }
@@ -176,10 +177,18 @@ class ActivityController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
         $commons['page_title'] = 'Activity';
         $commons['content_title'] = 'Edit Activity';
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
+
+
+        $councils = Council::where('status', 1)->get();
+        $associations = Association::where('status', 1)->pluck('name', 'id');
+        $programs = Program::where('status', 1)->pluck('name', 'id');
+        $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
+
 
         $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
         //dd($activity);
@@ -187,7 +196,11 @@ class ActivityController extends Controller
         return view('backend.pages.activity.edit',
             compact(
                 'commons',
-                'activity'
+                'activity',
+                'councils',
+                'programs',
+                'associations',
+                'trainers'
             )
         );
     }
