@@ -186,11 +186,11 @@ class ActivityController extends Controller
 
         $councils = Council::where('status', 1)->get();
         $associations = Association::where('status', 1)->pluck('name', 'id');
-        $programs = Program::where('status', 1)->pluck('name', 'id');
+        $programs = Program::where('status', 1)->get();
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
 
 
-        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $activity = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
         //dd($activity);
 
         return view('backend.pages.activity.edit',

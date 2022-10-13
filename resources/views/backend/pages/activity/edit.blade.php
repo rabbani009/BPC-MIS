@@ -73,11 +73,17 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('program')) has-error @endif">
-                                    <label class="control-label">Program *</label>
-                                    {{ Form::select('program', $programs, old('program')?old('program'):null, ['id="program", class="form-control select2"']) }}
-
-                                    @if($errors->has('program'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
+                                    <label class="control-label">Program</label>
+                                    <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
+                                        @foreach($programs as $program)
+                                            <option value="{{ $program->id }}" @if($activity->getProgram->id == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
+                                        @endforeach
+                                    </select>
+            
+                                    @if($errors->has('council'))
+                                        <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
+                                    @else
+                                        <span class="help-block"> The type field is required. </span>
                                     @endif
                                 </div>
                             </div>
@@ -90,7 +96,7 @@
                             <div class="col-md-8">
                                 <div class="form-group @if ($errors->has('activity_title')) has-error @endif">
                                     <label for="">Activity Title *</label>
-                                    <input type="text" name="activity_title" class="form-control @if($errors->has('activity_title')) is-invalid @endif" value="{{ old('activity_title') }}" placeholder="Enter activity Name">
+                                    <input type="text" name="activity_title" class="form-control @if($errors->has('activity_title')) is-invalid @endif" value="{{ $activity->activity_title }}" placeholder="Enter activity Name">
                                     @if($errors->has('activity_title'))
                                         <span class="error invalid-feedback">{{ $errors->first('activity_title') }}</span>
                                     @else
@@ -103,12 +109,13 @@
                                     <label for="">Remarks *</label>
                                     <div class="d-flex h5">
                                         <div class="custom-control custom-radio pr-2">
-                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" checked>
+                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" {{ Session::get('remarks') == 0 ? 'checked' : ''}}>
                                             <label for="remarks_stats_1" class="custom-control-label">Ongoing</label>
+
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks">
-                                            <label for="remarks_stats_2" class="custom-control-label">Done</label>
+                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks" {{ Session::get('remarks') == '1' ? 'checked' : ''}}>
+                                            <label for="remarks_stats_2" class="custom-control-label" >Done</label>
                                         </div>
                                     </div>
                                     @if($errors->has('remarks'))
@@ -122,7 +129,7 @@
                                 <div class="form-group @if ($errors->has('start_date')) has-error @endif">
                                     <label for="">Start date *</label>
                                     <div class="input-group date" id="start_date" data-target-input="nearest">
-                                        <input value="{{ old('start_date') }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
+                                        <input value="{{ $activity->start_date }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -136,7 +143,7 @@
                                 <div class="form-group @if ($errors->has('end_date')) has-error @endif">
                                     <label for="">End date *</label>
                                     <div class="input-group date" id="end_date" data-target-input="nearest">
-                                        <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
+                                        <input type="text" name="end_date" value="{{ $activity->end_date }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
                                         <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -149,7 +156,7 @@
                             <div class="col-md-6">
                                 <div class="form-group @if ($errors->has('venue')) has-error @endif">
                                     <label for="">Venue</label>
-                                    <input type="text" name="venue" class="form-control @if($errors->has('venue')) is-invalid @endif" value="{{ old('venue') }}" placeholder="Enter Venue information here">
+                                    <input type="text" name="venue" class="form-control @if($errors->has('venue')) is-invalid @endif" value="{{ $activity->venue }}" placeholder="Enter Venue information here">
                                     @if($errors->has('venue'))
                                         <span class="error invalid-feedback">{{ $errors->first('venue') }}</span>
                                     @endif
@@ -164,7 +171,7 @@
                             <div class="col-md-4">
                                 <div class="form-group @if ($errors->has('number_of_trainees')) has-error @endif">
                                     <label for="">Number of Trainees *</label>
-                                    <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ old('number_of_trainees') }}" placeholder="Enter number of trainees here">
+                                    <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ $activity->number_of_trainees }}" placeholder="Enter number of trainees here">
                                     @if($errors->has('number_of_trainees'))
                                         <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                     @else
