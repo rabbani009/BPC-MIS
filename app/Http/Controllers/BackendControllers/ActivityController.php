@@ -190,9 +190,10 @@ class ActivityController extends Controller
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
 
         $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        
 
         $activity = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        //dd($activity);
+        // dd($activity);
 
         return view('backend.pages.activity.edit',
             compact(

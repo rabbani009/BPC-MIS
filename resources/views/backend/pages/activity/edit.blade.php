@@ -109,12 +109,12 @@
                                     <label for="">Remarks *</label>
                                     <div class="d-flex h5">
                                         <div class="custom-control custom-radio pr-2">
-                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" {{ $activity->remarks == 0 ? 'checked': '' }} >
+                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks"  @if($activity->remarks == false) checked="checked" @endif>
                                             <label for="remarks_stats_1" class="custom-control-label">Ongoing</label>
 
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks" {{ $activity->remarks == 0 ? 'checked': '' }} >
+                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks"@if($activity->remarks == true) checked="checked" @endif>
                                             <label for="remarks_stats_2" class="custom-control-label" >Done</label>
                                         </div>
                                     </div>
@@ -234,6 +234,8 @@
                 @endif
             </form>
         </div>
+
+   
 
     </section>
 

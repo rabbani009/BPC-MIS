@@ -34,6 +34,9 @@
                         <td colspan="3"><strong>Venue: </strong>{{ $activity->venue }}</td>
                     </tr>
                     <tr>
+
+                       
+                        
                         <td><strong>Remarks: </strong>{{ $activity->remarks }}</td>
                         <td><strong>Start Date: </strong>{{ $activity->start_date }}</td>
                         <td><strong>End Date: </strong>{{ $activity->end_date }}</td>

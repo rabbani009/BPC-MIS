@@ -48,7 +48,15 @@
                         <td>{{ $row->getProgram->name }}</td>
 
                         <td>{{ $row->activity_title }}</td>
-                        <td>{{ $row->remarks }}</td>
+                        <td>
+
+                        @if($row->remarks == 0)
+                             <span class="badge badge-pill badge-success"> Ongoing </span>
+                        @else
+                             <span class="badge badge-pill badge-danger"> Done </span>
+                        @endif
+                        
+                        </td>
                         <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
                         <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
                         <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
