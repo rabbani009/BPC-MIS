@@ -29,7 +29,7 @@
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
@@ -91,7 +91,7 @@
                     </div>
 
                     <!-- Time and location section -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group @if ($errors->has('activity_title')) has-error @endif">
@@ -109,12 +109,12 @@
                                     <label for="">Remarks *</label>
                                     <div class="d-flex h5">
                                         <div class="custom-control custom-radio pr-2">
-                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" {{ Session::get('remarks') == 0 ? 'checked' : ''}}>
+                                            <input class="custom-control-input" value="0" type="radio" id="remarks_stats_1" name="remarks" {{ $activity->remarks == 0 ? 'checked': '' }} >
                                             <label for="remarks_stats_1" class="custom-control-label">Ongoing</label>
 
                                         </div>
                                         <div class="custom-control custom-radio">
-                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks" {{ Session::get('remarks') == '1' ? 'checked' : ''}}>
+                                            <input class="custom-control-input" value="1" type="radio" id="remarks_stats_2" name="remarks" {{ $activity->remarks == 0 ? 'checked': '' }} >
                                             <label for="remarks_stats_2" class="custom-control-label" >Done</label>
                                         </div>
                                     </div>
@@ -183,12 +183,12 @@
                     </div>
 
                     <!-- Fund -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group @if ($errors->has('source_of_fund')) has-error @endif">
                                     <label for="">Source of fund</label>
-                                    <input type="text" name="source_of_fund" class="form-control @if($errors->has('source_of_fund')) is-invalid @endif" value="{{ old('source_of_fund') }}" placeholder="Enter source of fund amount here">
+                                    <input type="text" name="source_of_fund" class="form-control @if($errors->has('source_of_fund')) is-invalid @endif" value="{{ $activity->source_of_fund }}" placeholder="Enter source of fund amount here">
                                     @if($errors->has('source_of_fund'))
                                         <span class="error invalid-feedback">{{ $errors->first('source_of_fund') }}</span>
                                     @endif
@@ -197,7 +197,7 @@
                             <div class="col-md-3">
                                 <div class="form-group @if ($errors->has('budget_as_per_contract')) has-error @endif">
                                     <label for="">Budget as per contract</label>
-                                    <input type="number" min="1" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ old('budget_as_per_contract') }}" placeholder="Enter budget as per expenditure here">
+                                    <input type="number" min="1" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ $activity->budget_as_per_contract }}" placeholder="Enter budget as per expenditure here">
                                     @if($errors->has('budget_as_per_contract'))
                                         <span class="error invalid-feedback">{{ $errors->first('budget_as_per_contract') }}</span>
                                     @endif
@@ -206,7 +206,7 @@
                             <div class="col-md-3">
                                 <div class="form-group @if ($errors->has('actual_budget_as_per_expenditure')) has-error @endif">
                                     <label for="">Actual budget as per expenditure</label>
-                                    <input type="number" min="1" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ old('actual_budget_as_per_expenditure') }}" placeholder="Enter actual budget as per expenditure here">
+                                    <input type="number" min="1" name="actual_budget_as_per_expenditure" class="form-control @if($errors->has('actual_budget_as_per_expenditure')) is-invalid @endif" value="{{ $activity->actual_budget_as_per_expenditure }}" placeholder="Enter actual budget as per expenditure here">
                                     @if($errors->has('actual_budget_as_per_expenditure'))
                                         <span class="error invalid-feedback">{{ $errors->first('actual_budget_as_per_expenditure') }}</span>
                                     @endif
@@ -215,7 +215,7 @@
                             <div class="col-md-4">
                                 <div class="form-group @if ($errors->has('actual_expenditure_as_per_actual_budget')) has-error @endif">
                                     <label for="">Actual expenditure as per actual budget</label>
-                                    <input type="number" min="1" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ old('actual_expenditure_as_per_actual_budget') }}" placeholder="Enter actual expenditure as per actual budget here">
+                                    <input type="number" min="1" name="actual_expenditure_as_per_actual_budget" class="form-control @if($errors->has('actual_expenditure_as_per_actual_budget')) is-invalid @endif" value="{{ $activity->actual_expenditure_as_per_actual_budget }}" placeholder="Enter actual expenditure as per actual budget here">
                                     @if($errors->has('actual_expenditure_as_per_actual_budget'))
                                         <span class="error invalid-feedback">{{ $errors->first('actual_expenditure_as_per_actual_budget') }}</span>
                                     @endif
@@ -226,9 +226,9 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Update Activity</button>
                 </div>
-                <input type="hidden" id="old_association_id" value="{{old('association')}}">
+                <input type="hidden" id="" value="{{old('association')}}">
                 @if((old('trainers') !== '') && is_array(old('trainers')))
                 <input type="hidden" id="old_trainers" value="{{ implode(", ",old('trainers')) }}">
                 @endif
@@ -250,6 +250,9 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 @section('page_level_js_scripts')
+
+
+
 
 <script>
     /// Event loading...
@@ -371,9 +374,6 @@
         });
     });
 </script>
-
-
-
 
 
 
