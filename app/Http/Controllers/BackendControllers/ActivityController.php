@@ -190,10 +190,10 @@ class ActivityController extends Controller
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
 
         $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
-        
+
 
         $activity = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        // dd($activity);
+        dd($activity);
 
         return view('backend.pages.activity.edit',
             compact(
@@ -215,7 +215,7 @@ class ActivityController extends Controller
         $commons['current_menu'] = 'activity_create';
 
         $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        //dd($activity->number_of_trainees);
+        //dd($activity);
         $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
 
         return view('backend.pages.activity.console',

@@ -200,8 +200,5 @@
             "multiple": true,
             "tags": false
         });
-
-
-
     </script>
 @endsection

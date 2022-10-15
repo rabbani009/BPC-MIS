@@ -53,7 +53,8 @@ class UserController extends Controller
         $councils = Council::select('name', 'id')->where('status', 1)->get();
         $roles = Role::select('name', 'id')->where('status', 1)->where('slug', '!=', 'system_admin')->get();
 
-        $getAllBackendRoutes = $this->getRoutesByGroup(['prefix' => 'backend']);
+        $getAllBackendRoutes = $this->getRoutesByGroup(['middleware' => 'authenticated']);
+        //dd($getAllBackendRoutes);
 
         if ($getAllBackendRoutes){
             foreach ($getAllBackendRoutes as $route) {
@@ -81,18 +82,27 @@ class UserController extends Controller
         if (empty($group)) {
             return $list;
         }
-
+        //dd($list);
         $routes = [];
         foreach ($list as $route) {
+            //dd($route);
             $action = $route->getAction();
+            //dd($action);
             foreach ($group as $key => $value) {
+                //dd($value);
+                //dd($action[$key]);
                 if (empty($action[$key])) {
+                    //dd($action[$key]);
                     continue;
                 }
+                //dd('ok');
                 $actionValues = Arr::wrap($action[$key]);
+                //dd($actionValues);
                 $values = Arr::wrap($value);
+                //dd($values);
                 foreach ($values as $single) {
                     foreach ($actionValues as $actionValue) {
+                        //dd($single);
                         if (Str::is($single, $actionValue)) {
                             $routes[] = $route;
                         } elseif($actionValue == $single) {

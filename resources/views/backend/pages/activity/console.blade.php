@@ -37,8 +37,12 @@
                         <td><strong>Remarks: </strong>{{ $activity->remarks }}</td>
                         <td><strong>Start Date: </strong>{{ $activity->start_date }}</td>
                         <td><strong>End Date: </strong>{{ $activity->end_date }}</td>
-                        <td><strong>Trainers: </strong>{{ $activity->venue }}</td>
-                        <td><strong>Trainees: </strong>{{ $activity->venue }}</td>
+                        <td><strong>Trainers: </strong>
+                            @foreach($activity->getTrainers as $trainer)
+                                <span class="badge badge-info">{{ $trainer->gettrainer->name }}</span>
+                            @endforeach
+                        </td>
+                        <td><strong>Trainees: </strong><span class="badge badge-info">{{ $activity->number_of_trainees }}</span></td>
                     </tr>
                     <tr>
                         <td colspan="2"><strong>Council: </strong>{{ $activity->getCouncil->name }}</td>
