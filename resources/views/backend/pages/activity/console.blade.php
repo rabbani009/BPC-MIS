@@ -25,7 +25,7 @@
             </div>
 
             <div class="card-body">
-                <table class="table table-striped table-bordered">
+                <table class="table table-striped table-bordered table-responsive">
                     <tr>
                         <td colspan="5"><strong>Activity Title: </strong>{{ $activity->activity_title }}</td>
                     </tr>
