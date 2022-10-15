@@ -48,7 +48,15 @@
                         <td>{{ $row->getProgram->name }}</td>
 
                         <td>{{ $row->activity_title }}</td>
-                        <td>{{ $row->remarks }}</td>
+                        <td>
+
+                        @if($row->remarks == 0)
+                             <span class="badge badge-pill badge-success"> Ongoing </span>
+                        @else
+                             <span class="badge badge-pill badge-danger"> Done </span>
+                        @endif
+                        
+                        </td>
                         <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
                         <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
                         <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
@@ -68,7 +76,7 @@
                                 <a href="{{ route('activity.show', $row->id) }}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{{-- route('activity.edit', $row->id) --}}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
+                                <a href="{{ route('activity.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 <form method="post" class="list_delete_form" action="{{ route('activity.destroy', $row->id) }}" accept-charset="UTF-8" >

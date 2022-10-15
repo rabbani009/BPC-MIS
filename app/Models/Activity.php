@@ -85,10 +85,15 @@ class Activity extends Model
 
 
     ///Mutators
-    public function getRemarksAttribute($value)
-    {
-        return $value == 1 ? 'Done' : 'Ongoing';
-    }
+    // public function getRemarksAttribute($value)
+    // {
+    //     return $value == 1 ? 'Done' : 'Ongoing';
+    // }
+
+    protected $cast =[
+
+        'remarks'=>'boolean',
+    ];
 
 
 
