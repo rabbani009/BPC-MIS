@@ -2,7 +2,7 @@
     @csrf
     @method('patch')
 
-    <table class="table table-striped">
+    <table class="table table-striped table-bordered table-responsive">
         <tr>
             <th style="width: 5%">SN.</th>
             <th style="width: 35%">Trainee info</th>
