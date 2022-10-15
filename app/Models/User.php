@@ -58,7 +58,7 @@ class User extends Authenticatable
 
     public function userBelongsToCouncil()
     {
-        return $this->hasOne('App\Models\Council', 'id');
+        return $this->belongsTo('App\Models\Council', 'belongs_to', 'id');
     }
 
     public function role()

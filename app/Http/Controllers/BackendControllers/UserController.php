@@ -30,7 +30,7 @@ class UserController extends Controller
         $commons['main_menu'] = 'user';
         $commons['current_menu'] = 'user_index';
 
-        $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
+        $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->latest()->paginate(20);
 
         //dd($users);
 
@@ -49,9 +49,57 @@ class UserController extends Controller
         $commons['main_menu'] = 'user';
         $commons['current_menu'] = 'user_create';
 
-        $user_types = ['bpc', 'council'];
-        $councils = Council::select('name', 'id')->where('status', 1)->get();
-        $roles = Role::select('name', 'id')->where('status', 1)->where('slug', '!=', 'system_admin')->get();
+        //dd(auth()->user()->user_type);
+
+        if(auth()->user()->user_type == 'bpc'){
+            $user_types = ['council'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->where('slug', '!=', 'bpc_admin')
+                ->where('slug', '!=', 'bpc_executive')
+                ->get();
+
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->where('slug', '=', 'bpc_admin')
+                ->orWhere('slug', '=', 'bpc_executive')
+                ->get();
+
+            //dd($user_types);
+        }elseif(auth()->user()->user_type == 'council'){
+            $user_types = ['council'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->where('slug', '!=', 'bpc_admin')
+                ->where('slug', '!=', 'bpc_executive')
+                ->get();
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->where('id', auth()->user()->belongs_to)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->where('slug', '=', 'council_admin')
+                ->orWhere('slug', '=', 'council_executive')
+                ->get();
+        }else{
+            $user_types = ['bpc', 'council'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->get();
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->get();
+        }
 
         $getAllBackendRoutes = $this->getRoutesByGroup(['middleware' => 'authenticated']);
         //dd($getAllBackendRoutes);
@@ -62,12 +110,21 @@ class UserController extends Controller
             }
         }
 
-        $accesses = ['create'=>'create', 'read'=>'read', 'update'=>'update', 'delete'=>'delete'];
         $permissions = ['create'=>'create', 'read'=>'read', 'update'=>'update', 'delete'=>'delete'];
 
         $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
 
-        return view('backend.pages.user.create', compact('commons', 'user_types', 'councils', 'roles', 'users', 'permissions', 'accesses', 'routes'));
+        return view('backend.pages.user.create',
+            compact(
+                'commons',
+                'user_types',
+                'councils',
+                'roles',
+                'users',
+                'routes',
+                'permissions'
+            )
+        );
     }
 
     public function getRoutesByGroup(array $group = [])
@@ -124,6 +181,7 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
+        //dd($request->all());
         DB::beginTransaction();
 
         try {
