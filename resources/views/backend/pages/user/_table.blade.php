@@ -16,6 +16,7 @@
                         <th style="width: 10px">#</th>
                         <th>Name</th>
                         <th>User Type</th>
+                        <th>User Role</th>
                         <th>Belongs To ( Council & Association )</th>
 
                         @include('backend.pages.commons.timestamps_th')
@@ -29,6 +30,7 @@
                         <td>{{ $loop->iteration }}.</td>
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->user_type }}</td>
+                        <td>{{ $row->role->name }}</td>
                         <td>{{ ($row->belongs_to == 0) ? 'BPC' : $row->userBelongsToCouncil->name }}</td>
 
                         @include('backend.pages.commons.timestamps_td')

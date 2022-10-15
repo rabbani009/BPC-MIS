@@ -17,7 +17,7 @@
             <a href="#" class="nav-link dropdown-toggle d-flex align-items-center justify-content-center" data-toggle="dropdown">
                 <div class="d-flex flex-column align-items-center pr-2">
                     <span class="custom_font_size_sm d-none d-md-inline">{{ auth()->user()->name }}</span>
-                    <small class="custom_font_size_xs align-self-end">System admin</small>
+                    <small class="custom_font_size_xs align-self-end">{{auth()->user()->role->name}}</small>
                 </div>
                 <img src="{{ asset('Custom/img/no_image.jpg') }}" class="user-image img-circle elevation-2 m-0" alt="User Image">
 
