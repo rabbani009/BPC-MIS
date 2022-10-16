@@ -298,13 +298,6 @@ class ActivityController extends Controller
         $activity = Activity::findOrFail($id);
 
         // dd($activity);
-        // $activity->name = $request->validated('activity_name');
-        // $activity->slug = strtolower(str_replace(' ', '_', $request->validated('activity_name')));
-        // $activity->status = $request->validated('status');
-        // $activity->updated_at = Carbon::now();
-        // $activity->updated_by = Auth::user()->id;
-        // $activity->save();
-
         $activity->council = $request->validated('council');
         $activity->association = $request->validated('association');
         $activity->program = $request->validated('program');

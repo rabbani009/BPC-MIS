@@ -51,9 +51,9 @@
                         <td>
 
                         @if($row->remarks == 0)
-                             <span class="badge badge-pill badge-success"> Ongoing </span>
+                             <span class="badge badge-pill badge-info"> Ongoing </span>
                         @else
-                             <span class="badge badge-pill badge-danger"> Done </span>
+                             <span class="badge badge-pill badge-success"> Done </span>
                         @endif
                         
                         </td>

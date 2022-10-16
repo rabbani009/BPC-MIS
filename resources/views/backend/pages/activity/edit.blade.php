@@ -55,17 +55,6 @@
 
                                     {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
 
-                                {{-- <select name="association" class="form-control select2  " required="" id="association" >
-                                
-                                        <option value="" selected="" disabled="">Select Association</option>
-                                                @foreach($associations as $association)
-                                        <option value="{{ $association->name }}" {{ $association->id == $activity->association ? 'selected': '' }} >{{ $association->name }}</option>	
-                                                @endforeach
-
-                                </select> --}}
-
-
-
                                 </div>
                                 @if($errors->has('association'))
                                     <span class="error invalid-feedback"> {{ $errors->first('association') }} </span>
@@ -176,7 +165,8 @@
                                 @if($errors->has('number_of_trainees'))
                                     <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                 @else
-                                    <span class="help-block"> This field is required. </span>
+                                    <span class="help-block">If You Add New Trainee register Trainee info</span>
+                                    <a href="{{ route('trainee.create') }}">Click here</a>
                                 @endif
                             </div>
                         </div>
