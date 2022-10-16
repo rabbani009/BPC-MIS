@@ -165,7 +165,7 @@
                                 @if($errors->has('number_of_trainees'))
                                     <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                 @else
-                                    <span class="help-block">If You Add New Trainee register Trainee info</span>
+                                    <span class="help-block" style="color:chocolate">If you increase trainee number then register Trainee info</span>
                                     <a href="{{ route('trainee.create') }}">Click here</a>
                                 @endif
                             </div>
