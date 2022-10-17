@@ -17,6 +17,8 @@ class Trainee extends Model
     protected $table = 'trainees';
 
     protected $fillable = [
+        'council',
+        'association',
         'activity',
         'name',
         'age',
