@@ -10,11 +10,15 @@ class Trainee extends Model
 {
     use HasFactory;
 
+    // public $timestamps = false;
+
     public $timestamps = false;
 
     protected $table = 'trainees';
 
     protected $fillable = [
+        'council',
+        'association',
         'activity',
         'name',
         'age',

@@ -193,7 +193,7 @@ class ActivityController extends Controller
 
 
         $activity = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        dd($activity);
+        // dd($activity);
 
         return view('backend.pages.activity.edit',
             compact(
@@ -207,6 +207,7 @@ class ActivityController extends Controller
             )
         );
     }
+
 
     public function getActivityConsole($id){
         $commons['page_title'] = 'Activity';
@@ -295,9 +296,40 @@ class ActivityController extends Controller
     public function update(ActivityUpdateRequest $request, $id)
     {
         $activity = Activity::findOrFail($id);
-        $activity->name = $request->validated('activity_name');
-        $activity->slug = strtolower(str_replace(' ', '_', $request->validated('activity_name')));
-        $activity->status = $request->validated('status');
+
+        // dd($activity);
+        $activity->council = $request->validated('council');
+        $activity->association = $request->validated('association');
+        $activity->program = $request->validated('program');
+
+        $activity->activity_title = $request->validated('activity_title');
+        $activity->remarks = $request->validated('remarks');
+        $activity->start_date = $request->validated('start_date');
+        $activity->end_date = $request->validated('end_date');
+        $activity->venue = $request->validated('venue');
+
+        if (is_array($request->trainers)){
+            $activity->number_of_trainers = count($request->validated('trainers'));
+            $activity->trainers = implode(', ', $request->validated('trainers'));
+        }else{
+            $activity->number_of_trainers = null;
+            $activity->trainers = null;
+        }
+
+        if (isset($request->number_of_trainees)){
+            $activity->number_of_trainees = $request->validated('number_of_trainees');
+            $activity->trainees = null;
+        }else{
+            $activity->number_of_trainees = null;
+            $activity->trainees = null;
+        }
+
+        $activity->source_of_fund = $request->validated('source_of_fund');
+        $activity->budget_as_per_contract = $request->validated('budget_as_per_contract');
+        $activity->actual_budget_as_per_expenditure = $request->validated('actual_budget_as_per_expenditure');
+        $activity->actual_expenditure_as_per_actual_budget = $request->validated('actual_expenditure_as_per_actual_budget');
+
+        $activity->status = 1;
         $activity->updated_at = Carbon::now();
         $activity->updated_by = Auth::user()->id;
         $activity->save();
@@ -305,12 +337,14 @@ class ActivityController extends Controller
         if ($activity->getChanges()){
             return redirect()
                 ->route('activity.index')
-                ->with('success', 'Activity updated successfully!');
+                ->with('success', 'Aitivity updated successfully!');
         }
 
         return redirect()
             ->back()
             ->with('failed', 'Activity cannot be updated!');
+
+        
     }
 
     /**

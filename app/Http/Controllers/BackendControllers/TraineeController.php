@@ -78,12 +78,14 @@ class TraineeController extends Controller
      */
     public function store(TraineeStoreRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         DB::beginTransaction();
 
         try {
             $activity = Activity::find($request->activity);
+            // dd($activity);
             $activity_duration = Carbon::parse($activity->start_date)->diffInDays(Carbon::parse($activity->end_date))+1;
+            // dd($activity_duration);
 
             for ($j = 1; $j <= $activity_duration; $j++){
                 $attendance[] = [
@@ -93,7 +95,11 @@ class TraineeController extends Controller
             }
 
             $trainee = new Trainee();
+            $trainee->council = $request->input('council');
+            // dd($trainee);
+            $trainee->association = $request->input('association');
             $trainee->activity = $activity->id;
+            // dd( $trainee);
             $trainee->name = $request->input('name');
             $trainee->age = $request->input('age');
             $trainee->gender = $request->input('gender');
@@ -106,30 +112,41 @@ class TraineeController extends Controller
 
             if ($attendance != null){
                 $trainee->attendance = json_encode($attendance);
+
+                // dd( $trainee->attendance);
             }else{
                 $attendance = null;
+                // dd($attendance);
             }
 
             $trainee->status = 1;
             $trainee->created_at = Carbon::now();
             $trainee->created_by = Auth::user()->id;
 
-            //dd($trainee);
+            // dd($trainee);
+                        //  ok
 
             $trainee->save();
+
+            // dd($trainee);
+                //ok
 
             $activity->number_of_trainees =  $activity->number_of_trainees + 1;
             $activity->save();
 
+            // dd($activity);
+
             DB::commit();
+
             // all good
             if ($trainee->wasRecentlyCreated){
                 return redirect()
                     ->route('trainee.index')
                     ->with('success', 'Trainee created successfully!');
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable  $e) {
             DB::rollback();
+            throw $e;
             // something went wrong
             return redirect()
                 ->back()
