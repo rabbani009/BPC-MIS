@@ -18,6 +18,7 @@ class Trainer extends Model
     protected $fillable = [
         'council',
         'association',
+        'program',
         'name',
         'email',
         'mobile',
@@ -51,6 +52,14 @@ class Trainer extends Model
     {
         return $this->belongsTo(Association::class, 'association');
     }
+
+    public function getprogram(){
+
+        return $this->hasMany(Program::class,'program');
+    }
+
+
+
 
     protected function AreaOfExpertise(): Attribute
     {

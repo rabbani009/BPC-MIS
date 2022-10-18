@@ -4,10 +4,11 @@ namespace App\Http\Controllers\BackendControllers;
 
 use App\Models\Council;
 use App\Models\Program;
+use App\Models\Trainer;
+use App\Models\Activity;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
 
 class ReportController extends Controller
 {
@@ -78,6 +79,10 @@ class ReportController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
+
+        $trainer_info =Trainer::latest()->get();
+
+    // dd($trainer_info);
     
 
         return view('backend.pages.report.trainerReport',
@@ -86,6 +91,8 @@ class ReportController extends Controller
             'councils',
             'programs',
             'associations',
+            'trainer_info'
+          
          
          
         )
@@ -131,7 +138,56 @@ class ReportController extends Controller
     }
 
 
+public function trainer(Request $request){
 
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Trainer Report';
+    $commons['main_menu'] = 'trainer';
+    $commons['current_menu'] = 'trainer-report';
+
+    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $associations = Association::where('status', 1)->pluck('name', 'id');
+    $programs = Program::where('status', 1)->pluck('name', 'id');
+    //dd($request->all());
+
+    $activities = Activity::where('council', $request->council)
+    ->where('association', $request->association)
+    ->where('program', $request->program)
+    ->get();
+
+    // dd($activities);
+
+
+      // Custom search filter 
+      $searchCouncil = $request->get('council');
+      $searchAssociation = $request->get('association');
+      $searchProgram = $request->get('program');
+
+
+      $records = Trainer::orderBy('id','desc')->where('program', $request->program)->get();
+
+    //   dd($records);
+
+
+
+
+
+
+
+    return view('backend.pages.report.trainerReport',
+    compact(
+        'commons',
+        'activities',
+        'councils',
+        'programs',
+        'associations'
+    )
+       
+    );
+
+
+    
+}
 
 
 
