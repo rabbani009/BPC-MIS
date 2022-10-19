@@ -159,8 +159,7 @@ public function trainer(Request $request){
 
     // dd($activities);
 
-
-      // Custom search filter 
+// Custom search filter 
 
     $trainers = Trainer::where('program', $request->program)
     ->where('council',$request->council)
