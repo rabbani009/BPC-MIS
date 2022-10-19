@@ -95,11 +95,11 @@ class TraineeController extends Controller
             }
 
             $trainee = new Trainee();
-            $trainee->council = $request->input('council');
-            // dd($trainee);
-            $trainee->association = $request->input('association');
+            // $trainee->council = $request->input('council');
+            // // dd($trainee);
+            // $trainee->association = $request->input('association');
             $trainee->activity = $activity->id;
-            // dd( $trainee);
+            // // dd( $trainee);
             $trainee->name = $request->input('name');
             $trainee->age = $request->input('age');
             $trainee->gender = $request->input('gender');

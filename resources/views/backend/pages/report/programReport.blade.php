@@ -30,7 +30,7 @@
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
                 <div class="card-tools">
-                    Note:: * marked fields are required
+                  Note:: [ You have to scroll Left => Right to see the full content ]
                 </div>
             </div>
             <form action="{{ route('search.index') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">

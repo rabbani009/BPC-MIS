@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('trainees', function (Blueprint $table) {
             $table->id();
+          
             $table->unsignedInteger('activity');
             $table->string('name');
             $table->unsignedInteger('age')->nullable();
