@@ -26,12 +26,18 @@ class ReportController extends Controller
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
 
+        $activities =Activity::latest()->get();
+
+        // dd($activities);
+
+
         return view('backend.pages.report.programReport',
         compact(
             'commons',
             'councils',
             'programs',
             'associations',
+            'activities'
          
         )
     );
@@ -119,7 +125,9 @@ class ReportController extends Controller
         $activities = Activity::where('council', $request->council)
         ->where('association', $request->association)
         ->where('program', $request->program)
-        ->get();
+        ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+        ->paginate(20);
+      
 
         // dd($activities);
 
@@ -129,7 +137,8 @@ class ReportController extends Controller
             'activities',
             'councils',
             'programs',
-            'associations'
+            'associations',
+            'activities'
         )
            
         );
