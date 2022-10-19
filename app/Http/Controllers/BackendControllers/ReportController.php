@@ -4,10 +4,11 @@ namespace App\Http\Controllers\BackendControllers;
 
 use App\Models\Council;
 use App\Models\Program;
+use App\Models\Trainer;
+use App\Models\Activity;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
 
 class ReportController extends Controller
 {
@@ -25,12 +26,18 @@ class ReportController extends Controller
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
 
+        $activities =Activity::latest()->get();
+
+        // dd($activities);
+
+
         return view('backend.pages.report.programReport',
         compact(
             'commons',
             'councils',
             'programs',
             'associations',
+            'activities'
          
         )
     );
@@ -78,6 +85,12 @@ class ReportController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
+
+        $trainers =Trainer::latest()->get();
+
+      
+
+    // dd($trainer_info);
     
 
         return view('backend.pages.report.trainerReport',
@@ -86,6 +99,8 @@ class ReportController extends Controller
             'councils',
             'programs',
             'associations',
+            'trainers'
+          
          
          
         )
@@ -110,7 +125,9 @@ class ReportController extends Controller
         $activities = Activity::where('council', $request->council)
         ->where('association', $request->association)
         ->where('program', $request->program)
-        ->get();
+        ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+        ->paginate(20);
+      
 
         // dd($activities);
 
@@ -120,7 +137,8 @@ class ReportController extends Controller
             'activities',
             'councils',
             'programs',
-            'associations'
+            'associations',
+            'activities'
         )
            
         );
@@ -131,7 +149,51 @@ class ReportController extends Controller
     }
 
 
+public function trainer(Request $request){
 
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Trainer Report';
+    $commons['main_menu'] = 'trainer';
+    $commons['current_menu'] = 'trainer-report';
+
+    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $associations = Association::where('status', 1)->pluck('name', 'id');
+    $programs = Program::where('status', 1)->pluck('name', 'id');
+    //dd($request->all());
+
+    $activities = Activity::where('council', $request->council)
+    ->where('association', $request->association)
+    ->where('program', $request->program)
+    ->get();
+
+    // dd($activities);
+
+// Custom search filter 
+
+    $trainers = Trainer::where('program', $request->program)
+    ->where('council',$request->council)
+    ->with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])
+    ->paginate(20);
+
+    // dd($trainers);
+
+
+    return view('backend.pages.report.trainerReport',
+    compact(
+        'commons',
+        'activities',
+        'councils',
+        'programs',
+        'associations',
+        'trainers'
+     
+    )
+       
+    );
+
+
+    
+}
 
 
 
