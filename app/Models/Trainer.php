@@ -55,7 +55,7 @@ class Trainer extends Model
 
     public function getprogram(){
 
-        return $this->hasMany(Program::class,'program');
+        return $this->belongsTo(Program::class,'program');
     }
 
 

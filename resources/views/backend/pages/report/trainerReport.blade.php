@@ -93,6 +93,7 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
+                  <th>SL.</th>
                   <th>council</th>
                   <th>association</th>
                   <th>program</th>
@@ -105,21 +106,26 @@
                 </thead>
                 <tbody>
 
+          
+    @foreach($trainers as $key => $row)
                 <tr>
-                  <td>Trident</td>
-                  <td>Internet Explorer</td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
-                  <td>X</td>
+                  <td>{{ $loop->iteration }}.</td>
+                  <td>{{ $row->getCouncil->name ?? 'None' }}</td>
+                  <td>{{ $row->getAssociation->name ?? 'None' }}</td>
+                  <td>{{ $row->getProgram->name ?? 'None' }}</td>
+                  <td>{{ $row->name }}</td>
+                  <td>{{ $row->email }}</td>
+                  <td>{{ $row->mobile }}</td>
+                  <td>{{ $row->gender }}</td>
+                  <td>{{ implode(', ', $row->area_of_expertise) }}</td>
                 </tr>
-              
+           
+    @endforeach
                
                 </tbody>
                 <tfoot>
                 <tr>
+                    <th>SL.</th>
                     <th>council</th>
                     <th>association</th>
                     <th>program</th>
@@ -308,7 +314,7 @@
         $(function () {
           $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print"]
           }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
           $('#example2').DataTable({
             "paging": true,

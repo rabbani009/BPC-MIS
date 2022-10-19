@@ -80,7 +80,9 @@ class ReportController extends Controller
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
-        $trainer_info =Trainer::latest()->get();
+        $trainers =Trainer::latest()->get();
+
+      
 
     // dd($trainer_info);
     
@@ -91,7 +93,7 @@ class ReportController extends Controller
             'councils',
             'programs',
             'associations',
-            'trainer_info'
+            'trainers'
           
          
          
@@ -159,19 +161,13 @@ public function trainer(Request $request){
 
 
       // Custom search filter 
-      $searchCouncil = $request->get('council');
-      $searchAssociation = $request->get('association');
-      $searchProgram = $request->get('program');
 
+    $trainers = Trainer::where('program', $request->program)
+   
+    ->with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])
+    ->paginate(20);
 
-      $records = Trainer::orderBy('id','desc')->where('program', $request->program)->get();
-
-    //   dd($records);
-
-
-
-
-
+    // dd($trainers);
 
 
     return view('backend.pages.report.trainerReport',
@@ -180,7 +176,9 @@ public function trainer(Request $request){
         'activities',
         'councils',
         'programs',
-        'associations'
+        'associations',
+        'trainers'
+     
     )
        
     );
