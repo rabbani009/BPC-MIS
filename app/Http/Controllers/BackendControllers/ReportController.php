@@ -163,7 +163,7 @@ public function trainer(Request $request){
       // Custom search filter 
 
     $trainers = Trainer::where('program', $request->program)
-   
+    ->where('council',$request->council)
     ->with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])
     ->paginate(20);
 
