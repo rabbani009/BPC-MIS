@@ -74,8 +74,11 @@
                         </div>
                     </div>
 
-                <div class="card-footer">
+                <div class="card-footer d-flex align-items-center">
                     <button type="submit" class="btn btn-primary">Search</button>
+                
+            
+                    <a href="{{ route('trainer.report') }}" class="btn btn-warning reset">Reset</a>
                 </div>
                 <input type="hidden" id="old_association_id" value="{{old('association')}}">
                 @if((old('trainers') !== '') && is_array(old('trainers')))
