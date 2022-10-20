@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -113,18 +114,24 @@ class ReportController extends Controller
     public function index(Request $request){
 
         $commons['page_title'] = 'Report';
-        $commons['content_title'] = 'Trainer Report';
-        $commons['main_menu'] = 'trainer';
-        $commons['current_menu'] = 'trainer-report';
+        $commons['content_title'] = 'Program Wise Activity Report';
+        $commons['main_menu'] = 'Activity-report';
+        $commons['current_menu'] = 'Activity-report';
 
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
         //dd($request->all());
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // dd( $end_date);
+       
 
         $activities = Activity::where('council', $request->council)
         ->where('association', $request->association)
         ->where('program', $request->program)
+        ->whereBetween('created_at',[$start_date,Carbon::parse($end_date)->endOfDay()])
         ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
         ->paginate(20);
       

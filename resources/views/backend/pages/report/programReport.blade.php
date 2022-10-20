@@ -71,6 +71,36 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group @if ($errors->has('start_date')) has-error @endif">
+                                    <label for="">Form date *</label>
+                                    <div class="input-group date" id="start_date" data-target-input="nearest">
+                                        <input value="{{ old('start_date') }}" type="text" name="start_date" class="form-control datetimepicker-input" data-target="#start_date" autocomplete="off" placeholder="YYYY-MM-DD">
+                                        <div class="input-group-append" data-target="#start_date" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                    @if($errors->has('start_date'))
+                                        <span class="error invalid-feedback">{{ $errors->first('start_date') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group @if ($errors->has('end_date')) has-error @endif">
+                                    <label for="">To date *</label>
+                                    <div class="input-group date" id="end_date" data-target-input="nearest">
+                                        <input type="text" name="end_date" value="{{ old('end_date') }}" class="form-control datetimepicker-input" data-target="#end_date" autocomplete="off" placeholder="YYYY-MM-DD">
+                                        <div class="input-group-append" data-target="#end_date" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                    @if($errors->has('end_date'))
+                                        <span class="error invalid-feedback">{{ $errors->first('end_date') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 <div class="card-footer">
