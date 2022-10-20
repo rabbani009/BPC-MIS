@@ -411,7 +411,8 @@
             message: '',
             orientation: 'landscape',
             exportOptions: {
-                columns: ':visible'
+                columns: ':visible',
+                
             }
         },
       

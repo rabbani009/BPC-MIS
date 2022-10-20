@@ -18,15 +18,6 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>
-                        Widgets
-                        <span class="right badge badge-danger">New</span>
-                    </p>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -39,20 +30,22 @@
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
                     <a href="{{ route('program.report') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Program <span class="badge badge-danger">Wise</span> Report</p>
+                        <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+                      <p><span class="badge badge-success">Activities info</span> Report</p>
                     </a>
                   </li>
-                  <li class="nav-item">
-                    <a href="{{ route('trainee.report') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Trainee <span class="badge badge-danger">Info</span> Report</p>
-                    </a>
-                  </li>
+                 
                   <li class="nav-item">
                     <a href="{{ route('trainer.report') }}" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Trainer <span class="badge badge-danger">info</span> Report</p>
+                      <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+                      <p><span class="badge badge-success">Trainer info</span> Report</p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="{{ route('trainee.report') }}" class="nav-link">
+                        <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+                      <p><span class="badge badge-success"> Trainee info</span> Report</p>
                     </a>
                   </li>
                  
