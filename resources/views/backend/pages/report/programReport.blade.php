@@ -377,7 +377,51 @@
     $(function () {
       $("#example1").DataTable({
         "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        "buttons": [
+    
+    
+    
+      
+
+        {
+            extend: 'copy',
+            text: window.copyButtonTrans,
+            exportOptions: {
+                columns: ':visible'
+            }
+        },
+        {
+            extend: 'csv',
+            text: window.csvButtonTrans,
+            exportOptions: {
+                columns: ':visible'
+            }
+        },
+        {
+            extend: 'excel',
+            text: window.excelButtonTrans,
+            exportOptions: {
+                columns: ':visible'
+            }
+        },
+        {
+            text: 'PDF',
+            extend: 'pdfHtml5',
+            title: 'BPC - All Activity Information',
+            message: '',
+            orientation: 'landscape',
+            exportOptions: {
+                columns: ':visible'
+            }
+        },
+      
+       
+    ]
+    
+    
+    
+    
+        
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
       $('#example2').DataTable({
         "paging": true,
@@ -389,6 +433,8 @@
         "responsive": true,
       });
     });
+
+    
   </script>
 
 
