@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Trainee;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -57,6 +58,11 @@ class ReportController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
+        // $trainees = Trainee::latest()->with([' getActivity', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+        $activity = Activity::orderBy('id','desc')->get();
+
+        // dd($activity);
 
 
 
@@ -68,6 +74,8 @@ class ReportController extends Controller
             'councils',
             'programs',
             'associations',
+            'trainees',
+            'activity'
          
         )
     );
@@ -101,9 +109,6 @@ class ReportController extends Controller
             'programs',
             'associations',
             'trainers'
-          
-         
-         
         )
     );
 
@@ -197,11 +202,54 @@ public function trainer(Request $request){
     )
        
     );
-
-
     
 }
 
+public function trainee(Request $request){
+
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Trainee Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'trainee-report';
+
+    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $associations = Association::where('status', 1)->pluck('name', 'id');
+    $programs = Program::where('status', 1)->pluck('name', 'id');
+    //dd($request->all());
+    $activity = Activity::orderBy('id','desc')->get();
+
+    $trainees = Trainee::where('activity',$request->activity)->get();
+
+    // dd($trainees);
+
+    return view('backend.pages.report.traineeReport',
+    compact(
+        'commons',
+        'councils',
+        'programs',
+        'associations',
+        'trainees',
+        'activity'
+    )
+); 
+  
+
+    // $traines_filter = Trainee::where('program', $request->program)
+    // ->where('council',$request->council)
+    // ->with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])
+    // ->paginate(20);
+
+    // dd( $traines_filter);
+
+
+
+
+
+
+
+
+}
 
 
 
