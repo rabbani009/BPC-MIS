@@ -18,8 +18,8 @@ class ReportController extends Controller
 
         $commons['page_title'] = 'Report';
         $commons['content_title'] = 'Program Wise Report';
-        $commons['main_menu'] = 'program';
-        $commons['current_menu'] = 'program-wise-report';
+        $commons['main_menu'] = 'report';
+        $commons['current_menu'] = 'Activity-report';
 
         // $councils = Council::where('status', 1)->orderBy('name','ASC')->get();
         $councils = Council::where('status', 1)->pluck('name', 'id');
@@ -51,7 +51,7 @@ class ReportController extends Controller
 
         $commons['page_title'] = 'Report';
         $commons['content_title'] = 'Trainee Report';
-        $commons['main_menu'] = 'trainee';
+        $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'trainee-report';
 
         $councils = Council::where('status', 1)->pluck('name', 'id');
@@ -80,7 +80,7 @@ class ReportController extends Controller
 
         $commons['page_title'] = 'Report';
         $commons['content_title'] = 'Trainer Report';
-        $commons['main_menu'] = 'trainer';
+        $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'trainer-report';
 
         $councils = Council::where('status', 1)->pluck('name', 'id');
@@ -115,7 +115,7 @@ class ReportController extends Controller
 
         $commons['page_title'] = 'Report';
         $commons['content_title'] = 'Program Wise Activity Report';
-        $commons['main_menu'] = 'Activity-report';
+        $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'Activity-report';
 
         $councils = Council::where('status', 1)->pluck('name', 'id');

@@ -19,8 +19,10 @@
             </li>
 
 
-            <li class="nav-item">
-                <a href="#" class="nav-link">
+            <li
+            class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
+            class="nav-item">
+                <a href="#" class="nav-link  @if($commons['main_menu'] == 'report') active @endif">
                     <i class="nav-icon fas far fa-chart-bar"></i>
                   <p>
                     REPORTS
@@ -28,22 +30,22 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{{ route('program.report') }}" class="nav-link">
+                  <li class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif">
+                    <a href="{{ route('program.report') }}" class="nav-link @if($commons['current_menu'] == 'Activity-report') active @endif">
                         <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                       <p><span class="badge badge-success">Activities info</span> Report</p>
                     </a>
                   </li>
                  
-                  <li class="nav-item">
-                    <a href="{{ route('trainer.report') }}" class="nav-link">
+                  <li class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif">
+                    <a href="{{ route('trainer.report') }}" class="nav-link @if($commons['current_menu'] == 'trainer-report') active @endif">
                       <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                       <p><span class="badge badge-success">Trainer info</span> Report</p>
                     </a>
                   </li>
 
-                  <li class="nav-item">
-                    <a href="{{ route('trainee.report') }}" class="nav-link">
+                  <li class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif">
+                    <a href="{{ route('trainee.report') }}" class="nav-link @if($commons['current_menu'] == 'trainee-report') active @endif">
                         <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                       <p><span class="badge badge-success"> Trainee info</span> Report</p>
                     </a>
