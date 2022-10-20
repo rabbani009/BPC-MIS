@@ -4,6 +4,12 @@
     <meta name="csrf_token" content="{{ csrf_token() }}" />
     <link href="{{ asset('AdminLTE-3.2.0/plugins/select2/css/select2.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
+
+        <!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
 @endsection
 
 @section('page_level_css_files')
@@ -22,51 +28,37 @@
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
                 <div class="card-tools">
-                    Note:: * Filter according to council->association->programtype
+                    Note:: * Filter according to Activity
                 </div>
             </div>
-            <form action="" method="" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form action="{{route('report.trainee')}}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
                     <div class="container card ">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group  @if ($errors->has('council')) has-error @endif">
-                                    <label class="control-label">Council *</label>
-                                    {{ Form::select('council', $councils, old('council')?old('council'):null, ['id="council", class="form-control select2"']) }}
-
-                                    @if($errors->has('council'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
-                                    @endif
-                                </div>
-                            </div>
+                          
                             <div class="col-md-6">
-                                <div class="form-group  @if ($errors->has('association')) has-error @endif">
-                                    <label class="control-label">Association *</label>
-                                    <div id="association_block">
-                                        {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
-                                    </div>
-                                    @if($errors->has('association'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('association') }} </span>
+                                <div class="form-group  @if ($errors->has('activity')) has-error @endif">
+                                    <label class="control-label">Select Trainees Based on Activity *</label>
+                                    <select name="activity" class="form-control">
+                                        <option value="" selected="" disabled="">Select Activity *</option>
+                                        @foreach($activity as $a)
+                                        <option value="{{ $a->id }}">{{ $a->activity_title }}</option>	
+                                        @endforeach
+                                    </select>
+                                    @if($errors->has('activity'))
+                                        <span class="error invalid-feedback"> {{ $errors->first('activity') }} </span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group  @if ($errors->has('program')) has-error @endif">
-                                    <label class="control-label">Program *</label>
-                                    {{ Form::select('program', $programs, old('program')?old('program'):null, ['id="program", class="form-control select2"']) }}
-
-                                    @if($errors->has('program'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
-                                    @endif
-                                </div>
-                            </div>
+                          
                         </div>
                     </div>
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Search</button>
+                    <a href="{{ route('trainee.report') }}" class="btn btn-warning reset">Reset</a>
                 </div>
                 <input type="hidden" id="old_association_id" value="{{old('association')}}">
                 @if((old('trainers') !== '') && is_array(old('trainers')))
@@ -74,6 +66,71 @@
                 @endif
             </form>
         </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><span>Filter data accorging to <span style="color:green">Activity</span></span></h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>activity</th> 
+                    <th>name</th>
+                    <th>age</th>
+                    <th>gender</th>
+                    <th>qualification</th>
+                    <th>organization</th>
+                    <th>designation</th>
+                    <th>phone</th>
+                    <th>email</th>
+                    <th>covid_status</th>
+                </tr>
+                </thead>
+                <tbody>
+    
+            
+@foreach($trainees as $key => $row)
+                <tr  @if($loop->odd) class="bg-light" @endif>
+                    <td>{{ $loop->iteration }}.</td>
+                    <td>{{ $row->getActivity->activity_title }}</td>
+                    <td>{{ $row->name }}</td>
+                    <td>{{ $row->age }}</td>
+                    <td>{{ $row->gender }}</td>
+                    <td>{{ $row->qualification }}</td>
+                    <td>{{ $row->organization }}</td>
+                    <td>{{ $row->designation }}</td>
+                    <td>{{ $row->phone }}</td>
+                    <td>{{ $row->email }}</td>
+                    <td>{{ $row->covid_status }}</td>
+                   
+                </tr>
+            
+    @endforeach
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>SL.</th>
+                    <th>activity</th> 
+                    <th>name</th>
+                    <th>age</th>
+                    <th>gender</th>
+                    <th>qualification</th>
+                    <th>organization</th>
+                    <th>designation</th>
+                    <th>phone</th>
+                    <th>email</th>
+                    <th>covid_status</th>
+                </tr>
+                </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            </div>      
+
 
     </section>
 
@@ -85,6 +142,24 @@
     <script src="{{ asset('AdminLTE-3.2.0/plugins/select2/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('AdminLTE-3.2.0/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE-3.2.0/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    
+        <script src="{{ asset('AdminLTE-3.2.0/dist/js/adminlte.min.js') }}"></script>
 @endsection
 <!-- END PAGE LEVEL PLUGINS -->
 
@@ -209,5 +284,79 @@
                 }
             });
         });
+    </script>
+
+    
+
+<script>
+    $(function () {
+    $("#example1").DataTable({
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": [
+    {
+    text: 'PDF',
+    extend: 'pdfHtml5',
+    title: 'Activitiy wise Trainee Information',
+    message: '',
+    orientation: 'landscape',
+    exportOptions: {
+    columns: ':visible'
+    },
+    customize: function (doc) {
+    doc.pageMargins = [10,10,10,10];
+    doc.defaultStyle.fontSize = 7;
+    doc.styles.tableHeader.fontSize = 7;
+    doc.styles.title.fontSize = 9;
+    // Remove spaces around page title
+    doc.content[0].text = doc.content[0].text.trim();
+    // Create a footer
+    doc['footer']=(function(page, pages) {
+    return {
+        columns: [
+            'This is your left footer column',
+            {
+                // This is the right column
+                alignment: 'right',
+                text: ['page ', { text: page.toString() },  ' of ', { text: pages.toString() }]
+            }
+        ],
+        margin: [10, 0]
+    }
+    });
+    // Styling the table: create style object
+    var objLayout = {};
+    // Horizontal line thickness
+    objLayout['hLineWidth'] = function(i) { return .5; };
+    // Vertikal line thickness
+    objLayout['vLineWidth'] = function(i) { return .5; };
+    // Horizontal line color
+    objLayout['hLineColor'] = function(i) { return '#aaa'; };
+    // Vertical line color
+    objLayout['vLineColor'] = function(i) { return '#aaa'; };
+    // Left padding of the cell
+    objLayout['paddingLeft'] = function(i) { return 4; };
+    // Right padding of the cell
+    objLayout['paddingRight'] = function(i) { return 4; };
+    // Inject the object in the document
+    doc.content[1].layout = objLayout;
+        }
+    
+    }
+    
+    
+    ]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+    });
+    });
+    
+    
     </script>
 @endsection

@@ -84,6 +84,8 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::match(array('GET','POST'),'report/trainer',[ReportController::class, 'trainer'])->name('report.trainer');
 
+    Route::match(array('GET','POST'),'report/trainee',[ReportController::class, 'trainee'])->name('report.trainee');
+
 
     //All ajax routes will be in this route group
     Route::group(['prefix' => 'ajax', 'as' => 'ajax.'], function (){

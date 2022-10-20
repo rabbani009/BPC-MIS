@@ -308,7 +308,7 @@ $(function () {
 $("#example1").DataTable({
 "responsive": true, "lengthChange": false, "autoWidth": false,
 "buttons": [
-    {
+{
 text: 'PDF',
 extend: 'pdfHtml5',
 title: 'BPC- Trainer Information',
@@ -354,8 +354,11 @@ objLayout['paddingLeft'] = function(i) { return 4; };
 objLayout['paddingRight'] = function(i) { return 4; };
 // Inject the object in the document
 doc.content[1].layout = objLayout;
+    }
+
 }
-}
+
+
 ]
 }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 $('#example2').DataTable({
