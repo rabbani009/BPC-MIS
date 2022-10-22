@@ -177,11 +177,18 @@
                 <div class="container-fluid card ">
                     <div class="row">
                         <div class="col-md-2">
-                            <div class="form-group @if ($errors->has('source_of_fund')) has-error @endif">
-                                <label for="">Source of fund</label>
-                                <input type="text" name="source_of_fund" class="form-control @if($errors->has('source_of_fund')) is-invalid @endif" value="{{ $activity->source_of_fund }}" placeholder="Enter source of fund amount here">
+                            <div class="form-group  @if ($errors->has('source_of_fund')) has-error @endif">
+                                <label class="control-label">Select Source of Fund *</label>
+                                <select name="source_of_fund" class="form-control">
+                                   
+                                    <option value="Gov">Gov</option>
+                                    <option value="Development Budget">Development Budget</option>	
+                                    <option value="Council association">Council association</option>
+                                    <option value="Others">Others</option>			
+                                   
+                                </select>
                                 @if($errors->has('source_of_fund'))
-                                    <span class="error invalid-feedback">{{ $errors->first('source_of_fund') }}</span>
+                                    <span class="error invalid-feedback"> {{ $errors->first('source_of_fund') }} </span>
                                 @endif
                             </div>
                         </div>

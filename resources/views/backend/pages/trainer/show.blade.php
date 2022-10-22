@@ -20,37 +20,61 @@
                 </div>
             </div>
 
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Council</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getCouncil->name ?? 'None' }}">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Trainer <span> <span style="color:green">View</span></span></h3>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Association</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getAssociation->name ?? 'None' }}">
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>SL.</th>
+                        <th>council</th>
+                        <th>association</th>
+                        <th>program</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>mobile</th>
+                        <th>gender</th>
+                        <th>area_of_expertise</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+        
+                
+     
+                    <tr>
+                        <td>{{ $trainer->id }}</td>
+                        <td>{{ $trainer->getCouncil->name }}</td>
+                        <td>{{ $trainer->getAssociation->name }}</td>
+                        <td>{{ $trainer->getProgram->name }}</td>
+                        <td>{{ $trainer->name }}</td>
+                        <td>{{ $trainer->email }}</td>
+                        <td>{{ $trainer->mobile }}</td>
+                        <td>{{ $trainer->gender }}</td>
+                        <td>{{ implode(', ', $trainer->area_of_expertise) }}</td>
+                    </tr>
+                
+  
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>SL.</th>
+                        <th>council</th>
+                        <th>association</th>
+                        <th>program</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>mobile</th>
+                        <th>gender</th>
+                        <th>area_of_expertise</th>
+                    </tr>
+                    </tfoot>
+                    </table>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->name }}">
+                <!-- /.card-body -->
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->email }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Mobile</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->mobile }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Gender</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->gender }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Area of Expertise</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->area_of_expertise }}">
-                </div>
-            </div>
-
             <div class="card-footer">
                 <a href="{{ route('trainer.edit', $trainer->id) }}" class="btn btn-outline-secondary">Edit</a>
             </div>
