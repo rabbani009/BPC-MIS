@@ -20,7 +20,7 @@
                 <h1 class="card-title">{{ $commons['content_title'] }}</h1>
 
                 <div class="card-tools">
-                    Note:: * marked fields are required
+                    Note:: * Activity Details info .
                 </div>
             </div>
 

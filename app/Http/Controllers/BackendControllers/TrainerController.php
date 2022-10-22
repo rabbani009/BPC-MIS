@@ -107,7 +107,7 @@ class TrainerController extends Controller
     public function show($id)
     {
         $commons['page_title'] = 'Trainer';
-        $commons['content_title'] = 'Show Trainer';
+        $commons['content_title'] = 'Trainer information';
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_create';
 
