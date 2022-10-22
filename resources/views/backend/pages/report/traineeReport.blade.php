@@ -299,9 +299,7 @@
     title: 'Activitiy wise Trainee Information',
     message: '',
     orientation: 'landscape',
-    exportOptions: {
-    columns: ':visible'
-    },
+   
     customize: function (doc) {
     doc.pageMargins = [10,10,10,10];
     doc.defaultStyle.fontSize = 7;
