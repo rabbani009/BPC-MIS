@@ -77,6 +77,7 @@ class ActivityController extends Controller
      */
     public function store(ActivityStoreRequest $request)
     {
+        // dd($request->all());
         $activity = new Activity();
         $activity->council = $request->validated('council');
         $activity->association = $request->validated('association');
@@ -104,7 +105,14 @@ class ActivityController extends Controller
             $activity->trainees = null;
         }
 
-        $activity->source_of_fund = $request->validated('source_of_fund');
+        if (isset($request->source_of_fund)){
+            $activity->source_of_fund = $request->validated('source_of_fund');
+          
+        }else{
+          $activity->source_of_fund = null;
+        }
+
+        // $activity->source_of_fund = $request->validated('source_of_fund');
         $activity->budget_as_per_contract = $request->validated('budget_as_per_contract');
         $activity->actual_budget_as_per_expenditure = $request->validated('actual_budget_as_per_expenditure');
         $activity->actual_expenditure_as_per_actual_budget = $request->validated('actual_expenditure_as_per_actual_budget');
@@ -324,7 +332,15 @@ class ActivityController extends Controller
             $activity->trainees = null;
         }
 
-        $activity->source_of_fund = $request->validated('source_of_fund');
+        if (isset($request->source_of_fund)){
+            $activity->source_of_fund = $request->validated('source_of_fund');
+          
+        }else{
+          $activity->source_of_fund = null;
+        }
+
+
+        // $activity->source_of_fund = $request->validated('source_of_fund');
         $activity->budget_as_per_contract = $request->validated('budget_as_per_contract');
         $activity->actual_budget_as_per_expenditure = $request->validated('actual_budget_as_per_expenditure');
         $activity->actual_expenditure_as_per_actual_budget = $request->validated('actual_expenditure_as_per_actual_budget');
