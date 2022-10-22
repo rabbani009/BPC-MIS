@@ -37,7 +37,17 @@
 
                        
                         
-                        <td><strong>Remarks: </strong>{{ $activity->remarks }}</td>
+                        <td><strong>Remarks: </strong>
+                        
+                        
+                       @if($activity->remarks == 0)
+                            <span class="badge badge-pill badge-info"> Ongoing </span>
+                       @else
+                            <span class="badge badge-pill badge-success"> Done </span>
+                       @endif
+                        
+                        
+                        </td>
                         <td><strong>Start Date: </strong>{{ $activity->start_date }}</td>
                         <td><strong>End Date: </strong>{{ $activity->end_date }}</td>
                         <td><strong>Trainers: </strong>{{ $activity->venue }}</td>
@@ -49,7 +59,7 @@
                     </tr>
                     <tr>
                         <td><strong>Source of fund: </strong>{{ $activity->source_of_fund }}</td>
-                        <td><strong>Budget as per contract: </strong>{{ $activity->budget_as_per_contact }}</td>
+                        <td><strong>Budget as per contract: </strong>{{ $activity->budget_as_per_contract }}</td>
                         <td><strong>Actual budget as per expenditure: </strong>{{ $activity->actual_budget_as_per_expenditure }}</td>
                         <td colspan="2"><strong>Actual expenditure as per actual budget: </strong>{{ $activity->actual_expenditure_as_per_actual_budget }}</td>
                     </tr>
