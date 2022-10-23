@@ -40,7 +40,7 @@
                                         <option value="{{ $council->id }}" @if($activity->getCouncil->id == $council->id) {{ 'selected' }} @endif>{{ $council->name }}</option>
                                     @endforeach
                                 </select>
-        
+
                                 @if($errors->has('council'))
                                     <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
                                 @else
@@ -69,7 +69,7 @@
                                         <option value="{{ $program->id }}" @if($activity->getProgram->id == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
                                     @endforeach
                                 </select>
-        
+
                                 @if($errors->has('council'))
                                     <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
                                 @else
@@ -161,12 +161,12 @@
                         <div class="col-md-4">
                             <div class="form-group @if ($errors->has('number_of_trainees')) has-error @endif">
                                 <label for="">Number of Trainees *</label>
-                                <input type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ $activity->number_of_trainees }}" placeholder="Enter number of trainees here">
+                                <input readonly disabled type="number" name="number_of_trainees" required class="form-control @if($errors->has('number_of_trainees')) is-invalid @endif" value="{{ $activity->number_of_trainees }}" placeholder="Enter number of trainees here">
                                 @if($errors->has('number_of_trainees'))
                                     <span class="error invalid-feedback">{{ $errors->first('number_of_trainees') }}</span>
                                 @else
                                     <span class="help-block" style="color:chocolate">If you increase trainee number then register Trainee info</span>
-                                    <a href="{{ route('trainee.create') }}">Click here</a>
+                                    <a href="{{ route('trainee.create', ['activity_id' => $activity->id]) }}">Click here</a>
                                 @endif
                             </div>
                         </div>
@@ -180,12 +180,12 @@
                             <div class="form-group  @if ($errors->has('source_of_fund')) has-error @endif">
                                 <label class="control-label">Select Source of Fund *</label>
                                 <select name="source_of_fund" class="form-control">
-                                   
+
                                     <option value="Gov">Gov</option>
-                                    <option value="Development Budget">Development Budget</option>	
+                                    <option value="Development Budget">Development Budget</option>
                                     <option value="Council association">Council association</option>
-                                    <option value="Others">Others</option>			
-                                   
+                                    <option value="Others">Others</option>
+
                                 </select>
                                 @if($errors->has('source_of_fund'))
                                     <span class="error invalid-feedback"> {{ $errors->first('source_of_fund') }} </span>

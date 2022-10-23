@@ -46,8 +46,10 @@ class TraineeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        dd($request->activity_id);
+
         $commons['page_title'] = 'Trainee';
         $commons['content_title'] = 'Add new Trainee';
         $commons['main_menu'] = 'trainee';
