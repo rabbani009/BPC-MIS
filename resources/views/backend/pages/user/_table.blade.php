@@ -43,7 +43,7 @@
                                 <a href="{{ route('user.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <form method="post" class="list_delete_form" action="{{ route('council.destroy', $row->id) }}" accept-charset="UTF-8" >
+                                <form method="post" class="list_delete_form" action="{{ route('user.destroy', $row->id) }}" accept-charset="UTF-8" >
                                     {{ csrf_field() }}
                                     <input name="_method" type="hidden" value="DELETE">
                                     <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-flat btn-outline-danger btn-sm" data-toggle="tooltip" title="Delete">

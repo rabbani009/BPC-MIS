@@ -251,16 +251,10 @@ class UserController extends Controller
 
         // dd($users);
 
-
-
-
          return view('backend.pages.user.show', 
          
          compact('commons', 
-                 'users'
-            
-            
-            
+                 'users'    
             ));
 
 
@@ -365,17 +359,7 @@ class UserController extends Controller
             )
         );
 
-      
-
-
-
-
-
-
-
-
-
-
+   
 
 
     }
@@ -433,6 +417,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->status = 0;
+        $user->deleted_at = Carbon::now();
+        $user->deleted_by = Auth::user()->id;
+        $user->save();
+
+        if ($user->getChanges()){
+            return redirect()
+                ->route('user.index')
+                ->with('success', 'User deleted successfully!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('failed', 'User cannot be deleted!');
     }
+
+    
 }
