@@ -241,7 +241,35 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $commons['page_title'] = 'User';
+        $commons['content_title'] = 'Show user';
+        $commons['main_menu'] = 'user';
+        $commons['current_menu'] = 'user_show';
+
+
+        $users = User::findOrFail($id);
+
+        // dd($users);
+
+
+
+
+         return view('backend.pages.user.show', 
+         
+         compact('commons', 
+                 'users'
+            
+            
+            
+            ));
+
+
+
+
+
+
+
+
     }
 
     /**
