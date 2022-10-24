@@ -48,16 +48,16 @@ class DashboardController extends Controller
 
         // $councils = Council::with(['activities'])->get();
         // //dd($councils);
-        
+
         // foreach($councils as $row){
         //     //dd($row);
         //     foreach($row->activities as $dow){
-        //         dd($dow); 
-        //         $activities    
+        //         dd($dow);
+        //         $activities
         //     }
 
         // }
-        
+
         // dd($activities);
 
 //council belongs_To Associations
@@ -73,7 +73,7 @@ class DashboardController extends Controller
 
 //Trainer belongs_To councils
 
-        $iBPC_trainers = Trainer::where('council',1)->count() ?? 0; 
+        $iBPC_trainers = Trainer::where('council',1)->count() ?? 0;
         $lSBPC_trainers = Trainer::where('council', 2)->count() ?? 0;
         $lEPBPC_trainers = Trainer::where('council', 3)->count() ?? 0;
         // dd($lEPBPC_trainers);
@@ -81,14 +81,14 @@ class DashboardController extends Controller
         $fPBPC_trainers = Trainer::where('council', 5)->count() ?? 0;
         $aPBPC_trainers = Trainer::where('council', 6)->count() ?? 0;
         $pPBPC_trainers = Trainer::where('council', 7)->count() ?? 0;
-      
+
 // Activity belongs to councils
 
-        $iBPC_activity = Activity::where('council',1)->count() ?? 0; 
-        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;    
-        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;  
-        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;   
-        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;   
+        $iBPC_activity = Activity::where('council',1)->count() ?? 0;
+        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;
+        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;
+        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;
+        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;
         $aPBPC_activity = Activity::where('council', 6)->count() ?? 0;
         // dd($aPBPC_activity);
         $pPBPC_activity = Activity::where('council', 7)->count() ?? 0;
@@ -102,10 +102,10 @@ class DashboardController extends Controller
 
         $lEPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','3')->sum('number_of_trainees');
 
-        
+
         $mPHPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','4')->sum('number_of_trainees');
 
-        
+
         $fPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','5')->sum('number_of_trainees');
 
         $aPBPC_trainees = Activity::select('number_of_trainees')->where('council','=','6')->sum('number_of_trainees');
@@ -133,8 +133,8 @@ class DashboardController extends Controller
                 'trainer',
                 'male_trainer',
                 'female_trainer',
-                'iBPC',  
-                'lSBPC',   
+                'iBPC',
+                'lSBPC',
                 'lEPBPC',
                 'mPHPBPC',
                 'fPBPC',
@@ -161,7 +161,7 @@ class DashboardController extends Controller
                 'fPBPC_trainees',
                 'aPBPC_trainees',
                 'pPBPC_trainees'
-              
+
 
 
             )

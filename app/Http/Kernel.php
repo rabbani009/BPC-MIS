@@ -3,7 +3,10 @@
 namespace App\Http;
 
 use App\Http\Middleware\AuthCustomMiddleware;
+use App\Http\Middleware\BpcMiddleware;
+use App\Http\Middleware\CouncilMiddleware;
 use App\Http\Middleware\LoggedInMiddleware;
+use App\Http\Middleware\SystemMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +70,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'authenticated' => AuthCustomMiddleware::class,
         'logged' => LoggedInMiddleware::class,
+        'userTypeIsSystem' => SystemMiddleware::class,
+        'userTypeIsBpc' => BpcMiddleware::class,
+        'userTypeIsCouncil' => CouncilMiddleware::class,
     ];
 }

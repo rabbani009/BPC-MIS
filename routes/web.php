@@ -53,6 +53,7 @@ Route::group(['namespace' => 'AuthControllers'], function () {
     Route::post('reset-password', [ResetPasswordController::class, 'postResetPassword'])->name('post.reset.password');
 });
 
+
 Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function () {
     Route::get('dashboard', [DashboardController::class, 'getDashboard'])->name('get.dashboard');
 
@@ -71,20 +72,17 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);
 
-    //Report 
-
+    //Report
     Route::get('report/program-wise',[ReportController::class, 'ProgramReportView'])->name('program.report');
     Route::get('report/trainee-info-report',[ReportController::class, 'traineeReportView'])->name('trainee.report');
     Route::get('report/trainer-info-report',[ReportController::class, 'trainerReportView'])->name('trainer.report');
-
-  
-
 
     Route::match(array('GET','POST'),'report/index',[ReportController::class, 'index'])->name('search.index');
 
     Route::match(array('GET','POST'),'report/trainer',[ReportController::class, 'trainer'])->name('report.trainer');
 
     Route::match(array('GET','POST'),'report/trainee',[ReportController::class, 'trainee'])->name('report.trainee');
+
 
 
     //All ajax routes will be in this route group
