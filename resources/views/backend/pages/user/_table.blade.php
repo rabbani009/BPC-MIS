@@ -40,7 +40,7 @@
                                 <a href="{{ route('council.show', $row->id) }}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
-                                <a href="{{ route('council.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
+                                <a href="{{ route('user.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
                                 <form method="post" class="list_delete_form" action="{{ route('council.destroy', $row->id) }}" accept-charset="UTF-8" >
