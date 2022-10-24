@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\BackendControllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserStoreRequest;
-use App\Models\Council;
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
+use App\Models\Council;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -240,7 +241,29 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $commons['page_title'] = 'User';
+        $commons['content_title'] = 'Show user';
+        $commons['main_menu'] = 'user';
+        $commons['current_menu'] = 'user_show';
+
+
+        $users = User::findOrFail($id);
+
+        // dd($users);
+
+         return view('backend.pages.user.show', 
+         
+         compact('commons', 
+                 'users'    
+            ));
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -251,7 +274,94 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $commons['page_title'] = 'User';
+        $commons['content_title'] = 'Edit user';
+        $commons['main_menu'] = 'user';
+        $commons['current_menu'] = 'user_edit';
+        
+        $user = User::findOrFail($id);
+        // dd($user);
+
+        if(auth()->user()->user_type == 'council'){
+            $user_types = ['council'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->where('slug', '!=', 'bpc_admin')
+                ->where('slug', '!=', 'bpc_executive')
+                ->get();
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->where('id', auth()->user()->belongs_to)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->where('slug', '=', 'council_admin')
+                ->orWhere('slug', '=', 'council_executive')
+                ->get();
+        }elseif(auth()->user()->user_type == 'bpc'){
+            $user_types = ['council', 'bpc'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->where('slug', '!=', 'bpc_admin')
+                ->where('slug', '!=', 'bpc_executive')
+                ->get();
+
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->where('slug', '=', 'bpc_admin')
+                ->orWhere('slug', '=', 'bpc_executive')
+                ->orWhere('slug', '=', 'council_executive')
+                ->orWhere('slug', '=', 'council_admin')
+                ->get();
+        }else{
+            $user_types = ['bpc', 'council', 'system'];
+            $roles = Role::select('name', 'id')
+                ->where('status', 1)
+                ->where('slug', '!=', 'system_admin')
+                ->get();
+            $councils = Council::select('name', 'id')
+                ->where('status', 1)
+                ->get();
+
+            $roles = Role::select('name', 'id')->where('status', 1)
+                ->get();
+        }
+
+        $getAllBackendRoutes = $this->getRoutesByGroup(['middleware' => 'authenticated']);
+        //dd($getAllBackendRoutes);
+
+        if ($getAllBackendRoutes){
+            foreach ($getAllBackendRoutes as $route) {
+                $routes[$route->getName()] = $route->getName();
+            }
+        }
+
+        $permissions = ['create'=>'create', 'read'=>'read', 'update'=>'update', 'delete'=>'delete'];
+
+        $users = User::where('status', 1)->where('user_type', '!=', 'system')->with(['userBelongsToCouncil'])->paginate(20);
+
+        return view('backend.pages.user.edit',
+            compact(
+                'commons',
+                'user_types',
+                'councils',
+                'roles',
+                'users',
+                'user',
+                'routes',
+                'permissions'
+            )
+        );
+
+   
+
+
     }
 
     /**
@@ -261,9 +371,42 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
+        
+        // dd($request->all());
+        $user = User::findOrFail($id);
+        
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password'));
+
+        $user->user_type = $request->input('user_type');
+        $user->belongs_to = $request->input('user_type') == 'bpc' || $request->input('user_type') == 'system' ? 0 : $request->input('belongs_to');
+        $user->role_id = $request->input('role');
+
+        $user->accesses = json_encode($request->input('accesses'));
+        $user->permissions = json_encode($request->input('permissions'));
+
+        $user->name = $request->input('name');
+        $user->profile_image = $request->input('profile_image');
+
+        $user->status = 1;
+        $user->created_at = Carbon::now();
+        $user->created_by = Auth::user()->id;
+
+        $user->save();
+
+        if ($user->getChanges()){
+            return redirect()
+                ->route('user.index')
+                ->with('success', 'User updated successfully!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('failed', 'User cannot be updated!');
+
+
     }
 
     /**
@@ -274,6 +417,23 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->status = 0;
+        $user->deleted_at = Carbon::now();
+        $user->deleted_by = Auth::user()->id;
+        $user->save();
+
+        if ($user->getChanges()){
+            return redirect()
+                ->route('user.index')
+                ->with('success', 'User deleted successfully!');
+        }
+
+        return redirect()
+            ->back()
+            ->with('failed', 'User cannot be deleted!');
     }
+
+    
 }
