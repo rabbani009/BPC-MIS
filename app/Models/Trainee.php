@@ -58,4 +58,21 @@ class Trainee extends Model
         return $this->belongsTo(Activity::class, 'activity')->with(['getCouncil', 'getAssociation', 'getProgram']);
     }
 
+    //added for trainee update request
+
+    // public function getCouncil()
+    // {
+    //     return $this->belongsTo(Council::class, 'council');
+    // }
+
+    // public function getAssociation()
+    // {
+    //     return $this->belongsTo(Association::class, 'association');
+    // }
+
+    // public function getprogram(){
+
+    //     return $this->belongsTo(Program::class,'program');
+    // }
+
 }

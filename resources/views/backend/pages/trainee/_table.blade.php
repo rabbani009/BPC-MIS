@@ -54,7 +54,15 @@
                                         <span>{{ $row->organization }}</span>
                                         <span>{{ $row->designation }}</span>
                                         <span>{{ $row->covid_status }}</span>
-                                        <span>{{ json_encode($row->attendance) }}</span>
+                                        <span> @foreach($row->attendance as $attendance)
+                                            <p>
+                                                {{ $attendance['day'] }}:
+                                                <span class="badge {{ $attendance['status'] == 1 ? 'badge-success' : 'badge-danger' }}">
+                                                {{ $attendance['status'] == 1 ? 'Present' : 'Not Present' }}
+                                                </span>
+                                            </p>
+                                         @endforeach
+                                        </span>
                                     </div>
                                 </div>
                             </div>
