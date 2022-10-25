@@ -13,7 +13,7 @@ class TraineeUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

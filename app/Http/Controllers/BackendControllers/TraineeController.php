@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\BackendControllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\TraineeStoreRequest;
-use App\Models\Activity;
-use App\Models\Association;
+use Carbon\Carbon;
 use App\Models\Council;
 use App\Models\Trainee;
-use Carbon\Carbon;
+use App\Models\Activity;
+use App\Models\Association;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TraineeStoreRequest;
+use App\Http\Requests\TraineeUpdateRequest;
 
 class TraineeController extends Controller
 {
@@ -189,23 +190,24 @@ class TraineeController extends Controller
      */
     public function edit($id)
     {
+
+        // dd($id);
         $commons['page_title'] = 'Trainee';
         $commons['content_title'] = 'Edit Trainee';
         $commons['main_menu'] = 'Trainee';
         $commons['current_menu'] = 'Trainee_create';
 
-        $councils = Council::where('status', 1)->get();
 
-        $trainee = Trainee::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainee = Trainee::findOrFail($id);
 
-        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainees = Trainee::where('status', 1)->paginate(20);
 
         return view('backend.pages.Trainee.edit',
             compact(
                 'commons',
-                'Trainee',
-                'Trainees',
-                'councils'
+                'trainee',
+                'trainees',
+             
             )
         );
     }
@@ -221,21 +223,22 @@ class TraineeController extends Controller
     {
         $trainee = Trainee::findOrFail($id);
         //dd($trainee);
-        $trainee->council = $request->validated('council');
-        $trainee->association = $request->validated('association');
-        $trainee->name = $request->validated('Trainee_name');
-        $trainee->email = $request->validated('email');
-        $trainee->mobile = $request->validated('mobile');
-        $trainee->gender = $request->validated('gender');
-        $trainee->area_of_expertise = $request->validated('area_of_expertise');
-        $trainee->status = $request->validated('status');
-        $trainee->updated_at = Carbon::now();
-        $trainee->updated_by = Auth::user()->id;
+        // $trainee->council = $request->validated('council');
+        // $trainee->association = $request->validated('association');
+        $trainee->name = $request->input('name');
+        $trainee->age = $request->input('age');
+        $trainee->gender = $request->input('gender');
+        $trainee->qualification = $request->input('qualification');
+        $trainee->organization = $request->input('organization');
+        $trainee->designation = $request->input('designation');
+        $trainee->phone = $request->input('phone');
+        $trainee->email = $request->input('email');
+        $trainee->covid_status = $request->input('covid_status');
         $trainee->save();
 
         if ($trainee->getChanges()){
             return redirect()
-                ->route('Trainee.index')
+                ->route('trainee.index')
                 ->with('success', 'Trainee updated successfully!');
         }
 
