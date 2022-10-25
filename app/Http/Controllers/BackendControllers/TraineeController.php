@@ -261,6 +261,8 @@ class TraineeController extends Controller
         $trainee->deleted_by = Auth::user()->id;
         $trainee->save();
 
+    
+
         if ($trainee->getChanges()){
             return redirect()
                 ->route('trainee.index')

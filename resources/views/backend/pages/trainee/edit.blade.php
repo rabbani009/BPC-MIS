@@ -81,6 +81,9 @@
                                     <div class="custom-radio">
                                         <label class="radio-inline"> <input type="radio" name="gender" id="seasonSummer" value="male"  @if($trainee->gender == 'Male') checked @endif> Male </label>
                                         <label class="radio-inline"> <input type="radio" name="gender" id="seasonWinter" value="female"   @if($trainee->gender == 'Female') checked @endif> Female </label>
+
+                                        <label class="radio-inline"> <input type="radio" name="gender" id="seasonWinter" value="Others"   @if($trainee->gender == 'Others') checked @endif> Others </label>
+
                                     </div>
                                     @if($errors->has('gender'))
                                         <span class="error invalid-feedback">{{ $errors->first('gender') }}</span>
