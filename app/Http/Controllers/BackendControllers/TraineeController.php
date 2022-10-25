@@ -170,14 +170,14 @@ class TraineeController extends Controller
         $commons['main_menu'] = 'Trainee';
         $commons['current_menu'] = 'Trainee_create';
 
-        $trainee = Trainee::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
-        $trainees = Trainee::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $trainee = Trainee::findOrFail($id);
+        
 
         return view('backend.pages.Trainee.show',
             compact(
                 'commons',
-                'Trainee',
-                'Trainees'
+                'trainee',
+              
             )
         );
     }

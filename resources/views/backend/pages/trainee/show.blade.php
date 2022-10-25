@@ -21,45 +21,41 @@
             </div>
 
             <div class="card-body">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Council</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getCouncil->name ?? 'None' }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Association</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->getAssociation->name ?? 'None' }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->name }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->email }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Mobile</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->mobile }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Gender</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->gender }}">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Area of Expertise</label>
-                    <input disabled name="council_name" class="form-control" value="{{ $trainer->area_of_expertise }}">
-                </div>
+                <table class="table table-striped table-responsive">
+                    <tr>
+                        <th style="width: 5%">SL .</th>
+                        <th>{{ $trainee->name }} -> Information</th>
+                     
+                    </tr>
+              
+                        <tr>
+                            <td style="width: 5%"></td>
+                            <td>
+                                <p><strong>Name: </strong>{{$trainee->name}}</p>
+                                <p><strong>Age: </strong>{{$trainee->age}}</p>
+                                <p><strong>Gender: </strong>{{$trainee->gender}}</p>
+                                <p><strong>Qualification: </strong>{{$trainee->qualification}}</p>
+                                <p><strong>Organization: </strong>{{$trainee->organization}}</p>
+                                <p><strong>Designation: </strong>{{$trainee->designation}}</p>
+                                <p><strong>Phone: </strong>{{$trainee->phone}}</p>
+                                <p><strong>Email: </strong>{{$trainee->email}}</p>
+                                <p><strong>Covid Status: </strong>{{$trainee->covid_status}}</p>
+                            </td>
+                            
+                        </tr>
+                    
+                </table>
             </div>
 
             <div class="card-footer">
-                <a href="{{ route('trainer.edit', $trainer->id) }}" class="btn btn-outline-secondary">Edit</a>
+                <a href="{{ route('trainee.edit', $trainee->id) }}" class="btn btn-outline-secondary">Edit</a>
             </div>
 
         </div>
 
     </section>
 
-    @include('backend.pages.trainer._table')
+  
 @endsection
 
 
