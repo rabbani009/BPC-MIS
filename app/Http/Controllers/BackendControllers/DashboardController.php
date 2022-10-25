@@ -29,6 +29,8 @@ class DashboardController extends Controller
 
         $programs = Program::count() ?? 0;
 
+        $activity = Activity::count() ?? 0;
+
         $councils = Council::count() ?? 0;
 
         $trainees_male = Trainee::where('gender','male')->count() ?? 0;
@@ -160,7 +162,8 @@ class DashboardController extends Controller
                 'mPHPBPC_trainees',
                 'fPBPC_trainees',
                 'aPBPC_trainees',
-                'pPBPC_trainees'
+                'pPBPC_trainees',
+                'activity'
 
 
 

@@ -255,13 +255,12 @@ class TraineeController extends Controller
      */
     public function destroy($id)
     {
+        // dd($id);
         $trainee = Trainee::findOrFail($id);
         $trainee->status = 0;
         $trainee->deleted_at = Carbon::now();
         $trainee->deleted_by = Auth::user()->id;
         $trainee->save();
-
-    
 
         if ($trainee->getChanges()){
             return redirect()
