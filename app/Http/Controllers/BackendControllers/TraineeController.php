@@ -48,7 +48,7 @@ class TraineeController extends Controller
      */
     public function create(Request $request)
     {
-        dd($request->activity_id);
+        // dd($request->activity_id);
 
         $commons['page_title'] = 'Trainee';
         $commons['content_title'] = 'Add new Trainee';
