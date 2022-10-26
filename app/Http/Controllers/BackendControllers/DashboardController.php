@@ -48,20 +48,6 @@ class DashboardController extends Controller
         $female_trainer = Trainer::where('gender','=','female')->count() ?? 0;
 
 
-        // $councils = Council::with(['activities'])->get();
-        // //dd($councils);
-
-        // foreach($councils as $row){
-        //     //dd($row);
-        //     foreach($row->activities as $dow){
-        //         dd($dow);
-        //         $activities
-        //     }
-
-        // }
-
-        // dd($activities);
-
 //council belongs_To Associations
 
         $iBPC = Association::where('belongs_to',1)->count() ?? 0;
