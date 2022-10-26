@@ -97,7 +97,7 @@
           <!-- BAR CHART -->
           <div class="card card-success">
            <div class="card-header">
-             <h3 class="card-title">Council-wise Information</h3>
+             <h3 class="card-title">Council Wise Information</h3>
 
              <div class="card-tools">
                <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -124,7 +124,7 @@
            <!-- DONUT CHART -->
            <div class="card card-danger">
             <div class="card-header">
-              <h3 class="card-title">Trainee  Info Chart</h3>
+              <h3 class="card-title">Trainee  Information Overview</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -147,7 +147,7 @@
                     <!-- PIE CHART -->
                     <div class="card card-danger">
                       <div class="card-header">
-                        <h3 class="card-title">Trainer Info Chart</h3>
+                        <h3 class="card-title">Trainer Information Overview</h3>
           
                         <div class="card-tools">
                           <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -219,7 +219,7 @@
       datasets: [
         {
           data: [male, female, others, total],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+          backgroundColor : ['#FF788F', '#58BDFF', '#FFE15D', '#58FFC5'],
         }
       ]
     }
@@ -259,7 +259,7 @@
       datasets: [
         {
           data: [trainer, male_trainer, female_trainer],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+          backgroundColor : ['#33ADFF', '#6CFBCB', '#FF788F'],
         }
       ]
     }

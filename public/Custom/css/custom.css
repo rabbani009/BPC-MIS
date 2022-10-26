@@ -99,3 +99,30 @@
 }
 
 
+.bg-warning, .bg-warning>a {
+    color: #000204!important;
+    background-color: #007bff47!important;
+
+}
+
+.bg-success, .bg-success>a {
+    color: #fff!important;
+    background-color: #1a3048!important;
+}
+
+.bg-info, .bg-info>a {
+    color: #fff!important;
+    background-color: #1a3048!important;
+}
+
+.card-success:not(.card-outline)>.card-header, .card-success:not(.card-outline)>.card-header a {
+    color: #fff;
+    background-color: #1746A2;
+}
+
+.card-danger:not(.card-outline)>.card-header, .card-danger:not(.card-outline)>.card-header a {
+    color: #fff;
+    background-color: #1746A2;
+}
+
+
