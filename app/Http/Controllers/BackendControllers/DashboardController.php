@@ -29,57 +29,57 @@ class DashboardController extends Controller
 
         $programs = Program::count() ?? 0;
 
-        $activity = Activity::count() ?? 0;
+        $activity = Activity::where('status', 1)->count() ?? 0;
 
         $councils = Council::count() ?? 0;
 
-        $trainees_male = Trainee::where('gender','male')->count() ?? 0;
+        $trainees_male = Trainee::where('status', 1)->where('gender','male')->count() ?? 0;
 
-        $trainees_female = Trainee::where('gender','female')->count() ?? 0;
+        $trainees_female = Trainee::where('status', 1)->where('gender','female')->count() ?? 0;
 
-        $trainees_others = Trainee::where('gender','others')->count() ?? 0;
+        $trainees_others = Trainee::where('status', 1)->where('gender','others')->count() ?? 0;
 
-        $trainees_total = Trainee::count() ?? 0;
+        $trainees_total = Trainee::where('status', 1)->count() ?? 0;
 
-        $trainer  = Trainer::count() ?? 0;
+        $trainer  = Trainer::where('status', 1)->count() ?? 0;
 
-        $male_trainer = Trainer::where('gender','=','male')->count() ?? 0;
+        $male_trainer = Trainer::where('status', 1)->where('gender','=','male')->count() ?? 0;
 
-        $female_trainer = Trainer::where('gender','=','female')->count() ?? 0;
+        $female_trainer = Trainer::where('status', 1)->where('gender','=','female')->count() ?? 0;
 
 
 //council belongs_To Associations
 
-        $iBPC = Association::where('belongs_to',1)->count() ?? 0;
-        $lSBPC = Association::where('belongs_to', 2)->count() ?? 0;
-        $lEPBPC = Association::where('belongs_to', 3)->count() ?? 0;
-        $mPHPBPC = Association::where('belongs_to', 4)->count() ?? 0;
-        $fPBPC = Association::where('belongs_to', 5)->count() ?? 0;
-        $aPBPC = Association::where('belongs_to', 6)->count() ?? 0;
-        $pPBPC = Association::where('belongs_to', 7)->count() ?? 0;
+        $iBPC = Association::where('status', 1)->where('belongs_to',1)->count() ?? 0;
+        $lSBPC = Association::where('status', 1)->where('belongs_to', 2)->count() ?? 0;
+        $lEPBPC = Association::where('status', 1)->where('belongs_to', 3)->count() ?? 0;
+        $mPHPBPC = Association::where('status', 1)->where('belongs_to', 4)->count() ?? 0;
+        $fPBPC = Association::where('status', 1)->where('belongs_to', 5)->count() ?? 0;
+        $aPBPC = Association::where('status', 1)->where('belongs_to', 6)->count() ?? 0;
+        $pPBPC = Association::where('status', 1)->where('belongs_to', 7)->count() ?? 0;
         // dd($pPBPC);
 
 //Trainer belongs_To councils
 
-        $iBPC_trainers = Trainer::where('council',1)->count() ?? 0;
-        $lSBPC_trainers = Trainer::where('council', 2)->count() ?? 0;
-        $lEPBPC_trainers = Trainer::where('council', 3)->count() ?? 0;
+        $iBPC_trainers = Trainer::where('status', 1)->where('council',1)->count() ?? 0;
+        $lSBPC_trainers = Trainer::where('status', 1)->where('council', 2)->count() ?? 0;
+        $lEPBPC_trainers = Trainer::where('status', 1)->where('council', 3)->count() ?? 0;
         // dd($lEPBPC_trainers);
-        $mPHPBPC_trainers = Trainer::where('council', 4)->count() ?? 0;
-        $fPBPC_trainers = Trainer::where('council', 5)->count() ?? 0;
-        $aPBPC_trainers = Trainer::where('council', 6)->count() ?? 0;
-        $pPBPC_trainers = Trainer::where('council', 7)->count() ?? 0;
+        $mPHPBPC_trainers = Trainer::where('status', 1)->where('council', 4)->count() ?? 0;
+        $fPBPC_trainers = Trainer::where('status', 1)->where('council', 5)->count() ?? 0;
+        $aPBPC_trainers = Trainer::where('status', 1)->where('council', 6)->count() ?? 0;
+        $pPBPC_trainers = Trainer::where('status', 1)->where('council', 7)->count() ?? 0;
 
 // Activity belongs to councils
 
-        $iBPC_activity = Activity::where('council',1)->count() ?? 0;
-        $lSBPC_activity = Activity::where('council', 2)->count() ?? 0;
-        $lEPBPC_activity = Activity::where('council', 3)->count() ?? 0;
-        $mPHPBPC_activity = Activity::where('council', 4)->count() ?? 0;
-        $fPBPC_activity = Activity::where('council', 5)->count() ?? 0;
-        $aPBPC_activity = Activity::where('council', 6)->count() ?? 0;
+        $iBPC_activity = Activity::where('status', 1)->where('council',1)->count() ?? 0;
+        $lSBPC_activity = Activity::where('status', 1)->where('council', 2)->count() ?? 0;
+        $lEPBPC_activity = Activity::where('status', 1)->where('council', 3)->count() ?? 0;
+        $mPHPBPC_activity = Activity::where('status', 1)->where('council', 4)->count() ?? 0;
+        $fPBPC_activity = Activity::where('status', 1)->where('council', 5)->count() ?? 0;
+        $aPBPC_activity = Activity::where('status', 1)->where('council', 6)->count() ?? 0;
         // dd($aPBPC_activity);
-        $pPBPC_activity = Activity::where('council', 7)->count() ?? 0;
+        $pPBPC_activity = Activity::where('status', 1)->where('council', 7)->count() ?? 0;
 
 //Trainee sum
 
