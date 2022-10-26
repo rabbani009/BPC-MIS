@@ -20,37 +20,38 @@
                 </div>
             </div>
 
-            <!-- Profile Image -->
-
-            <div class="card-body box-profile">
-                <div class="text-center">
+              <!-- Profile Image -->
+              
+                <div class="card-body box-profile">
+                  <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
-                         src="{{ asset('uploads/profile_images').auth()->user()->profile_image }}" alt="User profile picture">
+                         src="{{ asset('upload/profile_images/'. Auth::user()->profile_image) }}"
+                         alt="User profile picture">
+                  </div>
+  
+                  <h3 class="profile-username text-center">{{ $profile->name }}</h3>
+  
+                  <p class="text-muted text-center">{{ $profile->user_type }}</p>
+  
+                  <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                      <b>Full Name</b> <a class="float-right">{{ $profile->name }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>Email</b> <a class="float-right">{{ $profile->email }}</a>
+                    </li>
+                    <li class="list-group-item">
+                      <b>User Type</b> <a class="float-right">{{ $profile->role->name }}</a>
+                    </li>
+                  </ul>
+  
+                  <a href="{!! route('profile.edit', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-primary btn-block"><b>Edit profile</b></a>
                 </div>
-
-                <h3 class="profile-username text-center">{{ $profile->name }}</h3>
-
-                <p class="text-muted text-center">{{ $profile->user_type }}</p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                    <li class="list-group-item">
-                        <b>Full Name</b> <a class="float-right">{{ $profile->name }}</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>Email</b> <a class="float-right">{{ $profile->email }}</a>
-                    </li>
-                    <li class="list-group-item">
-                        <b>User Type</b> <a class="float-right">{{ $profile->role->name }}</a>
-                    </li>
-                </ul>
-
-                <a href="{{ route('profile.edit', auth()->user()->id) }}"
-                   class="btn btn-primary btn-block"><b>Edit profile</b></a>
-            </div>
-            <!-- /.card-body -->
-
-            <!-- /.card -->
+                <!-- /.card-body -->
+             
+              <!-- /.card -->
         </div>
+
     </section>
 
     {{-- @include('backend.pages.program._table') --}}
@@ -65,5 +66,8 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 @section('page_level_js_scripts')
+    <script>
 
+
+    </script>
 @endsection
