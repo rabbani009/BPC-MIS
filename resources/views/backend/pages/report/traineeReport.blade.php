@@ -95,7 +95,7 @@
 @foreach($trainees as $key => $row)
                 <tr  @if($loop->odd) class="bg-light" @endif>
                     <td>{{ $loop->iteration }}.</td>
-                    <td>{{ $row->getActivity->activity_title }}</td>
+                    <td>{{ $row->getActivity->activity_title ?? 'You have deleted Activity'}}</td>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->age }}</td>
                     <td>{{ $row->gender }}</td>

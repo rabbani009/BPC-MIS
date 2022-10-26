@@ -58,9 +58,9 @@ class ReportController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
-        // $trainees = Trainee::latest()->with([' getActivity', 'createdBy', 'updatedBy'])->paginate(20);
-        $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
-        $activity = Activity::orderBy('id','desc')->get();
+        $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
+        // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+        $activity = Activity::where('status', 1)->get();
 
         // dd($activity);
 

@@ -324,13 +324,13 @@ class ActivityController extends Controller
             $activity->trainers = null;
         }
 
-        if (isset($request->number_of_trainees)){
-            $activity->number_of_trainees = $request->validated('number_of_trainees');
-            $activity->trainees = null;
-        }else{
-            $activity->number_of_trainees = null;
-            $activity->trainees = null;
-        }
+        // if (isset($request->number_of_trainees)){
+        //     $activity->number_of_trainees = $request->validated('number_of_trainees');
+        //     $activity->trainees = null;
+        // }else{
+        //     $activity->number_of_trainees = null;
+        //     $activity->trainees = null;
+        // }
 
         if (isset($request->source_of_fund)){
             $activity->source_of_fund = $request->validated('source_of_fund');
