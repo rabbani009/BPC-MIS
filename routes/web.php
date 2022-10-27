@@ -20,7 +20,8 @@ use App\Http\Controllers\BackendControllers\{
     TraineeController,
     TrainerController,
     UserController,
-    ReportController
+    ReportController,
+    ActivityTraineeController
 };
 
 /*
@@ -68,6 +69,9 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::resource('trainer', TrainerController::class);
     Route::resource('trainee', TraineeController::class);
+
+    Route::post('activity-trainee-update', [ActivityTraineeController::class, 'activityTrainee'])->name('activitytrainee.update');
+
 
     Route::resource('profile', ProfileController::class);
     Route::resource('user', UserController::class);

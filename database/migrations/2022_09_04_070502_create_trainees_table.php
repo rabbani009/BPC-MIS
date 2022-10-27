@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('activity');
             $table->string('name');
             $table->unsignedInteger('age')->nullable();
-            $table->enum('gender', ['Male', 'Female', 'Others']);
+            $table->enum('gender', ['Male', 'Female', 'Others'])->nullable();
             $table->string('qualification')->nullable();
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();

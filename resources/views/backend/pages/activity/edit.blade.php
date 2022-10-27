@@ -234,8 +234,126 @@
     </div>
 
 
+    
+            {{-- start trainee information --}}
 
-</section>
+
+
+
+@foreach($trainees as $key => $row)
+
+
+<form action="{{ route('activitytrainee.update', $row->id) }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+    @csrf
+   
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="text" name="s_id[{{$loop->index}}][id]" value="{{$row->id}}">
+                    <label for="name">Name</label>
+                    <input type="text" name="name[{{$loop->index}}][name]" class="form-control @if($errors->has('name')) is-invalid @endif" value="{{ $row->name}}" placeholder="Enter trainee Name">
+                    @if($errors->has('name'))
+                        <span class="error invalid-feedback">{{ $errors->first('name') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="text" name="age[{{$loop->index}}][age]" class="form-control @if($errors->has('age')) is-invalid @endif" value="{{ $row->age}}" placeholder="Enter trainee age">
+                    @if($errors->has('age'))
+                        <span class="error invalid-feedback">{{ $errors->first('age') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="age">Phone</label>
+                    <input type="text" name="phone[{{$loop->index}}][phone]" class="form-control @if($errors->has('phone')) is-invalid @endif" value="{{ $row->phone}}" placeholder="Enter trainee phone">
+                    @if($errors->has('phone'))
+                        <span class="error invalid-feedback">{{ $errors->first('phone') }}</span>
+                    @endif
+                </div>
+                <span class="help-block"> This field is required. </span>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email[{{$loop->index}}][email]" class="form-control @if($errors->has('email')) is-invalid @endif" value="{{ $row->email}}" placeholder="Enter trainee email">
+                    @if($errors->has('email'))
+                        <span class="error invalid-feedback">{{ $errors->first('email') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+       
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="qualification">Qualification</label>
+                    <input type="text" name="qualification[{{$loop->index}}][qualification]" class="form-control @if($errors->has('qualification')) is-invalid @endif" value="{{ $row->qualification}}" placeholder="Enter trainee qualification">
+                    @if($errors->has('qualification'))
+                        <span class="error invalid-feedback">{{ $errors->first('qualification') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="organization">Organization</label>
+                    <input type="text" name="organization[{{$loop->index}}][organization]" class="form-control @if($errors->has('organization')) is-invalid @endif" value="{{ $row->organization}}" placeholder="Enter trainee organization">
+                    @if($errors->has('organization'))
+                        <span class="error invalid-feedback">{{ $errors->first('organization') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="designation">Designation</label>
+                    <input type="text" name="designation[{{$loop->index}}][designation]" class="form-control @if($errors->has('designation')) is-invalid @endif" value="{{ $row->designation}}" placeholder="Enter trainee designation">
+                    @if($errors->has('designation'))
+                        <span class="error invalid-feedback">{{ $errors->first('designation') }}</span>
+                    @else
+                        <span class="help-block"> This field is required. </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+        {{-- <div class="row">
+            <div class="col-md-12">
+                <label for="attendance">Attendance*</label>
+                <div id="attendance_block">
+
+                </div>
+            </div>
+        </div> --}}
+    </div>
+</div>
+
+
+
+@endforeach
+
+<div class="card-footer">
+    <button type="submit" class="btn btn-primary">Update Trainee Information</button>
+</div>
+
+</div>
+
+{{-- End of trainee informations --}}
+
 
 @endsection
 

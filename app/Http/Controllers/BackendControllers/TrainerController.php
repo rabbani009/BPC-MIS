@@ -59,8 +59,8 @@ class TrainerController extends Controller
             compact(
                 'commons',
                 'councils',
-                        'associations',
-                        'trainers'
+                'associations',
+                'trainers'
             )
         );
     }
