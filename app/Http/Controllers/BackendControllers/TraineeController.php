@@ -222,7 +222,7 @@ class TraineeController extends Controller
     public function update(TraineeUpdateRequest $request, $id)
     {
         $trainee = Trainee::findOrFail($id);
-        //dd($trainee);
+        // dd($trainee);
         // $trainee->council = $request->validated('council');
         // $trainee->association = $request->validated('association');
         $trainee->name = $request->input('name');
@@ -273,4 +273,14 @@ class TraineeController extends Controller
             ->with('failed', 'Trainee cannot be deleted!');
 
     }
+
+
+    public function activityTrainee(TraineeUpdateRequest $request, $id){
+
+        $trainee = Trainee::findOrFail($id);
+
+            dd($trainee);
+    }
+
+
 }
