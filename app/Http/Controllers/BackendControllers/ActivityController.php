@@ -107,7 +107,7 @@ class ActivityController extends Controller
 
         if (isset($request->source_of_fund)){
             $activity->source_of_fund = $request->validated('source_of_fund');
-          
+
         }else{
           $activity->source_of_fund = null;
         }
@@ -338,7 +338,7 @@ class ActivityController extends Controller
 
         if (isset($request->source_of_fund)){
             $activity->source_of_fund = $request->validated('source_of_fund');
-          
+
         }else{
           $activity->source_of_fund = null;
         }
@@ -364,7 +364,7 @@ class ActivityController extends Controller
             ->back()
             ->with('failed', 'Activity cannot be updated!');
 
-        
+
     }
 
     /**

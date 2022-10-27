@@ -43,6 +43,7 @@
                                 <a href="{{ route('user.edit', $row->id) }}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
+                                @if(auth()->user()->role->slug == 'bpc_admin')
                                 <form method="post" class="list_delete_form" action="{{ route('user.destroy', $row->id) }}" accept-charset="UTF-8" >
                                     {{ csrf_field() }}
                                     <input name="_method" type="hidden" value="DELETE">
@@ -50,6 +51,7 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                                @endif
                             </div>
                         </td>
                     </tr>

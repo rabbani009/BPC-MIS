@@ -251,10 +251,10 @@ class UserController extends Controller
 
         // dd($users);
 
-         return view('backend.pages.user.show', 
-         
-         compact('commons', 
-                 'users'    
+         return view('backend.pages.user.show',
+
+         compact('commons',
+                 'users'
             ));
 
 
@@ -279,7 +279,7 @@ class UserController extends Controller
         $commons['content_title'] = 'Edit user';
         $commons['main_menu'] = 'user';
         $commons['current_menu'] = 'user_edit';
-        
+
         $user = User::findOrFail($id);
         // dd($user);
 
@@ -359,7 +359,7 @@ class UserController extends Controller
             )
         );
 
-   
+
 
 
     }
@@ -373,10 +373,10 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-        
+
         // dd($request->all());
         $user = User::findOrFail($id);
-        
+
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
 
@@ -435,5 +435,5 @@ class UserController extends Controller
             ->with('failed', 'User cannot be deleted!');
     }
 
-    
+
 }

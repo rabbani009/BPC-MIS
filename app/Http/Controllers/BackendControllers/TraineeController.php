@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\TraineeStoreRequest;
 use App\Http\Requests\TraineeUpdateRequest;
+use Exception;
 
 class TraineeController extends Controller
 {
@@ -171,13 +172,13 @@ class TraineeController extends Controller
         $commons['current_menu'] = 'Trainee_create';
 
         $trainee = Trainee::findOrFail($id);
-        
+
 
         return view('backend.pages.Trainee.show',
             compact(
                 'commons',
                 'trainee',
-              
+
             )
         );
     }
@@ -207,7 +208,7 @@ class TraineeController extends Controller
                 'commons',
                 'trainee',
                 'trainees',
-             
+
             )
         );
     }
@@ -255,22 +256,32 @@ class TraineeController extends Controller
      */
     public function destroy($id)
     {
-        // dd($id);
         $trainee = Trainee::findOrFail($id);
-        $trainee->status = 0;
-        $trainee->deleted_at = Carbon::now();
-        $trainee->deleted_by = Auth::user()->id;
-        $trainee->save();
+        $activity = Activity::find($trainee->activity);
 
-        if ($trainee->getChanges()){
+        try {
+            $trainee->status = 0;
+            $trainee->deleted_at = Carbon::now();
+            $trainee->deleted_by = Auth::user()->id;
+            $trainee->save();
+
+            $activity->number_of_trainees = $activity->number_of_trainees - 1;
+            $activity->save();
+
+            if ($trainee->getChanges() && $activity->getChanges()){
+                return redirect()
+                    ->route('trainee.index')
+                    ->with('success', 'Trainee deleted successfully!');
+            }
+        } catch (Exception $exception){
             return redirect()
-                ->route('trainee.index')
-                ->with('success', 'Trainee deleted successfully!');
+            ->back()
+            ->with('failed', $exception->getMessage());
         }
 
-        return redirect()
-            ->back()
-            ->with('failed', 'Trainee cannot be deleted!');
+
+
+
 
     }
 
