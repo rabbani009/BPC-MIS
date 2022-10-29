@@ -28,12 +28,39 @@ class TraineeController extends Controller
         $commons['content_title'] = 'List of All Trainee';
         $commons['main_menu'] = 'trainee';
         $commons['current_menu'] = 'trainee_index';
-        
+    
+        $users = auth()->user();
 
-        $trainees = Trainee::where('status', 1)
+        if(!empty($users)){
+            $user_type = $users->user_type;
+            $user_name = $users->name;
+
+        } else {
+            $user_type = '';
+            $user_name = '';
+        }
+
+        if($user_type=='bpc'){
+
+
+            $trainees = Trainee::where('status', 1)
             ->with(['getActivity', 'createdBy', 'updatedBy'])
             ->latest()
             ->paginate(50);
+
+        }else{
+
+
+            $trainees = Trainee::where('status', 1)
+            ->where('activity', auth()->user()->belongs_to)
+            ->with(['getActivity', 'createdBy', 'updatedBy'])
+            ->latest()
+            ->paginate(50);
+
+
+
+        }
+
         //dd($trainees);
 
         return view('backend.pages.trainee.index',
