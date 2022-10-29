@@ -31,7 +31,32 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_index';
 
-        $activities = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->paginate(20);
+
+        $users = auth()->user();
+
+        if(!empty($users)){
+            $user_type = $users->user_type;
+            $user_name = $users->name;
+
+        } else {
+            $user_type = '';
+            $user_name = '';
+        }
+
+        if($user_type=='bpc'){
+
+
+            $activities = Activity::where('status', 1)
+        
+            ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->paginate(20);
+
+        }else{
+
+            $activities = Activity::where('status', 1)
+            ->where('council', auth()->user()->belongs_to) 
+            ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->paginate(20);
+        }
+
         //dd($activities);
         return view('backend.pages.activity.index',
             compact(

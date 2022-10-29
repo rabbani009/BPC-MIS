@@ -47,6 +47,7 @@
                                 <a href="{!! route('trainer.show', $row->id) !!}" class="btn btn-flat btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
                                     <i class="far fa-eye"></i>
                                 </a>
+                @if(auth()->user()->role->slug != 'bpc_admin')
                                 <a href="{!! route('trainer.edit', $row->id) !!}" class="btn btn-flat btn-outline-info btn-sm" data-toggle="tooltip" title="Edit">
                                     <i class="far fa-edit"></i>
                                 </a>
@@ -57,6 +58,7 @@
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
+                @endif
                             </div>
                         </td>
                     </tr>

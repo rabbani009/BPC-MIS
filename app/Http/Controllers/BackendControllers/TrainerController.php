@@ -28,7 +28,26 @@ class TrainerController extends Controller
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_index';
 
-        $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+        $users = auth()->user();
+
+        if(!empty($users)){
+            $user_type = $users->user_type;
+            $user_name = $users->name;
+
+        } else {
+            $user_type = '';
+            $user_name = '';
+        }
+
+        if($user_type=='bpc'){
+            
+            $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+
+        }else{
+
+            $trainers = Trainer::where('status', 1)->where('council', auth()->user()->belongs_to)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
+
+        }
 
         return view('backend.pages.trainer.index',
             compact(
