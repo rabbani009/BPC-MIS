@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('council')->comment('council id');
             $table->tinyInteger('association')->comment('association id');
-            $table->tinyInteger('program')->comment('program id');
+            $table->tinyInteger('program')->comment('program id')->nullable();
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();

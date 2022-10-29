@@ -48,6 +48,9 @@ class DashboardController extends Controller
         $female_trainer = Trainer::where('status', 1)->where('gender','=','female')->count() ?? 0;
 
 
+        
+
+
 //council belongs_To Associations
 
         $iBPC = Association::where('status', 1)->where('belongs_to',1)->count() ?? 0;
