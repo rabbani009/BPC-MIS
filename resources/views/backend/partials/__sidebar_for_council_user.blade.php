@@ -81,6 +81,9 @@
 </li>
 
 <li class="nav-header">MISCELLANEOUS</li>
+
+@if(auth()->user()->user_type =='bpc' || auth()->user()->user_type =='system' )
+
 <li class="nav-item @if($commons['main_menu'] == 'council') menu-open @endif">
     <a
         href="#"
@@ -179,6 +182,7 @@
         </li>
     </ul>
 </li>
+@endif
 <li class="nav-item @if($commons['main_menu'] == 'trainer') menu-open @endif">
     <a
         href="#"
