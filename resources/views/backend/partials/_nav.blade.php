@@ -33,7 +33,7 @@
                     >
                 </div>
                 <img
-                    src="{{(!empty($editData->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}"
+                    src="{{(!empty(auth()->user()->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}"
                     height="160px"
                     width="160px"
                     class="user-image img-circle elevation-2 m-0"
@@ -43,7 +43,7 @@
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <li class="user-header bg-primary">
                     <img
-                        src="{{(!empty($editData->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}"
+                        src="{{(!empty(auth()->user()->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}"
                         height="160px"
                         width="160px"
                         class="img-circle elevation-2"
