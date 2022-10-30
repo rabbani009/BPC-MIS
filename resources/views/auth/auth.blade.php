@@ -14,6 +14,12 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-3.2.0/dist/css/adminlte.min.css') }}">
 
+    <style>
+        .login-page {
+                       background-color: #fcfdfc;
+                   }
+     </style>
+
 </head>
 <body class="hold-transition login-page">
 @yield("content")

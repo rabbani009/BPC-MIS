@@ -48,6 +48,10 @@ class TraineeController extends Controller
             ->latest()
             ->paginate(50);
 
+         $get_activities_by_council = Activity::with(['getTrainees'])->get();
+
+        
+
         }else{
             $trainees = Trainee::where('status', 1)
                  // ->where('council', auth()->user()->belongs_to)
@@ -55,16 +59,22 @@ class TraineeController extends Controller
             ->latest()
             ->paginate(50);
 
+             $get_activities_by_council = Activity::with(['getTrainees'])
+               ->where('council', auth()->user()->belongs_to)
+               ->get();
+
 
 
         }
+        // dd($get_activities_by_council);
 
         // dd($trainees);
 
         return view('backend.pages.trainee.index',
             compact(
                 'commons',
-                'trainees'
+                'trainees',
+                'get_activities_by_council'
             )
         );
     }
