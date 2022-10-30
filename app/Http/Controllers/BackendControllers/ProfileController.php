@@ -125,9 +125,17 @@ class ProfileController extends Controller
 		}
 		$data->save();
 
-		
+        if ($data->getChanges()){
+            return redirect()
+                ->route('profile.edit', $data->id)
+                ->with('success', 'Profile updated successfully!');
+        }
 
-		return redirect()->route('profile.edit', $data->id);
+        return redirect()
+            ->back()
+            ->with('failed', 'Profile cannot be updated!');
+
+		// return redirect()->route('profile.edit', $data->id);
 
 
 
