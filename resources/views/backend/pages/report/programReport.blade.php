@@ -380,16 +380,20 @@
         "buttons": [
 
         {
+            title: 'Business Promotion Council-Overall Activity Information',
             extend: 'copy',
             text: window.copyButtonTrans,
           
         },
         {
+            title: 'Business Promotion Council-Overall Activity Information',
             extend: 'csv',
             text: window.csvButtonTrans,
             
         },
         {
+            title: 'Business Promotion Council-Overall Activity Information',
+            title: 'Business Promotion Council-Overall Activity Information',
             extend: 'excel',
             text: window.excelButtonTrans,
            
@@ -397,9 +401,48 @@
         {
             text: 'PDF',
             extend: 'pdfHtml5',
-            title: 'BPC - All Activity Information',
+            title: 'Business Promotion Council-Overall Activity Information',
             message: '',
             orientation: 'landscape',
+
+            customize: function (doc) {
+    doc.pageMargins = [10,10,10,10];
+    doc.defaultStyle.fontSize = 7;
+    doc.styles.tableHeader.fontSize = 7;
+    doc.styles.title.fontSize = 9;
+    // Remove spaces around page title
+    doc.content[0].text = doc.content[0].text.trim();
+    // Create a footer
+    doc['footer']=(function(page, pages) {
+    return {
+        columns: [
+            'This is your left footer column',
+            {
+                // This is the right column
+                alignment: 'right',
+                text: ['page ', { text: page.toString() },  ' of ', { text: pages.toString() }]
+            }
+        ],
+        margin: [10, 0]
+    }
+    });
+    // Styling the table: create style object
+    var objLayout = {};
+    // Horizontal line thickness
+    objLayout['hLineWidth'] = function(i) { return .5; };
+    // Vertikal line thickness
+    objLayout['vLineWidth'] = function(i) { return .5; };
+    // Horizontal line color
+    objLayout['hLineColor'] = function(i) { return '#aaa'; };
+    // Vertical line color
+    objLayout['vLineColor'] = function(i) { return '#aaa'; };
+    // Left padding of the cell
+    objLayout['paddingLeft'] = function(i) { return 4; };
+    // Right padding of the cell
+    objLayout['paddingRight'] = function(i) { return 4; };
+    // Inject the object in the document
+    doc.content[1].layout = objLayout;
+        }
            
   
         },

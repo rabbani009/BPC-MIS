@@ -296,7 +296,7 @@
     {
     text: 'PDF',
     extend: 'pdfHtml5',
-    title: 'Activitiy wise Trainee Information',
+    title: 'Business Promotion Council- Activitiy wise Trainee Information',
     message: '',
     orientation: 'landscape',
    
