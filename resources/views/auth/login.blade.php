@@ -66,9 +66,7 @@
                 <p class="mb-1">
                     <a href="{{ route('get.forgot.password') }}">I forgot my password</a>
                 </p>
-                <p class="mb-0">
-                    <a href="{{ route('get.register') }}" class="text-center">Register a new membership</a>
-                </p>
+               
             </div>
             <!-- /.login-card-body -->
         </div>

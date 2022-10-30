@@ -176,7 +176,7 @@
                 <!-- Fund -->
                 <div class="container-fluid card ">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group  @if ($errors->has('source_of_fund')) has-error @endif">
                                 <label class="control-label">Select Source of Fund *</label>
                                 <select name="source_of_fund" class="form-control">
@@ -192,7 +192,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group @if ($errors->has('budget_as_per_contract')) has-error @endif">
                                 <label for="">Budget as per contract</label>
                                 <input type="number" min="1" name="budget_as_per_contract" class="form-control @if($errors->has('budget_as_per_contract')) is-invalid @endif" value="{{ $activity->budget_as_per_contract }}" placeholder="Enter budget as per expenditure here">
