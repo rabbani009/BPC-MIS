@@ -190,8 +190,8 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $activity = Activity::with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
-        //dd($activity);
+        $activity = Activity::where('status', 1)->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])->findOrFail($id);
+        // dd($activity);
 
         return view('backend.pages.activity.show',
             compact(

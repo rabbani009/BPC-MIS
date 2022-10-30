@@ -78,6 +78,7 @@
                                     <th>Trainee Info</th>
                                     <th>Attendance Status</th>
                                 </tr>
+                          
                                 @if($activity->getTrainees)
                                     @foreach($activity->getTrainees as $trainee)
                                     <tr>
@@ -106,6 +107,7 @@
                                     </tr>
                                     @endforeach
                                 @endif
+                           
 
                             </table>
                         </td>

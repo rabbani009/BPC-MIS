@@ -49,10 +49,8 @@ class TraineeController extends Controller
             ->paginate(50);
 
         }else{
-
-
             $trainees = Trainee::where('status', 1)
-            ->where('activity', auth()->user()->belongs_to)
+                 // ->where('council', auth()->user()->belongs_to)
             ->with(['getActivity', 'createdBy', 'updatedBy'])
             ->latest()
             ->paginate(50);
@@ -61,7 +59,7 @@ class TraineeController extends Controller
 
         }
 
-        //dd($trainees);
+        // dd($trainees);
 
         return view('backend.pages.trainee.index',
             compact(
@@ -318,7 +316,7 @@ class TraineeController extends Controller
 
         $trainee = Trainee::findOrFail($id);
 
-            dd($trainee);
+            // dd($trainee);
     }
 
 
