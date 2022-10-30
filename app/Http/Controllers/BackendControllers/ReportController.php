@@ -22,13 +22,37 @@ class ReportController extends Controller
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'Activity-report';
 
-        // $councils = Council::where('status', 1)->orderBy('name','ASC')->get();
+ 
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
 
-        $activities =Activity::latest()->get();
+        
+ 	 $users = auth()->user();
+
+      if(!empty($users)){
+          $user_type = $users->user_type;
+          $user_name = $users->name;
+
+      } else {
+          $user_type = '';
+          $user_name = '';
+      }
+
+      if($user_type=='bpc'){
+
+
+              $activities =Activity::latest()->get();
+
+      }else{
+
+            
+            $activities =Activity::latest()->where('council', auth()->user()->belongs_to)->get();
+
+      }
+
+
 
         // dd($activities);
 
@@ -58,11 +82,41 @@ class ReportController extends Controller
         $councils = Council::where('status', 1)->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
-        $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
-        // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
-        $activity = Activity::where('status', 1)->get();
 
-        // dd($activity);
+
+
+        $users = auth()->user();
+
+        if(!empty($users)){
+            $user_type = $users->user_type;
+            $user_name = $users->name;
+
+        } else {
+            $user_type = '';
+            $user_name = '';
+        }
+
+        if($user_type=='bpc'){
+
+            $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
+            // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+            $activity = Activity::where('status', 1)->get();
+    
+            // dd($activity);
+
+        }else{
+
+
+            $trainees = Trainee::latest()->with(['getActivity','createdBy', 'updatedBy'])->get();
+            // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+
+            $activity = Activity::where('status', 1)->where('council', auth()->user()->belongs_to)->get();
+            // dd($activity);
+
+
+        }
+
+
 
 
 
@@ -95,9 +149,28 @@ class ReportController extends Controller
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
-        $trainers =Trainer::latest()->get();
+        $users = auth()->user();
 
-      
+        if(!empty($users)){
+            $user_type = $users->user_type;
+            $user_name = $users->name;
+
+        } else {
+            $user_type = '';
+            $user_name = '';
+        }
+
+        if($user_type=='bpc'){
+
+            $trainers =Trainer::latest()->get();
+
+        }else{
+
+            $trainers =Trainer::latest()->where('council', auth()->user()->belongs_to)
+            ->get();
+
+        }
+     
 
     // dd($trainer_info);
     
@@ -154,9 +227,6 @@ class ReportController extends Controller
         )
            
         );
-
-
-
 
     }
 
