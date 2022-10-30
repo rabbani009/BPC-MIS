@@ -98,14 +98,15 @@ class TraineeController extends Controller
         $activities = Activity::select('activity_title', 'id')->where('status', 1)->get();
 
         $trainees = Trainee::where('status', 1)->with(['getActivity', 'createdBy', 'updatedBy'])->paginate(20);
-
+        $get_activities_by_council = Activity::with(['getTrainees'])->get();
         return view('backend.pages.trainee.create',
             compact(
                 'commons',
                 'councils',
                 'associations',
                 'trainees',
-                'activities'
+                'activities',
+                'get_activities_by_council'
             )
         );
     }
