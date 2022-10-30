@@ -1,6 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{config('myconfig.app_name')}} | {{$commons['page_title']}}</title>
+<link rel="icon" type="image/x-icon" href="{{ asset('Custom/img/favicon.png') }}">
 
 <link rel="stylesheet" href="{{ asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback') }}">
 

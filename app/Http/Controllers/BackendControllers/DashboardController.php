@@ -29,7 +29,31 @@ class DashboardController extends Controller
 
         $programs = Program::count() ?? 0;
 
+        
+ 	 $user = auth()->user();
+
+      if(!empty($user)){
+          $user_type = $user->user_type;
+          $user_name = $user->name;
+
+      } else {
+          $user_type = '';
+          $user_name = '';
+      }
+
+      if($user_type=='bpc'){
+
         $activity = Activity::where('status', 1)->count() ?? 0;
+
+      }else{
+
+
+        $activity = Activity::where('status', 1)->where('council', auth()->user()->belongs_to)->count() ?? 0;
+
+
+      }
+
+  
 
         $councils = Council::count() ?? 0;
 

@@ -346,7 +346,7 @@
 
 <div class="card-footer" style="text-align:right">
     <button type="submit" class="btn btn-primary" >Update</button>
-    <a href="#" class="btn btn-danger" >Delete</a>
+  
 </div>
 
 </form>
