@@ -44,8 +44,12 @@
                       <b>User Type</b> <a class="float-right">{{ $profile->role->name }}</a>
                     </li>
                   </ul>
+
+          @if(auth()->user()->user_type =='council' || auth()->user()->user_type =='system' )
   
                   <a href="{!! route('profile.edit', \Illuminate\Support\Facades\Auth::user()->id) !!}" class="btn btn-primary btn-block"><b>Edit profile</b></a>
+
+          @endif
                 </div>
                 <!-- /.card-body -->
              

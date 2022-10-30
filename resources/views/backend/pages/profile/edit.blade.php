@@ -66,10 +66,11 @@
 
             </div>
             <!-- /.card-body -->
-
+    @if(auth()->user()->user_type =='council' || auth()->user()->user_type =='system' )
             <div class="card-footer">
             <button type="submit" class="btn btn-primary">Update profile</button>
             </div>
+    @endif
         </form>
         </div>
         <!-- /.card -->
