@@ -8,6 +8,7 @@ use App\Http\Requests\TrainerUpdateRequest;
 use App\Models\Activity;
 use App\Models\Association;
 use App\Models\Council;
+use App\Models\Program;
 use App\Models\Trainee;
 use App\Models\Trainer;
 use Carbon\Carbon;
@@ -71,6 +72,7 @@ class TrainerController extends Controller
 
         $councils = Council::where('status', 1)->get();
         $associations = Association::where('status', 1)->get();
+        $programs = Program::where('status', 1)->get();
 
         $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
@@ -79,7 +81,8 @@ class TrainerController extends Controller
                 'commons',
                 'councils',
                 'associations',
-                'trainers'
+                'trainers',
+                'programs'
             )
         );
     }
@@ -95,6 +98,7 @@ class TrainerController extends Controller
         $trainer = new Trainer();
         $trainer->council = $request->validated('council');
         $trainer->association = $request->validated('association');
+        $trainer->program = $request->validated('program');
         $trainer->name = $request->validated('trainer_name');
         $trainer->email = $request->validated('email');
         $trainer->mobile = $request->validated('mobile');
@@ -184,6 +188,7 @@ class TrainerController extends Controller
         //dd($trainer);
         $trainer->council = $request->validated('council');
         $trainer->association = $request->validated('association');
+        $trainer->program = $request->validated('program');
         $trainer->name = $request->validated('trainer_name');
         $trainer->email = $request->validated('email');
         $trainer->mobile = $request->validated('mobile');

@@ -48,7 +48,7 @@
             </div>
 
             <div class="card-footer">
-                <a href="{{ route('trainee.edit', $trainee->id) }}" class="btn btn-outline-secondary">Edit</a>
+                <a href="{{ route('trainee.index') }}" class="btn btn-outline-secondary">Back</a>
             </div>
 
         </div>

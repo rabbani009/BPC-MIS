@@ -98,7 +98,9 @@ class TraineeController extends Controller
         $activities = Activity::select('activity_title', 'id')->where('status', 1)->get();
 
         $trainees = Trainee::where('status', 1)->with(['getActivity', 'createdBy', 'updatedBy'])->paginate(20);
+
         $get_activities_by_council = Activity::with(['getTrainees'])->get();
+
         return view('backend.pages.trainee.create',
             compact(
                 'commons',
@@ -294,7 +296,9 @@ class TraineeController extends Controller
     public function destroy($id)
     {
         $trainee = Trainee::findOrFail($id);
+        // dd($trainee);
         $activity = Activity::find($trainee->activity);
+        // dd($activity);
 
         try {
             $trainee->status = 0;
