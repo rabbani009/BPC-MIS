@@ -26,7 +26,7 @@ class TrainerStoreRequest extends FormRequest
         return [
             'council' => 'required|integer|exists:councils,id',
             'association' => 'required|integer|exists:associations,id',
-            'program' => 'nullable',
+            'program' => 'required|integer',
             'trainer_name' => 'required',
             'email' => 'required|email',
             'mobile' => 'nullable',

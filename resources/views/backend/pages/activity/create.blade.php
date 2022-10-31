@@ -29,7 +29,7 @@
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- Time and location section -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group @if ($errors->has('activity_title')) has-error @endif">
@@ -157,7 +157,7 @@
                     </div>
 
                     <!-- Fund -->
-                    <div class="container card ">
+                    <div class="container-fluid card ">
                         <div class="row">
                         <div class="col-md-3">
                             <div class="form-group  @if ($errors->has('source_of_fund')) has-error @endif">

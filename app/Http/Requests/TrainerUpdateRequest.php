@@ -26,6 +26,7 @@ class TrainerUpdateRequest extends FormRequest
         return [
             'council' => 'required|integer|exists:councils,id',
             'association' => 'required|integer|exists:associations,id',
+            'program' => 'required|integer',
             'trainer_name' => 'required',
             'email' => 'required|email',
             'mobile' => 'nullable',

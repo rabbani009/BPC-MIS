@@ -134,7 +134,7 @@ class TrainerController extends Controller
         $commons['main_menu'] = 'trainer';
         $commons['current_menu'] = 'trainer_create';
 
-        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainer = Trainer::with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])->findOrFail($id);
         $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
 
         return view('backend.pages.trainer.show',
@@ -161,6 +161,8 @@ class TrainerController extends Controller
 
         $councils = Council::where('status', 1)->get();
 
+        $programs = Program::where('status', 1)->get();
+
         $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
 
         $trainers = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->paginate(20);
@@ -170,7 +172,8 @@ class TrainerController extends Controller
                 'commons',
                 'trainer',
                 'trainers',
-                'councils'
+                'councils',
+                'programs'
             )
         );
     }
@@ -185,7 +188,7 @@ class TrainerController extends Controller
     public function update(TrainerUpdateRequest $request, $id)
     {
         $trainer = Trainer::findOrFail($id);
-        //dd($trainer);
+        // dd($trainer);
         $trainer->council = $request->validated('council');
         $trainer->association = $request->validated('association');
         $trainer->program = $request->validated('program');

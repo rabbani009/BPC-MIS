@@ -41,6 +41,22 @@
                     <div id="association_block">
 
                     </div>
+
+                    <div class="form-group  @if ($errors->has('program')) has-error @endif">
+                        <label class="control-label">Program *</label>
+
+                        <select name="program" id="program" class="form-control select2 @if($errors->has('program')) is-invalid @endif">
+                            @foreach($programs as $program)
+                                <option value="{{ $program->id }}" @if(old('type') == $program->id) {{ 'selected' }} @endif>{{ $program->name }}</option>
+                            @endforeach
+                        </select>
+
+                        @if($errors->has('program'))
+                            <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
+                        @endif
+                    </div>
+
+                    
                     <div class="form-group">
                         <label for="exampleInputEmail1">Trainer Name</label>
                         <input type="text" name="trainer_name" class="form-control @if($errors->has('trainer_name')) is-invalid @endif" value="{{ $trainer->name }}" placeholder="Enter trainer Name">
