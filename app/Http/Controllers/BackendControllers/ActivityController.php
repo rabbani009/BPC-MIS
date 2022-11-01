@@ -222,9 +222,9 @@ class ActivityController extends Controller
         $programs = Program::where('status', 1)->get();
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();
 
-        $trainer = Trainer::with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
+        $trainer = Trainer::where('status', 1)->with(['getCouncil', 'getAssociation', 'createdBy', 'updatedBy'])->findOrFail($id);
 
-        $trainees = Trainee::where('activity', $id)->get();
+        $trainees = Trainee::where('status', 1)->where('activity', $id)->get();
 
         // dd($trainees);
 
