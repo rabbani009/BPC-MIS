@@ -61,6 +61,7 @@
 </li>
 
 <li class="nav-header">ACTIVITIES</li>
+@if(auth()->user()->user_type =='council' || auth()->user()->user_type =='system' )
 <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
     <a
         href="{{ route('activity.create') }}"
@@ -70,6 +71,7 @@
         <p>Add</p>
     </a>
 </li>
+@endif
 <li class="nav-item @if($commons['main_menu'] == 'activity') menu-open @endif">
     <a
         href="{{ route('activity.index') }}"
@@ -127,15 +129,17 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a
-                href="{{ route('association.create') }}"
-                class="nav-link @if($commons['current_menu'] == 'association_create') active @endif"
-            >
-                <i class="fas fa-plus nav-icon"></i>
-                <p>Add</p>
-            </a>
-        </li>
+      
+            <li class="nav-item">
+                <a
+                    href="{{ route('association.create') }}"
+                    class="nav-link @if($commons['current_menu'] == 'association_create') active @endif"
+                >
+                    <i class="fas fa-plus nav-icon"></i>
+                    <p>Add</p>
+                </a>
+            </li>
+      
         <li class="nav-item">
             <a
                 href="{{ route('association.index') }}"
@@ -179,6 +183,9 @@
         </li>
     </ul>
 </li>
+
+
+
 <li class="nav-item @if($commons['main_menu'] == 'trainer') menu-open @endif">
     <a
         href="#"
@@ -191,6 +198,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @if(auth()->user()->user_type =='council' || auth()->user()->user_type =='system' )
         <li class="nav-item">
             <a
                 href="{{ route('trainer.create') }}"
@@ -200,6 +208,7 @@
                 <p>Add</p>
             </a>
         </li>
+        @endif
         <li class="nav-item">
             <a
                 href="{{ route('trainer.index') }}"
@@ -223,6 +232,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview">
+        @if(auth()->user()->user_type =='council' || auth()->user()->user_type =='system' )
         <li class="nav-item">
             <a
                 href="{{ route('trainee.create') }}"
@@ -232,6 +242,7 @@
                 <p>Add</p>
             </a>
         </li>
+        @endif
         <li class="nav-item">
             <a
                 href="{{ route('trainee.index') }}"

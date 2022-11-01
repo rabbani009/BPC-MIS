@@ -213,10 +213,10 @@ class TraineeController extends Controller
         $trainee = Trainee::findOrFail($id);
 
 
-        return view('backend.pages.Trainee.show',
+        return view('backend.pages.trainee.show',
             compact(
                 'commons',
-                'trainee',
+                'trainee'
 
             )
         );
