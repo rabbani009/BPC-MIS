@@ -25,7 +25,7 @@
                 <div class="card-body box-profile">
                   <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
-                         src="{{(!empty($profile->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}"
+                         src="{{ asset('upload/profile_images/avater.jpg') }}"
                          alt="User profile picture">
                   </div>
   

@@ -57,7 +57,7 @@
 
             <div class="form-group">
                 <label for="exampleInputPassword1"></label>
-                <img id="showImage" class="rounded-circle avatar-lg" src="{{(!empty($editData->profile_image)) ? url('upload/profile_images/'. Auth::user()->profile_image):url('upload/no_image.jpg') }}" alt="Card image cap" width="160" height="160">
+                <img id="showImage" class="rounded-circle avatar-lg" src="{{ asset('upload/profile_images/avater.jpg') }}" alt="Card image cap" width="160" height="160">
             </div>
 
 
