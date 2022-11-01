@@ -50,8 +50,8 @@
                         </td>
                         <td><strong>Start Date: </strong>{{ $activity->start_date }}</td>
                         <td><strong>End Date: </strong>{{ $activity->end_date }}</td>
-                        <td><strong>Trainers: </strong>{{ $activity->venue }}</td>
-                        <td><strong>Trainees: </strong>{{ $activity->venue }}</td>
+                        <td><strong>Trainers: </strong>{{ $activity->trainers }}</td>
+                        <td><strong>Trainees: </strong>{{ $activity->number_of_trainees }}</td>
                     </tr>
                     <tr>
                         <td colspan="2"><strong>Council: </strong>{{ $activity->getCouncil->name }}</td>
