@@ -34,6 +34,7 @@
                             <div class="col-md-3">
                                 <div class="form-group  @if ($errors->has('council')) has-error @endif">
                                     <label class="control-label">Council *</label>
+                                    
                                     {{ Form::select('council', $councils, old('council')?old('council'):null, ['id="council", class="form-control select2"']) }}
 
                                     @if($errors->has('council'))

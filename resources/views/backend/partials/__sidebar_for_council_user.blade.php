@@ -37,7 +37,7 @@
             >
                 <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                 <p>
-                    <span class="badge badge-success">Trainer info</span>
+                    <span class="badge badge-success">Resource person info</span>
                     Report
                 </p>
             </a>
@@ -52,7 +52,7 @@
             >
                 <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                 <p>
-                    <span class="badge badge-success"> Trainee info</span>
+                    <span class="badge badge-success">Participants info</span>
                     Report
                 </p>
             </a>
@@ -190,7 +190,7 @@
     >
         <i class="nav-icon fas fa-user-tie"></i>
         <p>
-            TRAINER
+            Resource person
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
@@ -222,7 +222,7 @@
     >
         <i class="nav-icon fas fa-user-graduate"></i>
         <p>
-            TRAINEE
+            Participants 
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>

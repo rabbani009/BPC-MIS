@@ -78,7 +78,13 @@ class ActivityController extends Controller
         $commons['main_menu'] = 'activity';
         $commons['current_menu'] = 'activity_create';
 
-        $councils = Council::where('status', 1)->pluck('name', 'id');
+        $councils = Council::where('status', 1)
+         ->where('id', auth()->user()->belongs_to)
+         ->pluck('name', 'id'); 
+
+        // dd( $councils);
+        // ->where('created_by', auth()->user()->belongs_to) 
+        
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
         $trainers = Trainer::select('name', 'id')->where('status', 1)->get();

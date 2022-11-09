@@ -7,7 +7,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <div class="custom_title">
-                <p class="mb-0">Business Promotion Council</p>
+                <p class="mb-0">Bangladesh Business Promotion Council</p>
                 <small class="mb-0 text-maroon"
                     >Management Information System</small
                 >

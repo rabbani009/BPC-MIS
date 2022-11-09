@@ -37,7 +37,7 @@
             >
                 <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                 <p>
-                    <span class="badge badge-success">Trainer info</span>
+                    <span class="badge badge-success">Resource person info</span>
                     Report
                 </p>
             </a>

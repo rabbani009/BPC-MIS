@@ -22,8 +22,8 @@ class ReportController extends Controller
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'Activity-report';
 
- 
-        $councils = Council::where('status', 1)->pluck('name', 'id');
+    
+       
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
@@ -44,11 +44,16 @@ class ReportController extends Controller
 
 
               $activities =Activity::latest()->get();
+              
+              $councils = Council::where('status', 1)->pluck('name', 'id');
 
       }else{
 
             
             $activities =Activity::latest()->where('council', auth()->user()->belongs_to)->get();
+            $councils = Council::where('status', 1)
+            ->where('id', auth()->user()->belongs_to)
+            ->pluck('name', 'id');
 
       }
 
@@ -79,7 +84,9 @@ class ReportController extends Controller
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'trainee-report';
 
-        $councils = Council::where('status', 1)->pluck('name', 'id');
+        $councils = Council::where('status', 1)
+        ->where('id', auth()->user()->belongs_to)
+        ->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
@@ -145,7 +152,7 @@ class ReportController extends Controller
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'trainer-report';
 
-        $councils = Council::where('status', 1)->pluck('name', 'id');
+      
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
 
@@ -164,10 +171,17 @@ class ReportController extends Controller
 
             $trainers =Trainer::latest()->get();
 
+            $councils = Council::where('status', 1)
+            ->pluck('name', 'id');
+
         }else{
 
             $trainers =Trainer::latest()->where('council', auth()->user()->belongs_to)
             ->get();
+
+            $councils = Council::where('status', 1)
+            ->where('id', auth()->user()->belongs_to)
+            ->pluck('name', 'id');
 
         }
      
@@ -196,7 +210,9 @@ class ReportController extends Controller
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'Activity-report';
 
-        $councils = Council::where('status', 1)->pluck('name', 'id');
+        $councils = Council::where('status', 1)
+        ->where('id', auth()->user()->belongs_to)
+        ->pluck('name', 'id');
         $associations = Association::where('status', 1)->pluck('name', 'id');
         $programs = Program::where('status', 1)->pluck('name', 'id');
         //dd($request->all());
@@ -238,7 +254,9 @@ public function trainer(Request $request){
     $commons['main_menu'] = 'trainer';
     $commons['current_menu'] = 'trainer-report';
 
-    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $councils = Council::where('status', 1)
+    ->where('id', auth()->user()->belongs_to)
+    ->pluck('name', 'id');
     $associations = Association::where('status', 1)->pluck('name', 'id');
     $programs = Program::where('status', 1)->pluck('name', 'id');
     //dd($request->all());
@@ -283,7 +301,9 @@ public function trainee(Request $request){
     $commons['main_menu'] = 'report';
     $commons['current_menu'] = 'trainee-report';
 
-    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $councils = Council::where('status', 1)
+    ->where('id', auth()->user()->belongs_to)
+    ->pluck('name', 'id');
     $associations = Association::where('status', 1)->pluck('name', 'id');
     $programs = Program::where('status', 1)->pluck('name', 'id');
     //dd($request->all());
