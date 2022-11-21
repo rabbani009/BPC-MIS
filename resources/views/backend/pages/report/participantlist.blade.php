@@ -37,14 +37,7 @@
             <table id="example1" class="table table-bordered table-striped">
                 <a href="{{ route('participants.pdf') }}" style="margin-bottom: 10px" class="btn btn-primary">Export PDF</a>
             <thead>
-                {{-- <tr>
-                
-                    <th>SL.</th>
-                    <th colspan="4">Council</th> 
-                    <th colspan="4">Activity</th>
-                     
-                  
-                </tr> --}}
+              
             </thead>
             <tbody>
 

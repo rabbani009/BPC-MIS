@@ -83,6 +83,10 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::get('report/participants-info-report',[ReportController::class, 'participantsReportView'])->name('participants.report');
 
+    Route::get('report/source-of-fund-report',[ReportController::class, 'sourceReportView'])->name('source.report');
+
+    Route::match(array('GET','POST'),'report/source-of-fund',[ReportController::class, 'filtersourceReport'])->name('search.source');
+
     Route::match(array('GET','POST'),'report/index',[ReportController::class, 'index'])->name('search.index');
 
     Route::match(array('GET','POST'),'report/trainer',[ReportController::class, 'trainer'])->name('report.trainer');
@@ -93,7 +97,11 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::match(array('GET','POST'),'report/participants-list',[ReportController::class, 'participantslist'])->name('report.participantslist');
 
+//Export Dom-pdf
+
     Route::get('participantsList/Pdf',[ReportController::class, 'participantsListPdf'])->name('participants.pdf');
+
+   
 
 
     //All ajax routes will be in this route group

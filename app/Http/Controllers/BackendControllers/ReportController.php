@@ -153,16 +153,8 @@ public function participantsReportView(){
     $associations = Association::where('status', 1)->pluck('name', 'id');
     $programs = Program::where('status', 1)->pluck('name', 'id');
     $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
-    // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+
     $activity = Activity::where('status', 1)->get();
-
-    // dd($trainees);
-
-    // dd($activity);
-
-
-
-
 
 
 
@@ -367,13 +359,6 @@ public function trainee(Request $request){
 ); 
   
 
-    // $traines_filter = Trainee::where('program', $request->program)
-    // ->where('council',$request->council)
-    // ->with(['getCouncil', 'getAssociation','getProgram', 'createdBy', 'updatedBy'])
-    // ->paginate(20);
-
-    // dd( $traines_filter);
-
 
 }
 
@@ -400,11 +385,6 @@ public function participants(Request $request){
 
        $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
 
-    //    $trainees = Trainee::where('activity',$request->activity)->get();
-
-    // dd( $activity );
-
-    // dd($trainees);
 
 
     return view('backend.pages.report.participantsReport',
@@ -440,10 +420,6 @@ public function participantslist(Request $request){
     ->paginate(20);
 
 
- 
-
-    // $trainees = Trainee::where('activity',$request->activity)->get();
-
 
     $trainees = Trainee::where('status', 1)
              ->with(['getActivity', 'createdBy', 'updatedBy'])
@@ -453,19 +429,6 @@ public function participantslist(Request $request){
 
     $get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
                                           ->paginate(100);
-
-    // dd($trainees);
-
-        //    foreach($get_activities_by_council as $activities){
-        //           echo $activities->activity_title."<br>";
-         
-        //           foreach($activities->getTrainees as $trainee){
-        //               echo '->'.$trainee->name."<br>";
-        //       }
-        //          }
-         
-        //     //    dd($trainees);
-        //         // exit;
 
                 return view('backend.pages.report.participantlist',
                 compact(
@@ -500,6 +463,84 @@ $get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
         view()->share('trainees' ,'get_activities_by_council');
 
         $pdf = Pdf::loadView('pdf_view',compact('trainees','get_activities_by_council','commons'))->setOptions(['defaultFont' => 'sans-serif'])->setPaper('A4', 'landscape');
+        
+        return $pdf->download("bpc.pdf");
+
+
+}
+
+public function sourceReportView(){
+
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Source of fund Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Source of fund-report';
+
+
+    $source = Activity::where('status', 1)->get();
+
+    // dd($source);
+
+    $activity = Activity::where('status', 1)->get();
+
+    return view('backend.pages.report.sourceReport',
+    compact(
+        'commons',
+       'source',
+       'activity'
+       
+     
+    ));
+
+
+}
+
+public function filtersourceReport(Request $request){
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Source of fund Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Source of fund-report';
+
+
+    
+    $source = Activity::where('status', 1)->get();
+
+    $activity = Activity::where('source_of_fund', $request->source) 
+    ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+    ->paginate(20);  
+
+    // dd($activity);
+
+
+    return view('backend.pages.report.sourceReport',
+    compact(
+        'commons',
+        'activity',
+        'source',
+       
+     
+    ));
+
+
+}
+
+
+public function fundpdf(){
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Source of fund Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Source of fund-report';
+
+    $source = Activity::where('status', 1)->get();
+
+
+
+        view()->share('source');
+
+        $pdf = Pdf::loadView('pdf_view',compact('source','commons'))->setOptions(['defaultFont' => 'sans-serif'])->setPaper('A4', 'landscape');
         
         return $pdf->download("bpc.pdf");
 
