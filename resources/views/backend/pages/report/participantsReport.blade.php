@@ -81,7 +81,7 @@
                 <button type="submit" class="btn btn-primary">Search</button>
             
         
-                <a href="" class="btn btn-warning reset">Reset</a>
+                <a href="{{ route('participants.report') }}" class="btn btn-warning reset">Reset</a>
             </div>
             <input type="hidden" id="old_association_id" value="{{old('association')}}">
             @if((old('trainers') !== '') && is_array(old('trainers')))
