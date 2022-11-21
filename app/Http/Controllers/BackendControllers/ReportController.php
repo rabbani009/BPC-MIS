@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\BackendControllers;
 
+use Carbon\Carbon;
 use App\Models\Council;
 use App\Models\Program;
+use App\Models\Trainee;
 use App\Models\Trainer;
 use App\Models\Activity;
 use App\Models\Association;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use App\Models\Trainee;
-use Carbon\Carbon;
+
 
 class ReportController extends Controller
 {
@@ -124,11 +126,6 @@ class ReportController extends Controller
         }
 
 
-
-
-
-
-
         return view('backend.pages.report.traineeReport',
         compact(
             'commons',
@@ -142,7 +139,52 @@ class ReportController extends Controller
     );
 
 
-    }
+}
+
+public function participantsReportView(){
+
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Participants Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'participants-report';
+
+    $councils = Council::where('status', 1)->pluck('name', 'id');
+    $associations = Association::where('status', 1)->pluck('name', 'id');
+    $programs = Program::where('status', 1)->pluck('name', 'id');
+    $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
+    // $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+    $activity = Activity::where('status', 1)->get();
+
+    // dd($trainees);
+
+    // dd($activity);
+
+
+
+
+
+
+
+    return view('backend.pages.report.participantsReport',
+    compact(
+        'commons',
+        'councils',
+        'programs',
+        'associations',
+        'trainees',
+        'activity'
+       
+     
+    )
+
+    );
+
+
+}
+
+
+
 
     
     public function trainerReportView(){
@@ -333,13 +375,141 @@ public function trainee(Request $request){
     // dd( $traines_filter);
 
 
+}
+
+public function participants(Request $request){
 
 
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Participants Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'participants-report';
 
+    $councils = Council::where('status', 1)
+    ->where('id', auth()->user()->belongs_to)
+    ->pluck('name', 'id');
+    $associations = Association::where('status', 1)->pluck('name', 'id');
+    $programs = Program::where('status', 1)->pluck('name', 'id');
+    //dd($request->all());
+
+  $activity = Activity::where('council', $request->council)
+    ->where('association', $request->association)
+    ->where('program', $request->program)
+    ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+    ->paginate(20);
+
+       $trainees = Trainee::orderBy('id','desc')->with(['getActivity'])->get();
+
+    //    $trainees = Trainee::where('activity',$request->activity)->get();
+
+    // dd( $activity );
+
+    // dd($trainees);
+
+
+    return view('backend.pages.report.participantsReport',
+    compact(
+        'commons',
+        'councils',
+        'programs',
+        'associations',
+        'trainees',
+        'activity'
+       
+     
+    )
+);
+
+
+}
+
+public function participantslist(Request $request){
+
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Participants Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'participants-report';
+
+
+    $activity = Activity::where('council', $request->council)
+    ->where('association', $request->association)
+    ->where('program', $request->program)
+   
+    ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+    ->paginate(20);
+
+
+ 
+
+    // $trainees = Trainee::where('activity',$request->activity)->get();
+
+
+    $trainees = Trainee::where('status', 1)
+             ->with(['getActivity', 'createdBy', 'updatedBy'])
+             ->latest()
+             ->paginate(50);
+
+
+    $get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
+                                          ->paginate(100);
+
+    // dd($trainees);
+
+        //    foreach($get_activities_by_council as $activities){
+        //           echo $activities->activity_title."<br>";
+         
+        //           foreach($activities->getTrainees as $trainee){
+        //               echo '->'.$trainee->name."<br>";
+        //       }
+        //          }
+         
+        //     //    dd($trainees);
+        //         // exit;
+
+                return view('backend.pages.report.participantlist',
+                compact(
+                     'commons',
+                    'get_activities_by_council',
+                    'activity',
+                    'trainees'
+                )
+            );
 
 
 
 }
+
+
+public function participantsListPdf(){
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Participants Report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'participants-report';
+
+    $trainees = Trainee::where('status', 1)
+    ->with(['getActivity', 'createdBy', 'updatedBy'])
+    ->latest()
+    ->paginate(50);
+
+
+$get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
+                                 ->paginate(100);
+
+        view()->share('trainees' ,'get_activities_by_council');
+
+        $pdf = Pdf::loadView('pdf_view',compact('trainees','get_activities_by_council','commons'))->setOptions(['defaultFont' => 'sans-serif'])->setPaper('A4', 'landscape');
+        
+        return $pdf->download("bpc.pdf");
+
+
+}
+
+
+
+
+
 
 
 
