@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
         // Colors
         $text: white;
@@ -69,10 +71,18 @@
         a:focus {
             color: $link-hover;
         }
+
+        .cstm-btn {
+            top: 20px;
+            left: calc(100% - 200px);
+            z-index: 9999;
+        }
     </style>
 </head>
 <body>
+<button class="btn btn-success position-absolute cstm-btn" onClick={showCanvas()}>Grand Opening</button>
 <div id="particles-js"></div>
+<canvas id="my-canvas" class="custom-canvas"></canvas>
 
 <div class="text">
     <a href="{{route('get.login')}}">Bangladesh Business Promotion Council</a>
@@ -84,10 +94,46 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
 ></script>
+
+
+    <!-- <script src="./confetti.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    
 <script>
     var color = '#75A5B7';
     var maxParticles = 80;
 
+    // canvas-confetti
+
+    function showCanvas () {
+        var end = Date.now() + (15 * 1000);
+
+        // go Buckeyes!
+        var colors = ['#bb0000', '#ffffff'];
+
+        (function frame() {
+        confetti({
+            particleCount: 2,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            colors: colors
+        });
+        confetti({
+            particleCount: 2,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            colors: colors
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+        }());   
+    }
+
+    
     // ParticlesJS Config.
     particlesJS('particles-js', {
         'particles': {
