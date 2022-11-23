@@ -19,7 +19,7 @@
                         <th>Program</th>
 
                         <th>Activity Title</th>
-                        <th>Remarks</th>
+                      
                         <th>Venue</th>
                         <th>Start Date</th>
                         <th>End Date</th>
@@ -30,8 +30,9 @@
 
                         <th>Source of fund</th>
                         <th>Budget as per contract</th>
-                        <th>Actual budget as per expenditure</th>
-                        <th>Actual expenditure as per actual budget</th>
+                        <th>Actual expenditure</th>
+                        <th>Council expenditure</th>
+                        <th>Remarks</th>
 
                         @include('backend.pages.commons.timestamps_th')
 
@@ -48,15 +49,7 @@
                         <td>{{ $row->getProgram->name }}</td>
 
                         <td>{{ $row->activity_title }}</td>
-                        <td>
-
-                        @if($row->remarks == 0)
-                             <span class="badge badge-pill badge-info"> Ongoing </span>
-                        @else
-                             <span class="badge badge-pill badge-success"> Done </span>
-                        @endif
-                        
-                        </td>
+                       
                         <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
                         <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
                         <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
@@ -68,6 +61,16 @@
                         <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
                         <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
                         <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
+
+                        <td>
+
+                            @if($row->remarks == 0)
+                                 <span class="badge badge-pill badge-info"> Ongoing </span>
+                            @else
+                                 <span class="badge badge-pill badge-success"> Done </span>
+                            @endif
+                            
+                            </td>
 
                         @include('backend.pages.commons.timestamps_td')
 

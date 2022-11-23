@@ -145,8 +145,8 @@
   
                           <th>Source of fund</th>
                           <th>Budget as per contract</th>
-                          <th>Actual budget as per expenditure</th>
-                          <th>Actual expenditure as per actual budget</th>
+                          <th>Actual expenditure</th>
+                          <th>Council expenditure</th>
                          
 
                         </tr>

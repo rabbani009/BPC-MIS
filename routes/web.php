@@ -81,12 +81,27 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
     Route::get('report/trainee-info-report',[ReportController::class, 'traineeReportView'])->name('trainee.report');
     Route::get('report/trainer-info-report',[ReportController::class, 'trainerReportView'])->name('trainer.report');
 
+    Route::get('report/participants-info-report',[ReportController::class, 'participantsReportView'])->name('participants.report');
+
+    Route::get('report/source-of-fund-report',[ReportController::class, 'sourceReportView'])->name('source.report');
+
+    Route::match(array('GET','POST'),'report/source-of-fund',[ReportController::class, 'filtersourceReport'])->name('search.source');
+
     Route::match(array('GET','POST'),'report/index',[ReportController::class, 'index'])->name('search.index');
 
     Route::match(array('GET','POST'),'report/trainer',[ReportController::class, 'trainer'])->name('report.trainer');
 
     Route::match(array('GET','POST'),'report/trainee',[ReportController::class, 'trainee'])->name('report.trainee');
 
+    Route::match(array('GET','POST'),'report/participants',[ReportController::class, 'participants'])->name('report.participants');
+
+    Route::match(array('GET','POST'),'report/participants-list',[ReportController::class, 'participantslist'])->name('report.participantslist');
+
+//Export Dom-pdf
+
+    Route::get('participantsList/Pdf',[ReportController::class, 'participantsListPdf'])->name('participants.pdf');
+
+   
 
 
     //All ajax routes will be in this route group

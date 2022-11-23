@@ -52,11 +52,43 @@
             >
                 <i class="fa fa-sticky-note" style="font-size: 15px"></i>
                 <p>
-                    <span class="badge badge-success"> participants info</span>
-                    Report
+                    <span class="badge badge-success">ActivityBased</span>
+                    participants
                 </p>
             </a>
         </li>
+
+        <li
+        class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
+    >
+        <a
+            href="{{ route('participants.report') }}"
+            class="nav-link @if($commons['current_menu'] == 'participants-report') active @endif"
+        >
+            <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+            <p>
+                <span class="badge badge-success">participants info </span>
+                Report
+            </p>
+        </a>
+    </li>
+
+    <li
+    class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
+>
+    <a
+        href="{{ route('source.report') }}"
+        class="nav-link @if($commons['current_menu'] == 'Source of fund-report') active @endif"
+    >
+        <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+        <p>
+            <span class="badge badge-success">source of fund Activity </span>
+            Report
+        </p>
+    </a>
+</li>
+
+
     </ul>
 </li>
 
