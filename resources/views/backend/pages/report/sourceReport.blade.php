@@ -332,7 +332,7 @@
     {
     text: 'PDF',
     extend: 'pdfHtml5',
-    title: 'Business Promotion Council',
+    title: 'Bangladesh Business Promotion Council',
     message: '',
     orientation: 'landscape',
    

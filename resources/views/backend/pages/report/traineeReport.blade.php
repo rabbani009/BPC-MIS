@@ -296,7 +296,7 @@
     {
     text: 'PDF',
     extend: 'pdfHtml5',
-    title: 'Business Promotion Council- Activitiy wise Trainee Information',
+    title: 'Bangladesh Business Promotion Council',
     message: '',
     orientation: 'landscape',
    
