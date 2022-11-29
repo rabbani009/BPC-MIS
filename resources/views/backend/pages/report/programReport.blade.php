@@ -127,14 +127,17 @@
                     <div class="card-body">
                       <table id="example1" class="table table-bordered table-striped table-responsive">
                         <thead>
+                            
+                           
                         <tr>
+                          <th>Fiscal year From:{{ isset($start_date) ? $start_date : 'NA' }}  To: {{ isset($end_date) ? $end_date : 'NA' }} </th>
                           <th style="width: 8px">SL NO.</th>
                           <th>Council</th>
                           <th>Association</th>
                           <th>Program</th>
   
                           <th>Activity Title</th>
-                          <th>Remarks</th>
+                         
                           <th>Venue</th>
                           <th>Start Date</th>
                           <th>End Date</th>
@@ -147,14 +150,20 @@
                           <th>Budget as per contract</th>
                           <th>Actual expenditure</th>
                           <th>Council expenditure</th>
+                          <th>Remarks</th>
                          
 
                         </tr>
+                      
                         </thead>
                         <tbody>
 
+                         
+                      
                       @foreach($activities as $row)
+                      
                           <tr>
+                              <td></td>
                               <td>{{ $loop->iteration }}.</td>
       
                               <td>{{ $row->getCouncil->name }}</td>
@@ -162,15 +171,7 @@
                               <td>{{ $row->getProgram->name }}</td>
       
                               <td>{{ $row->activity_title }}</td>
-                              <td>
-      
-                              @if($row->remarks == 0)
-                                   <span class="badge badge-pill badge-info"> Ongoing </span>
-                              @else
-                                   <span class="badge badge-pill badge-success"> Done </span>
-                              @endif
-                              
-                              </td>
+                            
                               <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
                               <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
                               <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
@@ -182,6 +183,15 @@
                               <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
                               <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
                               <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
+                              <td>
+      
+                                @if($row->remarks == 0)
+                                     <span class="badge badge-pill badge-info"> Ongoing </span>
+                                @else
+                                     <span class="badge badge-pill badge-success"> Done </span>
+                                @endif
+                                
+                                </td>
                               
                       @endforeach
                      
@@ -189,14 +199,14 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                       
+                          <th>Fiscal year From:{{ isset($start_date) ? $start_date : 'NA' }}  To: {{ isset($end_date) ? $end_date : 'NA' }} </th>
                           <th style="width: 8px">SL NO.</th>
                           <th>Council</th>
                           <th>Association</th>
                           <th>Program</th>
   
                           <th>Activity Title</th>
-                          <th>Remarks</th>
+                         
                           <th>Venue</th>
                           <th>Start Date</th>
                           <th>End Date</th>
@@ -209,8 +219,10 @@
                           <th>Budget as per contract</th>
                           <th>Actual budget as per expenditure</th>
                           <th>Actual expenditure as per actual budget</th>
+                          <th>Remarks</th>
 
                         </tr>
+                        
                         </tfoot>
                       </table>
                     </div>
@@ -380,20 +392,20 @@
         "buttons": [
 
         {
-            title: 'Business Promotion Council-Overall Activity Information',
+            title: 'Activity Implemaintion status for fiscal year',
             extend: 'copy',
             text: window.copyButtonTrans,
           
         },
         {
-            title: 'Business Promotion Council-Overall Activity Information',
+            title: 'Activity Implemaintion status for fiscal year',
             extend: 'csv',
             text: window.csvButtonTrans,
             
         },
         {
-            title: 'Business Promotion Council-Overall Activity Information',
-            title: 'Business Promotion Council-Overall Activity Information',
+            title: 'Activity Implemaintion status for fiscal year',
+            title: 'Activity Implemaintion status for fiscal year',
             extend: 'excel',
             text: window.excelButtonTrans,
            
@@ -401,7 +413,7 @@
         {
             text: 'PDF',
             extend: 'pdfHtml5',
-            title: 'Business Promotion Council-Overall Activity Information',
+            title: 'Activity Implemaintion status for fiscal year ',
             message: '',
             orientation: 'landscape',
 

@@ -273,7 +273,9 @@ public function participantsReportView(){
             'councils',
             'programs',
             'associations',
-            'activities'
+            'activities',
+            'start_date',
+            'end_date'
         )
            
         );
