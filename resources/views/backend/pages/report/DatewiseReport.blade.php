@@ -33,44 +33,12 @@
                   Note:: [ You have to scroll Left => Right to see the full content ]
                 </div>
             </div>
-            <form action="{{ route('search.index') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form action="{{ route('datewise.search') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
                     <div class="container card ">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group  @if ($errors->has('council')) has-error @endif">
-                                    <label class="control-label">Council *</label>
-                                    {{ Form::select('council', $councils, old('council')?old('council'):null, ['id="council", class="form-control select2"']) }}
-
-                                    @if($errors->has('council'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('council') }} </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group  @if ($errors->has('association')) has-error @endif">
-                                    <label class="control-label">Association *</label>
-                                    <div id="association_block">
-                                        {{ Form::select('association', $associations, old('association')?old('association'):null, ['id="association", class="form-control select2"']) }}
-                                    </div>
-                                    @if($errors->has('association'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('association') }} </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group  @if ($errors->has('program')) has-error @endif">
-                                    <label class="control-label">Program *</label>
-                                    {{ Form::select('program', $programs, old('program')?old('program'):null, ['id="program", class="form-control select2"']) }}
-
-                                    @if($errors->has('program'))
-                                        <span class="error invalid-feedback"> {{ $errors->first('program') }} </span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                      
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group @if ($errors->has('start_date')) has-error @endif">
@@ -105,7 +73,7 @@
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Search</button>
-                    <a href="{{ route('program.report') }}" class="btn btn-warning reset">Reset</a>
+                    <a href="{{ route('Datewise.report') }}" class="btn btn-warning reset">Reset</a>
                 </div>
 
 
@@ -124,7 +92,7 @@
          
                 <div class="card">
                     <div class="card-header">
-                      <h3 class="card-title">Activities Report</h3>
+                      <h3 class="card-title">Date wise Activities Report</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -187,7 +155,7 @@
                               <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
                               <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
                               <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
-                              <td></td>
+                              <td>{{ isset($start_date) ? $start_date : 'NA' }}  To: {{ isset($end_date) ? $end_date : 'NA' }}</td>
                               <td>
       
                                 @if($row->remarks == 0)
@@ -398,20 +366,20 @@
         "buttons": [
 
         {
-            title: 'Activity Implemaintion status for fiscal year',
+            title: 'Bangladesh Business Promotion Council (Activity Implemaintion status)',
             extend: 'copy',
             text: window.copyButtonTrans,
           
         },
         {
-            title: 'Activity Implemaintion status for fiscal year',
+            title: 'Bangladesh Business Promotion Council (Activity Implemaintion status)',
             extend: 'csv',
             text: window.csvButtonTrans,
             
         },
         {
-            title: 'Activity Implemaintion status for fiscal year',
-            title: 'Activity Implemaintion status for fiscal year',
+            title: 'Bangladesh Business Promotion Council (Activity Implemaintion status)',
+            title: 'Bangladesh Business Promotion Council (Activity Implemaintion status)',
             extend: 'excel',
             text: window.excelButtonTrans,
            
@@ -419,7 +387,7 @@
         {
             text: 'PDF',
             extend: 'pdfHtml5',
-            title: 'Activity Implemaintion status for fiscal year ',
+            title: 'Bangladesh Business Promotion Council (Activity Implemaintion status)',
             message: '',
             orientation: 'landscape',
 
@@ -485,16 +453,5 @@
 
     
   </script>
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection

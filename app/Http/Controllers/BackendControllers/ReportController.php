@@ -78,6 +78,72 @@ class ReportController extends Controller
 
     }
 
+    public function DatewiseReportView(){
+
+        $commons['page_title'] = 'Report';
+        $commons['content_title'] = 'Date wise Activity Report';
+        $commons['main_menu'] = 'report';
+        $commons['current_menu'] = 'DatewiseActivity-report';
+
+
+        $activities =Activity::latest()->get();
+        // dd($activities);
+
+        return view('backend.pages.report.DatewiseReport',
+        compact(
+            'commons',
+            'activities'
+         
+        )
+    );
+
+    }
+
+
+    public function DatewiseReportSearch(Request $request){
+
+        $commons['page_title'] = 'Report';
+        $commons['content_title'] = 'Date wise Activity Report';
+        $commons['main_menu'] = 'report';
+        $commons['current_menu'] = 'DatewiseActivity-report';
+
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+
+        // dd(  $start_date,$end_date);
+       
+
+        $activities = Activity::whereBetween('created_at',[$start_date,Carbon::parse($end_date)->endOfDay()])
+        ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+        ->paginate(20);
+
+    
+        
+
+        // dd($activities);
+
+
+        return view('backend.pages.report.DatewiseReport',
+        compact(
+            'commons',
+            'activities',
+            'start_date',
+            'end_date'
+         
+        )
+    );
+
+    }
+
+
+
+
+
+
+
+
+
 
     public function traineeReportView(){
 
@@ -174,10 +240,6 @@ public function participantsReportView(){
 
 
 }
-
-
-
-
     
     public function trainerReportView(){
 
@@ -262,6 +324,7 @@ public function participantsReportView(){
         ->whereBetween('created_at',[$start_date,Carbon::parse($end_date)->endOfDay()])
         ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
         ->paginate(20);
+        
       
 
         // dd($activities);
