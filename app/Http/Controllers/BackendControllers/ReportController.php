@@ -106,22 +106,15 @@ class ReportController extends Controller
         $commons['content_title'] = 'Date wise Activity Report';
         $commons['main_menu'] = 'report';
         $commons['current_menu'] = 'DatewiseActivity-report';
-
+ 
 
         $start_date = $request->start_date;
-        $end_date = $request->end_date;
-
-        // dd(  $start_date,$end_date);
+        $end_date = $request->end_date; 
        
+     $activities = Activity::whereBetween('start_date',[$start_date,Carbon::parse($end_date)->endOfDay()])
+       ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+       ->paginate(20);
 
-        $activities = Activity::whereBetween('created_at',[$start_date,Carbon::parse($end_date)->endOfDay()])
-        ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
-        ->paginate(20);
-
-    
-        
-
-        // dd($activities);
 
 
         return view('backend.pages.report.DatewiseReport',
