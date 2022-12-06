@@ -42,7 +42,7 @@
             <tr>
             
                 <td colspan="4">{{ $activities->getCouncil->name }}</td>
-                <td colspan="4">{{ $activities->activity_title }}</td>
+                <td colspan="4">Activity -{{ $activities->activity_title }}/ Fund - {{ $activities->source_of_fund }}</td>
             
             </tr>
 

@@ -84,8 +84,10 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     Route::match(array('GET','POST'),'report/datewise-activity',[ReportController::class, 'DatewiseReportSearch'])->name('datewise.search');
 
+//Fund wise participants info
 
-
+Route::get('report/Fundwise-participants',[ReportController::class, 'FundwiseReportView'])->name('Fundwise.report');
+Route::match(array('GET','POST'),'report/sourceparticipantslist-list',[ReportController::class, 'sourceparticipantslist'])->name('report.sourceparticipantslist');
 
 
 

@@ -602,8 +602,80 @@ public function fundpdf(){
         
         return $pdf->download("bpc.pdf");
 
+}
+
+//working
+
+public function FundwiseReportView(){
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Fund-wise-report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Fund-wise-report';
+
+
+    $source = Activity::where('status', 1)->get();
+
+    $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
+
+    $activity = Activity::where('status', 1)->get();
+
+
+
+    return view('backend.pages.report.sourceparticipantsReport',
+    compact(
+        'commons',
+        'trainees',
+        'activity',
+        'trainees',
+        'source'
+       
+     
+    ));
 
 }
+
+public function sourceparticipantslist(Request $request){
+
+    // return 'hi';
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Fund-wise-report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Fund-wise-report';
+
+
+    $source = Activity::where('status', 1)->get();
+
+    $activity = Activity::where('source_of_fund', $request->source)
+    ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+    ->paginate(20);
+
+
+
+    $trainees = Trainee::where('status', 1)
+             ->with(['getActivity', 'createdBy', 'updatedBy'])
+             ->latest()
+             ->paginate(50);
+
+
+    $get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
+                                          ->paginate(100);
+
+                return view('backend.pages.report.sourceparticipantsReport',
+                compact(
+                     'commons',
+                    'get_activities_by_council',
+                    'activity',
+                    'trainees',
+                    'source'
+                )
+            );
+}
+
+
+
+
 
 
 
