@@ -78,6 +78,65 @@ class ReportController extends Controller
 
     }
 
+    public function DatewiseReportView(){
+
+        $commons['page_title'] = 'Report';
+        $commons['content_title'] = 'Date wise Activity Report';
+        $commons['main_menu'] = 'report';
+        $commons['current_menu'] = 'DatewiseActivity-report';
+
+
+        $activities =Activity::latest()->get();
+        // dd($activities);
+
+        return view('backend.pages.report.DatewiseReport',
+        compact(
+            'commons',
+            'activities'
+         
+        )
+    );
+
+    }
+
+
+    public function DatewiseReportSearch(Request $request){
+
+        $commons['page_title'] = 'Report';
+        $commons['content_title'] = 'Date wise Activity Report';
+        $commons['main_menu'] = 'report';
+        $commons['current_menu'] = 'DatewiseActivity-report';
+ 
+
+        $start_date = $request->start_date;
+        $end_date = $request->end_date; 
+       
+     $activities = Activity::whereBetween('start_date',[$start_date,Carbon::parse($end_date)->endOfDay()])
+       ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+       ->paginate(20);
+
+
+
+        return view('backend.pages.report.DatewiseReport',
+        compact(
+            'commons',
+            'activities',
+            'start_date',
+            'end_date'
+         
+        )
+    );
+
+    }
+
+
+
+
+
+
+
+
+
 
     public function traineeReportView(){
 
@@ -174,10 +233,6 @@ public function participantsReportView(){
 
 
 }
-
-
-
-
     
     public function trainerReportView(){
 
@@ -262,6 +317,7 @@ public function participantsReportView(){
         ->whereBetween('created_at',[$start_date,Carbon::parse($end_date)->endOfDay()])
         ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
         ->paginate(20);
+        
       
 
         // dd($activities);
@@ -273,7 +329,9 @@ public function participantsReportView(){
             'councils',
             'programs',
             'associations',
-            'activities'
+            'activities',
+            'start_date',
+            'end_date'
         )
            
         );
@@ -544,8 +602,80 @@ public function fundpdf(){
         
         return $pdf->download("bpc.pdf");
 
+}
+
+//working
+
+public function FundwiseReportView(){
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Fund-wise-report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Fund-wise-report';
+
+
+    $source = Activity::where('status', 1)->get();
+
+    $trainees = Trainee::latest()->with(['getActivity', 'createdBy', 'updatedBy'])->get();
+
+    $activity = Activity::where('status', 1)->get();
+
+
+
+    return view('backend.pages.report.sourceparticipantsReport',
+    compact(
+        'commons',
+        'trainees',
+        'activity',
+        'trainees',
+        'source'
+       
+     
+    ));
 
 }
+
+public function sourceparticipantslist(Request $request){
+
+    // return 'hi';
+
+    $commons['page_title'] = 'Report';
+    $commons['content_title'] = 'Fund-wise-report';
+    $commons['main_menu'] = 'report';
+    $commons['current_menu'] = 'Fund-wise-report';
+
+
+    $source = Activity::where('status', 1)->get();
+
+    $activity = Activity::where('source_of_fund', $request->source)
+    ->with(['getCouncil', 'getAssociation', 'getProgram', 'getTrainers', 'getTrainees', 'createdBy', 'updatedBy'])
+    ->paginate(20);
+
+
+
+    $trainees = Trainee::where('status', 1)
+             ->with(['getActivity', 'createdBy', 'updatedBy'])
+             ->latest()
+             ->paginate(50);
+
+
+    $get_activities_by_council = Activity::with(['getCouncil','getTrainees'])
+                                          ->paginate(100);
+
+                return view('backend.pages.report.sourceparticipantsReport',
+                compact(
+                     'commons',
+                    'get_activities_by_council',
+                    'activity',
+                    'trainees',
+                    'source'
+                )
+            );
+}
+
+
+
+
 
 
 

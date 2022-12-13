@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Business Promotion Council</title> 
+	<title>Bangladesh Business Promotion Council</title> 
 	<style>
 		table {
 			/* border:1px solid #b3adad; */
@@ -30,7 +30,7 @@
 	</style>
 </head>
 <body>
-    <h3 style="text-align: center"><span style="color:maroon">Business Promotion Council</span></h3>
+    <h3 style="text-align: center"><span style="color:maroon"> Bangladesh Business Promotion Council</span></h3>
 	<table>
 		<thead>
 		
@@ -42,7 +42,7 @@
             <tr>
             
                 <td colspan="4">{{ $activities->getCouncil->name }}</td>
-                <td colspan="4">{{ $activities->activity_title }}</td>
+                <td colspan="4">Activity -{{ $activities->activity_title }}/ Fund - {{ $activities->source_of_fund }}</td>
             
             </tr>
 

@@ -78,6 +78,20 @@ Route::group(['prefix' => 'backend', 'middleware' => 'authenticated'], function 
 
     //Report
     Route::get('report/program-wise',[ReportController::class, 'ProgramReportView'])->name('program.report');
+
+//Datewise report
+    Route::get('report/Datewise-activity',[ReportController::class, 'DatewiseReportView'])->name('Datewise.report');
+
+    Route::match(array('GET','POST'),'report/datewise-activity',[ReportController::class, 'DatewiseReportSearch'])->name('datewise.search');
+
+//Fund wise participants info
+
+Route::get('report/Fundwise-participants',[ReportController::class, 'FundwiseReportView'])->name('Fundwise.report');
+Route::match(array('GET','POST'),'report/sourceparticipantslist-list',[ReportController::class, 'sourceparticipantslist'])->name('report.sourceparticipantslist');
+
+
+
+
     Route::get('report/trainee-info-report',[ReportController::class, 'traineeReportView'])->name('trainee.report');
     Route::get('report/trainer-info-report',[ReportController::class, 'trainerReportView'])->name('trainer.report');
 

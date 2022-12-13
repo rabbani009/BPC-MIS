@@ -31,7 +31,7 @@
                     Note:: * Filter according to Activity
                 </div>
             </div>
-            <form action="{{ route('search.source') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form action="{{ route('report.sourceparticipantslist') }}" method="post" data-bitwarden-watching="1" enctype="multipart/form-data" accept-charset="UTF-8">
                 @csrf
                 <div class="card-body">
                     <!-- Prerequisites section -->
@@ -70,101 +70,83 @@
            
             <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Activities Report</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="example1" class="table table-bordered table-striped table-responsive">
-                    <thead>
-                    <tr>
-                      <th style="width: 8px">SL NO.</th>
-                      <th>Council</th>
-                      <th>Association</th>
-                      <th>Program</th>
+                    <h3 class="card-title"><span>Filter data accorging to <span style="color:green">Source of fund</span></span></h3>
+             </div> 
 
-                      <th>Activity Title</th>
-                    
-                      <th>Venue</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-
-                      <th>Number of Trainers</th>
-                      <th>Number of Trainees</th>
-
-
-                      <th>Source of fund</th>
-                      <th>Budget as per contract</th>
-                      <th>Actual expenditure</th>
-                      <th>Council expenditure</th>
-                      <th>Remarks</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                  @foreach($activity as $row)
-                      <tr>
-                          <td>{{ $loop->iteration }}.</td>
-  
-                          <td>{{ $row->getCouncil->name }}</td>
-                          <td>{{ $row->getAssociation->name }}</td>
-                          <td>{{ $row->getProgram->name }}</td>
-  
-                          <td>{{ $row->activity_title }}</td>
-                        
-                          <td>{{ isset($row->venue) ? $row->venue : 'NA' }}</td>
-                          <td>{{ isset($row->start_date) ? $row->start_date : 'NA' }}</td>
-                          <td>{{ isset($row->end_date) ? $row->end_date : 'NA' }}</td>
-  
-                          <td><button class="btn btn-md btn-outline-info">{{ isset($row->number_of_trainers) ? $row->number_of_trainers : 'NA' }}</button></td>
-                          <td><button class="btn btn-md btn-outline-info">{{ isset($row->number_of_trainees) ? $row->number_of_trainees : 'NA' }}</button></td>
-  
-                          <td>{{ isset($row->source_of_fund) ? $row->source_of_fund : 'NA' }}</td>
-                          <td>{{ isset($row->budget_as_per_contract) ? $row->budget_as_per_contract : 'NA' }}</td>
-                          <td>{{ isset($row->actual_budget_as_per_expenditure) ? $row->actual_budget_as_per_expenditure : 'NA' }}</td>
-                          <td>{{ isset($row->actual_expenditure_as_per_actual_budget) ? $row->actual_expenditure_as_per_actual_budget : 'NA' }}</td>
-
-                          <td>
-  
-                            @if($row->remarks == 0)
-                                 <span class="badge badge-pill badge-info"> Ongoing </span>
-                            @else
-                                 <span class="badge badge-pill badge-success"> Done </span>
-                            @endif
-                            
-                            </td>
-                          
-                  @endforeach
-                 
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>SL.</th>
+                    <th>Council</th> 
+                    <th>Association</th> 
+                    <th>Program</th> 
+                    <th>Source of Fund</th> 
+                    <th>No of Trainees</th>
+                    <th>Participants List</th>
                    
-                    </tbody>
-                    <tfoot>
-                    <tr>
                    
-                      <th style="width: 8px">SL NO.</th>
-                      <th>Council</th>
-                      <th>Association</th>
-                      <th>Program</th>
-
-                      <th>Activity Title</th>
-                      <th>Remarks</th>
-                      <th>Venue</th>
-                      <th>Start Date</th>
-                      <th>End Date</th>
-
-                      <th>Number of Trainers</th>
-                      <th>Number of Trainees</th>
-
-
-                      <th>Source of fund</th>
-                      <th>Budget as per contract</th>
-                      <th>Actual budget as per expenditure</th>
-                      <th>Actual expenditure as per actual budget</th>
-
+                </tr>
+                </thead>
+                <tbody>
+    
+            
+     @foreach($activity as $key => $row)
+    
+                    <tr  @if($loop->odd) class="bg-light" @endif>
+                        <td>{{ $loop->iteration }}.</td>
+    
+                        <td>{{ $row->getCouncil->name }}</td>
+                        <td>{{ $row->getAssociation->name }}</td>
+                        <td>{{ $row->getProgram->name }}</td>
+                       
+                        <td>{{ $row->source_of_fund ?? 'You have deleted Activity'}}</td>
+                        <td><button class="btn btn-md btn-outline-info">{{ $row->number_of_trainees }}</button>
+                        </td>
+    
+                        {{-- @foreach($trainees as $key => $t) 
+    
+                           <td><span>{{ $t->name }}</span></td>
+                      
+                     
+                        @endforeach --}}
+    
+                        <td>
+                        <form method="post" class="list_delete_form" action="{{ route('report.participantslist',$row->id) }}" accept-charset="UTF-8" >
+                            {{ csrf_field() }}
+                           
+                            <button type="submit" class="btn btn-flat btn-outline-danger btn-sm" data-toggle="tooltip" title="show">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </form>
+                      
+                    </td>
                     </tr>
-                    </tfoot>
-                  </table>
-                </div>
+                
+        @endforeach
+                
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>SL.</th>
+                    <th>Council</th> 
+                    <th>Association</th> 
+                    <th>Program</th> 
+                    <th>activity</th> 
+                    <th>name</th>
+                    <th>Trainees List</th>
+                   
+                </tr>
+                </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+            </div>
+
+
+
+
+
                 <!-- /.card-body -->     
 
 

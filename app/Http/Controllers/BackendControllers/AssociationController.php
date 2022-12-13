@@ -50,7 +50,7 @@ class AssociationController extends Controller
             compact(
                 'commons',
                 'councils',
-                            'associations'
+                'associations'
             )
         );
     }

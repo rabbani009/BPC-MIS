@@ -311,7 +311,7 @@ $("#example1").DataTable({
 {
 text: 'PDF',
 extend: 'pdfHtml5',
-title: 'Business Promotion Council- Trainer Information',
+title: 'Bangladesh Business Promotion Council- Trainer Information',
 message: '',
 orientation: 'landscape',
 

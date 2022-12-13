@@ -28,6 +28,37 @@
             </a>
         </li>
 
+
+        <li
+        class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
+    >
+        <a
+            href="{{ route('Datewise.report') }}"
+            class="nav-link @if($commons['current_menu'] == 'DatewiseActivity-report') active @endif"
+        >
+            <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+            <p>
+                <span class="badge badge-success">Datewise Activities info</span>
+                Report
+            </p>
+        </a>
+    </li>
+
+    <li
+    class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
+>
+    <a
+        href="{{ route('Fundwise.report') }}"
+        class="nav-link @if($commons['current_menu'] == 'Fund-wise-report') active @endif"
+    >
+        <i class="fa fa-sticky-note" style="font-size: 15px"></i>
+        <p>
+            <span class="badge badge-success">Fund-wise participants info</span>
+            Report
+        </p>
+    </a>
+</li>
+
         <li
             class="nav-item @if($commons['main_menu'] == 'report') menu-open @endif"
         >
