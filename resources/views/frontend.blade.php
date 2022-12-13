@@ -23,20 +23,21 @@
             position: absolute;
             width: 100%;
             height: 100%;
-        background: {
-            image: url(https://marcbruederlin.github.io/particles.js/img/background.jpg);
-            position: bottom;
-            repeat: no-repeat;
-            color: black;
-            size: cover;
-        }
+
+            background: {
+                image: url(https://marcbruederlin.github.io/particles.js/img/background.jpg);
+                position: bottom;
+                repeat: no-repeat;
+                color: black;
+                size: cover;
+            }
         }
 
         .text {
-            position: absolute;
+            /* position: absolute;
             top: 50%;
             right: 50%;
-            transform: translate(50%,-50%);
+            transform: translate(50%, -50%); */
             color: $text;
             max-width: 90%;
             padding: 2em 3em;
@@ -45,12 +46,13 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        .text a{
+        .text a {
             text-decoration: none;
             color: white;
             font-size: 34px;
         }
-        .text a:hover{
+
+        .text a:hover {
             color: #0e84b5;
             cursor: pointer;
         }
@@ -72,174 +74,176 @@
             color: $link-hover;
         }
 
-        .cstm-btn {
-            top: 20px;
-            left: calc(100% - 200px);
-            z-index: 9999;
+        .min-height-100vh {
+            min-height: calc(100vh - 410px);
         }
+
     </style>
 </head>
 <body>
-<button class="btn btn-success position-absolute cstm-btn" onClick={showCanvas()}>Grand Opening</button>
-<div id="particles-js"></div>
-<canvas id="my-canvas" class="custom-canvas"></canvas>
+    <div id="particles-js"></div>
+    <canvas id="my-canvas" class="custom-canvas"></canvas>
 
-<div class="text">
-    <a href="{{route('get.login')}}">Bangladesh Business Promotion Council</a>
-</div>
+    <div class="content-wrappwer d-flex flex-column align-items-center justify-content-center min-height-100vh position-relative">
+        <button class="btn btn-success mb-4" onClick={showCanvas()}>Grand Opening</button>
+        <div class="text">
+            <a href="{{route('get.login')}}">Bangladesh Business Promotion Council</a>
 
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"
-    integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-></script>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     <!-- <script src="./confetti.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    
-<script>
-    var color = '#75A5B7';
-    var maxParticles = 80;
 
-    // canvas-confetti
+    <script>
+        var color = '#75A5B7';
+        var maxParticles = 80;
 
-    function showCanvas () {
-        var end = Date.now() + (15 * 1000);
+        // canvas-confetti
 
-        // go Buckeyes!
-        var colors = ['#bb0000', '#ffffff'];
+        function showCanvas() {
+            var end = Date.now() + (15 * 1000);
 
-        (function frame() {
-        confetti({
-            particleCount: 2,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 },
-            colors: colors
-        });
-        confetti({
-            particleCount: 2,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 },
-            colors: colors
-        });
+            // go Buckeyes!
+            var colors = ['#bb0000', '#ffffff'];
 
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-        }());   
-    }
-
-    
-    // ParticlesJS Config.
-    particlesJS('particles-js', {
-        'particles': {
-            'number': {
-                'value': maxParticles,
-                'density': {
-                    'enable': true,
-                    'value_area': (maxParticles * 10) * 2
-                }
-            },
-            'color': {
-                'value': color
-            },
-            'shape': {
-                'type': 'circle',
-                'stroke': {
-                    'width': 0,
-                    'color': '#000000'
-                },
-                'polygon': {
-                    'nb_sides': 5
-                },
-            },
-            'opacity': {
-                'value': 0.5,
-                'random': false,
-                'anim': {
-                    'enable': false,
-                    'speed': 1,
-                    'opacity_min': 0.1,
-                    'sync': false
-                }
-            },
-            'size': {
-                'value': 3,
-                'random': true,
-                'anim': {
-                    'enable': false,
-                    'speed': 40,
-                    'size_min': 0.1,
-                    'sync': false
-                }
-            },
-            'line_linked': {
-                'enable': true,
-                'distance': 150,
-                'color': color,
-                'opacity': 1,
-                'width': 1
-            },
-            'move': {
-                'enable': true,
-                'speed': 2,
-                'direction': 'none',
-                'random': false,
-                'straight': false,
-                'out_mode': 'out',
-                'bounce': false,
-                'attract': {
-                    'enable': false,
-                    'rotateX': 600,
-                    'rotateY': 1200
-                }
-            }
-        },
-        'interactivity': {
-            'detect_on': 'canvas',
-            'events': {
-                'onhover': {
-                    'enable': true,
-                    'mode': 'grab'
-                },
-                'onclick': {
-                    'enable': true,
-                    'mode': 'push'
-                },
-                'resize': true
-            },
-            'modes': {
-                'grab': {
-                    'distance': 140,
-                    'line_linked': {
-                        'opacity': 1
+            (function frame() {
+                confetti({
+                    particleCount: 2
+                    , angle: 60
+                    , spread: 55
+                    , origin: {
+                        x: 0
                     }
-                },
-                'bubble': {
-                    'distance': 400,
-                    'size': 40,
-                    'duration': 2,
-                    'opacity': 8,
-                    'speed': 3
-                },
-                'repulse': {
-                    'distance': 200,
-                    'duration': 0.4
-                },
-                'push': {
-                    'particles_nb': 4
-                },
-                'remove': {
-                    'particles_nb': 2
+                    , colors: colors
+                });
+                confetti({
+                    particleCount: 2
+                    , angle: 120
+                    , spread: 55
+                    , origin: {
+                        x: 1
+                    }
+                    , colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+
+        // ParticlesJS Config.
+        particlesJS('particles-js', {
+            'particles': {
+                'number': {
+                    'value': maxParticles
+                    , 'density': {
+                        'enable': true
+                        , 'value_area': (maxParticles * 10) * 2
+                    }
+                }
+                , 'color': {
+                    'value': color
+                }
+                , 'shape': {
+                    'type': 'circle'
+                    , 'stroke': {
+                        'width': 0
+                        , 'color': '#000000'
+                    }
+                    , 'polygon': {
+                        'nb_sides': 5
+                    }
+                , }
+                , 'opacity': {
+                    'value': 0.5
+                    , 'random': false
+                    , 'anim': {
+                        'enable': false
+                        , 'speed': 1
+                        , 'opacity_min': 0.1
+                        , 'sync': false
+                    }
+                }
+                , 'size': {
+                    'value': 3
+                    , 'random': true
+                    , 'anim': {
+                        'enable': false
+                        , 'speed': 40
+                        , 'size_min': 0.1
+                        , 'sync': false
+                    }
+                }
+                , 'line_linked': {
+                    'enable': true
+                    , 'distance': 150
+                    , 'color': color
+                    , 'opacity': 1
+                    , 'width': 1
+                }
+                , 'move': {
+                    'enable': true
+                    , 'speed': 2
+                    , 'direction': 'none'
+                    , 'random': false
+                    , 'straight': false
+                    , 'out_mode': 'out'
+                    , 'bounce': false
+                    , 'attract': {
+                        'enable': false
+                        , 'rotateX': 600
+                        , 'rotateY': 1200
+                    }
                 }
             }
-        },
-        'retina_detect': true
-    });
-</script>
+            , 'interactivity': {
+                'detect_on': 'canvas'
+                , 'events': {
+                    'onhover': {
+                        'enable': true
+                        , 'mode': 'grab'
+                    }
+                    , 'onclick': {
+                        'enable': true
+                        , 'mode': 'push'
+                    }
+                    , 'resize': true
+                }
+                , 'modes': {
+                    'grab': {
+                        'distance': 140
+                        , 'line_linked': {
+                            'opacity': 1
+                        }
+                    }
+                    , 'bubble': {
+                        'distance': 400
+                        , 'size': 40
+                        , 'duration': 2
+                        , 'opacity': 8
+                        , 'speed': 3
+                    }
+                    , 'repulse': {
+                        'distance': 200
+                        , 'duration': 0.4
+                    }
+                    , 'push': {
+                        'particles_nb': 4
+                    }
+                    , 'remove': {
+                        'particles_nb': 2
+                    }
+                }
+            }
+            , 'retina_detect': true
+        });
+
+    </script>
 </body>
 </html>
