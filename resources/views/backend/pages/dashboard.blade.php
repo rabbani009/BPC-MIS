@@ -336,7 +336,7 @@
             },
 
             {
-            label               : 'Trainers',
+            label               : 'Resource person',
             backgroundColor     : 'rgb(129, 9, 85)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
@@ -361,7 +361,7 @@
           
             
             {
-            label               : 'Trainees',
+            label               : 'Participants',
             backgroundColor     : 'rgb(250, 112, 112)',
             borderColor         : 'rgba(210, 214, 222, 1)',
             pointRadius         : false,
