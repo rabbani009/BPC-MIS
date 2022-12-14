@@ -34,10 +34,6 @@
         }
 
         .text {
-            /* position: absolute;
-            top: 50%;
-            right: 50%;
-            transform: translate(50%, -50%); */
             color: $text;
             max-width: 90%;
             padding: 2em 3em;
@@ -75,7 +71,13 @@
         }
 
         .min-height-100vh {
-            min-height: calc(100vh - 410px);
+            min-height: 100vh;
+        }
+
+        #my-canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
     </style>
@@ -93,22 +95,34 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-    <!-- <script src="./confetti.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
 
     <script>
+        const canvas = document.getElementById('my-canvas')
+        const jsConfetti = new JSConfetti({
+            canvas
+        })
+
+        var duration = 15 * 1000;
         var color = '#75A5B7';
         var maxParticles = 80;
 
         // canvas-confetti
-
         function showCanvas() {
-            var end = Date.now() + (15 * 1000);
+            var end = Date.now() + duration;
 
             // go Buckeyes!
             var colors = ['#bb0000', '#ffffff'];
+
+            jsConfetti.addConfetti({
+                emojis: ['🎈', '🎉', '🎈', '🎉', '🎈']
+                , emojiSize: 30
+                , confettiNumber: 80
+                , confettiRadius: 500
+            });
+
 
             (function frame() {
                 confetti({
@@ -118,7 +132,9 @@
                     , origin: {
                         x: 0
                     }
-                    , colors: colors
+                    , colors
+                    , shapes: ['square', 'circle', 'star']
+
                 });
                 confetti({
                     particleCount: 2
@@ -127,7 +143,8 @@
                     , origin: {
                         x: 1
                     }
-                    , colors: colors
+                    , colors
+                    , shapes: ['square', 'circle', 'star']
                 });
 
                 if (Date.now() < end) {
