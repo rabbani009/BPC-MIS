@@ -78,6 +78,11 @@
             position: absolute;
             width: 100%;
             height: 100%;
+            z-index: 1;
+        }
+
+        .content-wrappwer {
+            z-index: 1;
         }
 
     </style>
@@ -90,9 +95,22 @@
         <button class="btn btn-success mb-4" onClick={showCanvas()}>Grand Opening</button>
         <div class="text">
             <a href="{{route('get.login')}}">Bangladesh Business Promotion Council</a>
-
         </div>
     </div>
+
+    <footer class="bg-light position-absolute w-100 bottom-0 left-0 d-flex align-items-center justify-content-center shadow-lg py-2">
+        <div class="container">
+            <nav class="navbar text-center d-flex align-items-center justify-content-center">
+                <div class="h6 text-secondary">The site is supported & financed by: </div>
+                <div>
+                    <img class="w-25" src="{{ './upload/bpc_footer_logo.jpeg' }}" alt="Footer logo">
+                </div>
+                <div class="h6 text-secondary">
+                    Export Competitiveness For Jobs(EC4J) Project
+                </div>
+            </nav>
+        </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
