@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
         $users = User::where('status', 1)->where('user_type', '!=', 'system')->count() ?? 0;
 
-        $programs = Program::count() ?? 0;
+        $programs = Program::where('status', 1)->count() ?? 0;
 
         
  	 $user = auth()->user();
@@ -44,18 +44,22 @@ class DashboardController extends Controller
       if($user_type=='bpc'){
 
         $activity = Activity::where('status', 1)->count() ?? 0;
+        $councils = Council::count() ?? 0;
 
       }else{
 
 
         $activity = Activity::where('status', 1)->where('council', auth()->user()->belongs_to)->count() ?? 0;
-
-
+        // $councils = Activity::where('status', 1)->where('council', auth()->user()->belongs_to)->count() ?? 0;
+        $councils = Council::where('status', 1)
+        ->where('id', auth()->user()->belongs_to)
+        ->count() ?? 0;
+           
       }
 
   
 
-        $councils = Council::count() ?? 0;
+        // $councils = Council::count() ?? 0;
 
         $trainees_male = Trainee::where('status', 1)->where('gender','male')->count() ?? 0;
 

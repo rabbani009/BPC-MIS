@@ -70,6 +70,7 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <h3>{{ $councils ?? ' ' }}</h3>
+             
 
                 <p>Total Council</p>
               </div>
