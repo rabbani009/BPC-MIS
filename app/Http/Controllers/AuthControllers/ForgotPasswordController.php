@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\AuthControllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthRequests\ForgotPasswordRequest;
-use App\Mail\ForgotPasswordEmail;
-use App\Models\PasswordReset;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\PasswordReset;
 use PhpParser\Node\Expr\Array_;
+use App\Mail\ForgotPasswordEmail;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\ForgotPasswordRequest;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -20,63 +25,74 @@ class ForgotPasswordController extends Controller
 
     }
 
-    /*show forgot password page*/
     public function getForgotPassword(){
-        /*check if user logged in then return to dashboard*/
-        if(Auth::user()){
-            return redirect()->route('dashboard')
-                ->with('warning', 'You are already logged in');
-        }
 
-        /*create & set common data array*/
-        $common_data = new Array_();
-        $common_data->title = 'Forgot password';
-        $common_data->sub_title = '';
-        $common_data->main_menu = '';
-        $common_data->sub_menu = '';
-        $common_data->current_menu = '';
+        return view('auth.forgot_password');
 
-        /*return view page with data*/
-        return view('auth.forgot_password')
-            ->with(compact('common_data'));
     }
 
-    /*process forgot password form*/
-    public function postForgotPassword(ForgotPasswordRequest $request){
-        /*start database transaction*/
-        DB::beginTransaction();
-        try {
-            /*check user email is valid or not*/
-            $checkUser = User::where('email', $request->email)->first();
+    public function postForgotPassword(ForgotPasswordRequest $request)
 
-            /*if email is valid*/
-            if (!empty($checkUser)) {
-
-                /*create new password reset object, set data and save it*/
-                $password_reset = new PasswordReset();
-                $token = Auth::id().time().random_int(1000,9999).Auth::id().random_int(100,999);
-                $password_reset->email = $request->email;
-                $password_reset->token = $token;
-                $password_reset->created_at = Carbon::now();
-
-                $password_reset->save();
-
-                /*send password reset email to requested user email*/
-                Mail::to($request->email)->send(new  ForgotPasswordEmail($password_reset));
-            } else {
-                /*if user is invalid then return */
-                return redirect()->back()->with('danger', 'Can\'t find your account');
-            }
-
-
-        } catch (\Exception $exception) {
-            /*if found any exception then rollback database transaction and return back with error message*/
-            DB::rollBack();
-            return redirect()->back()->with('danger', 'Something went wrong.' . $exception->getMessage());
+        {
+            $request->validate([
+                'email' => 'required|email|exists:users',
+            ]);
+    
+            $token = Str::random(64);
+    
+            DB::table('password_resets')->insert([
+                'email' => $request->email, 
+                'token' => $token, 
+                'created_at' => Carbon::now()
+              ]);
+    
+            Mail::send('email.forgetPassword', ['token' => $token], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('Reset Password');
+            });
+    
+            return back()->with('message', 'We have e-mailed your password reset link!');
         }
 
-        /*if everything is ok then commit database transaction and return back with success message*/
-        DB::commit();
-        return redirect()->back()->with('success', 'Email sent successful to your email....');
+
+
+      public function getResetPassword($token) 
+      
+      { 
+        // dd($token);
+         return view('auth.reset_password', ['token' => $token]);
+
+      }
+
+
+    public function postResetPassword(ResetPasswordRequest $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+
+        $updatePassword = DB::table('password_resets')
+                            ->where([
+                              'email' => $request->email, 
+                              'token' => $request->token
+                            ])
+                            ->first();
+
+        if(!$updatePassword){
+            return back()->withInput()->with('error', 'Invalid token!');
+        }
+
+        $user = User::where('email', $request->email)
+                    ->update(['password' => Hash::make($request->password)]);
+
+        DB::table('password_resets')->where(['email'=> $request->email])->delete();
+
+        return redirect('/login')->with('success', 'Your password has been changed!');
     }
+
+
+
+
 }

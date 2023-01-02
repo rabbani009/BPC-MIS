@@ -50,8 +50,8 @@ Route::group(['namespace' => 'AuthControllers'], function () {
     Route::get('forgot-password', [ForgotPasswordController::class, 'getForgotPassword'])->name('get.forgot.password');
     Route::post('forgot-password', [ForgotPasswordController::class, 'postForgotPassword'])->name('post.forgot.password');
 
-    Route::get('reset-password', [ResetPasswordController::class, 'getResetPassword'])->name('get.reset.password');
-    Route::post('reset-password', [ResetPasswordController::class, 'postResetPassword'])->name('post.reset.password');
+    Route::get('reset-password/{token}', [ForgotPasswordController::class, 'getResetPassword'])->name('get.reset.password');
+    Route::post('reset-password', [ForgotPasswordController::class, 'postResetPassword'])->name('post.reset.password');
 });
 
 
